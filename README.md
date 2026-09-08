@@ -48,6 +48,11 @@ La base de datos utilizada para este proyecto es de Kaggle y proviene de Open So
 ## 📂 Estrucura del Repositorio
 El repositorio de este proyecto está estructurado de la siguiente manera:
 ```bash
+├── components/               # Elementos visuales aislados (gráficos, tablas, filtros).
+├── Paginas/                  # Páginas de la App de Streamlit
+├── app.py                    # Código principal de la App de Streamlit
+├── requirements.txt          # Listado de librerías de Python
+├── .gitignore
 └── README.md                 # Este archivo
 ```
 
@@ -55,7 +60,7 @@ El repositorio de este proyecto está estructurado de la siguiente manera:
 **Grupo 9 - EECA UCV** 
 
 - **Aymara Andersen** (@Aymara1010)
-- **Angelo Freda** (@angelofreda4315- code)
+- **Angelo Freda** (@angelofreda4315-code)
 - **Christopher Escalante** (@christopherescalanteb-pixel)
 - **Randy Conde** (@randyl21)
 - **Rehide De Pablos** (@depablosrehide-cdm)

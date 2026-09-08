@@ -1,0 +1,6 @@
+/__pycache__/
+# Ignorar la Base de Datos
+*.sqlite
+*.db
+*.sqlite3
+*.csv
