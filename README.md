@@ -7,15 +7,31 @@ Para lograr esto, la investigación de este proyecto se fundamenta en el procesa
 ##  Metodología Estadística
 Este trabajo adopta un diseño de investigación descriptivo. En consecuencia, los hallazgos presentados se limitan a caracterizar y resumir las propiedades del fenómeno estudiado, sin pretensiones de generalización estadística o inferencial.
 
-### 🔎 Objetivo General:
-Realizar un Análisis comparativo sobre la provisión de apoyo y recursos en salud mental percibido entre empresas tecnológicas ubicadas en Estados Unidos y las localizadas en el resto del mundo.
+## 🎯 Objetivo General
 
-### Objetivos Específicos:
-- ⚠️🔨 En Construcción...
-- ⚠️🔨 En Construcción...
-- ⚠️🔨 En Construcción...
-- ⚠️🔨 En Construcción...
+Evaluar y comparar estadísticamente la provisión de apoyo, las políticas de bienestar y la percepción organizacional de la salud mental en el sector tecnológico entre Estados Unidos, Europa y Oceanía durante el período 2017 - 2019.
 
+
+
+## 📋 Objetivos Específicos
+
+1. **Comparar la frecuencia relativa de empresas tecnológicas que ofrecen beneficios de salud mental entre Estados Unidos, Europa y Oceanía.**
+   * *Explicación:* Hacer una tabla cruzada para contar cuántos encuestados de EE. UU. marcaron "SÍ" en beneficios, frente a los de Europa y Oceanía.
+
+2. **Determinar la proporción de empleados que conocen sus opciones de atención de salud mental laboral según su región geográfica.**
+   * *Explicación:* Calcular el porcentaje de personas que afirman conocer sus opciones de cobertura, separando los datos por ubicación.
+
+3. **Calcular y comparar el puntaje promedio y la dispersión de la importancia que los empleadores otorgan a la salud mental por categoría de puesto.**
+   * *Explicación:* Determinar el nivel de prioridad que las empresas asignan a la salud mental mediante el cálculo de promedios y medidas de variabilidad, comparando el comportamiento del sector en Estados Unidos frente a Europa y Oceanía.
+
+4. **Analizar la distribución de frecuencias de la calificación que otorgan los empleados al apoyo general de la industria tecnológica en temas de salud mental según su ubicación.**
+   * *Explicación:* Evaluar la percepción de los empleados sobre el respaldo de la industria tecnológica, comparando las tendencias y concentraciones de respuestas según su zona geográfica.
+
+5. **Calcular y comparar el puntaje promedio de importancia que los empleadores otorgan a la salud mental.**
+   * *Explicación:* Separar los datos de EE. UU., los de Europa y Oceanía, y calcular medidas de tendencia central y de dispersión para cada grupo.
+
+6. **Identificar las necesidades actuales sobre el apoyo y los beneficios de salud mental en la industria tecnológica.**
+   * *Explicación:* Extraer y priorizar las demandas y carencias principales de los empleados mediante técnicas de minería de textos y análisis de sentimientos aplicados a sus comentarios y propuestas de mejora, comparando los hallazgos de EE. UU. frente a Europa y Oceanía.
 ### Técnicas Usadas:
 ⚠️🔨 En Construcción...
 
