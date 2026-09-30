@@ -1,17 +1,17 @@
-# Análisis Comparativo sobre la Provisión de Apoyo y Prestaciones en Salud Mental dentro del Ámbito Tecnológico entre EE. UU. y el Resto del Mundo. 
+# Análisis Comparativo sobre la Provisión de Apoyo y Prestaciones en Salud Mental dentro del Ámbito Tecnológico entre EE. UU., Europa y Oceanía. 
 
-Este proyecto busca realizar un análisis comparativo y estadístico sobre el acceso a beneficios de salud mental, políticas de bienestar y percepción del apoyo organizacional en el sector tecnológico, contrastando el panorama de Estados Unidos con el del resto del mundo. Con el objetivo de identificar brechas críticas en la cobertura médica y evaluar las diferencias en la cultura corporativa de ambas regiones.
+Este trabajo consiste en un proyecto de análisis de datos aplicado busca realizar un análisis comparativo y estadístico sobre el acceso a beneficios de salud mental, políticas de bienestar y percepción del apoyo organizacional en el sector tecnológico, contrastando los panoramas de Estados Unidos, Europa y Oceanía pre pandemia. Con el objetivo de identificar brechas críticas en la cobertura médica y evaluar las diferencias en la cultura corporativa entre regiones.
 
-Para lograr esto, la investigación de este proyecto se fundamenta en el procesamiento y análisis de datos históricos provenientes de las encuestas globales de Open Source Mental Illness (OSMI) de los periodos 2014 y 2016-2019. 
+
+Para lograr esto, la investigación de este proyecto se fundamenta en el procesamiento y análisis de datos históricos provenientes de las encuestas globales de Open Source Mental Illness (OSMI) de los periodos 2017-2019. 
 
 ##  Metodología Estadística
+
 Este trabajo adopta un diseño de investigación descriptivo. En consecuencia, los hallazgos presentados se limitan a caracterizar y resumir las propiedades del fenómeno estudiado, sin pretensiones de generalización estadística o inferencial.
 
 ## 🎯 Objetivo General
 
 Evaluar y comparar estadísticamente la provisión de apoyo, las políticas de bienestar y la percepción organizacional de la salud mental en el sector tecnológico entre Estados Unidos, Europa y Oceanía durante el período 2017 - 2019.
-
-
 
 ## 📋 Objetivos Específicos
 
@@ -33,7 +33,11 @@ Evaluar y comparar estadísticamente la provisión de apoyo, las políticas de b
 6. **Identificar las necesidades actuales sobre el apoyo y los beneficios de salud mental en la industria tecnológica.**
    * *Explicación:* Extraer y priorizar las demandas y carencias principales de los empleados mediante técnicas de minería de textos y análisis de sentimientos aplicados a sus comentarios y propuestas de mejora, comparando los hallazgos de EE. UU. frente a Europa y Oceanía.
 ### Técnicas Usadas:
-⚠️🔨 En Construcción...
+
+Cálculo de frecuencias absolutas y relativas para categorizar la oferta de beneficios por región.
+Elaboración de gráficos de barras apiladas para comparar el nivel de conocimiento de cobertura entre EE. UU., Europa y Oceanía.
+Análisis de proporciones para evaluar la percepción de la seriedad en el tratamiento de la salud mental.
+Tabulación de datos para resumir la frecuencia de campañas de bienestar organizacional según el país.
 
 ## Enfoque Técnico
 ⚠️🔨 En Construcción...
