@@ -336,6 +336,51 @@ LEFT JOIN Answer ans105 ON ans105.UserID = r.UsuarioID AND ans105.SurveyID = r.S
 LEFT JOIN Answer ans106 ON ans106.UserID = r.UsuarioID AND ans106.SurveyID = r.SurveyID AND ans106.QuestionID = 106
 LEFT JOIN Answer ans107 ON ans107.UserID = r.UsuarioID AND ans107.SurveyID = r.SurveyID AND ans107.QuestionID = 107
 LEFT JOIN Answer ans114 ON ans114.UserID = r.UsuarioID AND ans114.SurveyID = r.SurveyID AND ans114.QuestionID = 114;
+
+INSERT OR REPLACE INTO Experiencias_Trabajo_Anterior (RespuestaID, Discutido_SM_Empleador_Anterior, 
+Descripcion_Conversacion_Liderazgo_Anterior, Discutido_SM_Colegas_Anteriores, Descripcion_Conversacion_Colegas_Anterior,
+Dialogo_Colega_Anterior_SM, Relato_Conversacion_Colega_Anterior) 
+SELECT 
+r.RespuestaID, 
+CASE WHEN ans70.AnswerText IN ('0', '1') THEN CAST(ans70.AnswerText AS INTEGER) ELSE NULL END, 
+CASE WHEN ans71.AnswerText IN ('-1') THEN NULL ELSE TRIM(ans71.AnswerText) END, 
+CASE WHEN ans72.AnswerText IN ('0') THEN CAST(ans72.AnswerText AS INTEGER) ELSE NULL END, 
+CASE WHEN ans73.AnswerText IN ('-1') THEN NULL ELSE TRIM(ans73.AnswerText) END, 
+CASE WHEN ans74.AnswerText IN ('0', '1') THEN CAST(ans74.AnswerText AS INTEGER) ELSE NULL END, 
+CASE WHEN ans75.AnswerText IN ('-1') THEN NULL ELSE TRIM(ans75.AnswerText) END 
+FROM Respuesta r 
+LEFT JOIN Answer ans70 ON ans70.UserID = r.UsuarioID AND ans70.SurveyID = r.SurveyID AND ans70.QuestionID = 70 
+LEFT JOIN Answer ans71 ON ans71.UserID = r.UsuarioID AND ans71.SurveyID = r.SurveyID AND ans71.QuestionID = 71 
+LEFT JOIN Answer ans72 ON ans72.UserID = r.UsuarioID AND ans72.SurveyID = r.SurveyID AND ans72.QuestionID = 72 
+LEFT JOIN Answer ans73 ON ans73.UserID = r.UsuarioID AND ans73.SurveyID = r.SurveyID AND ans73.QuestionID = 73 
+LEFT JOIN Answer ans74 ON ans74.UserID = r.UsuarioID AND ans74.SurveyID = r.SurveyID AND ans74.QuestionID = 74 
+LEFT JOIN Answer ans75 ON ans75.UserID = r.UsuarioID AND ans75.SurveyID = r.SurveyID AND ans75.QuestionID = 75 
+WHERE (ans70.AnswerText IS NOT NULL AND ans70.AnswerText NOT IN ('-1'))
+OR (ans71.AnswerText IS NOT NULL AND TRIM(ans71.AnswerText) NOT IN ('-1')) 
+OR (ans72.AnswerText IS NOT NULL AND ans72.AnswerText NOT IN ('-1'))
+OR (ans73.AnswerText IS NOT NULL AND TRIM(ans73.AnswerText) NOT IN ('-1')) 
+OR (ans74.AnswerText IS NOT NULL AND ans74.AnswerText NOT IN ('-1'))
+OR (ans75.AnswerText IS NOT NULL AND TRIM(ans75.AnswerText) NOT IN ('-1'));
+
+INSERT OR REPLACE INTO Opinion_Industria (
+    RespuestaID, Percepcion_Apoyo_SM_Industria, Sugerencias_Mejora_SM_Industria, 
+    Comentarios_Adicionales_Encuesta, Notas_Comentarios_Adicionales
+)
+SELECT 
+    r.RespuestaID,
+    CASE WHEN CAST(ans85.AnswerText AS INTEGER) BETWEEN 0 AND 5 THEN CAST(ans85.AnswerText AS INTEGER) ELSE NULL END,
+    CASE WHEN ans86.AnswerText = '-1' THEN NULL ELSE TRIM(ans86.AnswerText) END,
+    CASE WHEN ans87.AnswerText = '-1' THEN NULL ELSE TRIM(ans87.AnswerText) END,
+    CASE WHEN ans103.AnswerText = '-1' THEN NULL ELSE TRIM(ans103.AnswerText) END
+FROM Respuesta r
+LEFT JOIN Answer ans85  ON ans85.UserID = r.UsuarioID  AND ans85.SurveyID = r.SurveyID  AND ans85.QuestionID = 85
+LEFT JOIN Answer ans86  ON ans86.UserID = r.UsuarioID  AND ans86.SurveyID = r.SurveyID  AND ans86.QuestionID = 86
+LEFT JOIN Answer ans87  ON ans87.UserID = r.UsuarioID  AND ans87.SurveyID = r.SurveyID  AND ans87.QuestionID = 87
+LEFT JOIN Answer ans103 ON ans103.UserID = r.UsuarioID AND ans103.SurveyID = r.SurveyID AND ans103.QuestionID = 103
+WHERE (ans85.AnswerText IS NOT NULL AND ans85.AnswerText != '-1')
+   OR (ans86.AnswerText IS NOT NULL AND ans86.AnswerText != '-1')
+   OR (ans87.AnswerText IS NOT NULL AND ans87.AnswerText != '-1')
+   OR (ans103.AnswerText IS NOT NULL AND ans103.AnswerText != '-1')
     """
 
     try:
