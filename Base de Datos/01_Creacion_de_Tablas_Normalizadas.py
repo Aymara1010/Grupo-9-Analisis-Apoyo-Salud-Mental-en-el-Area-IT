@@ -151,6 +151,34 @@ CREATE TABLE IF NOT EXISTS Impacto_SM_Trabajo (
     FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS Impacto_Social_Trabajo_Actual (
+    RespuestaID INTEGER PRIMARY KEY,
+    Salud_Mental_Entrevista VARCHAR,
+    Confianza_Colegas VARCHAR,
+    Confianza_Liderazgo VARCHAR,
+    Salud_Fisica_Entrevista VARCHAR,
+    Apertura_Circulo_Social VARCHAR,
+    Efecto_Revelar_Observado VARCHAR,
+    Apertura_Clientes VARCHAR,
+    Apertura_Companeros VARCHAR,
+    Comodidad_SF_VS_SM_Companeros VARCHAR,
+    Efecto_Revelar_SM_Cliente VARCHAR,
+    Efecto_Revelar_SM_Companero VARCHAR,
+    Expectativa_Reaccion_Equipo INTEGER CHECK (Expectativa_Reaccion_Equipo BETWEEN 0 AND 10 OR Expectativa_Reaccion_Equipo IS NULL),
+    Disposicion_Entrevista_SM INTEGER CHECK (Disposicion_Entrevista_SM IN (0, 1, NULL)),
+    Consecuencias_Discutir_SF VARCHAR,
+    Consecuencias_Discutir_SM VARCHAR,
+    Disposicion_SM_Companeros VARCHAR,
+    Disposicion_SM_Supervisor VARCHAR,
+    Mencionar_SF_Entrevista VARCHAR,
+    Consecuencias_SM_Companeros VARCHAR,
+    Consecuencias_SM_Empleador_Actual VARCHAR,
+    Consecuencias_SM_Companeros_Actual VARCHAR,
+    Impacto_Negativo_SM_Cliente VARCHAR,
+    Impacto_Negativo_SM_Companero VARCHAR,
+    Percepcion_Negativa_Equipo_SM VARCHAR,
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+
 CREATE TABLE IF NOT EXISTS Experiencia_Trabajo_Actual (
     RespuestaID INTEGER PRIMARY KEY,
     Experiencia_Respuesta_Negativa_SM VARCHAR,
@@ -235,7 +263,7 @@ CREATE TABLE IF NOT EXISTS Condicion_Sospechada (
     FOREIGN KEY (CondicionID) REFERENCES Condiciones(CondicionID) ON DELETE CASCADE
 );
     """
-    
+
     try:
         cursor.executescript(script)
         conn.commit()
