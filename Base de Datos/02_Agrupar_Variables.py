@@ -42,7 +42,7 @@ SET AnswerText = 'United States'
 WHERE QuestionID IN (3, 50)
   AND (TRIM(AnswerText) IN ('USA', 'US', 'United States of America', 'U.S.', 'U.S.A.', 'United States'));
  
- - Condiciones
+-- Condiciones
 
 UPDATE Answer
 SET AnswerText = 'Trastornos del Estado de Ánimo'
@@ -146,7 +146,7 @@ WHERE QuestionID IN (11, 10, 91)
         conn.commit()
         print("Variables correctamente.")
     except sqlite3.Error as e:
-        print("Error")
+        print(f"Error {e}")
         conn.rollback()
     finally:
         conn.close()
