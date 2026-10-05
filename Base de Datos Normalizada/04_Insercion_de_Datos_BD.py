@@ -236,6 +236,106 @@ LEFT JOIN Answer ans94 ON ans94.UserID = r.UsuarioID AND ans94.SurveyID = r.Surv
 LEFT JOIN Answer ans95 ON ans95.UserID = r.UsuarioID AND ans95.SurveyID = r.SurveyID AND ans95.QuestionID = 95
 LEFT JOIN Answer ans96 ON ans96.UserID = r.UsuarioID AND ans96.SurveyID = r.SurveyID AND ans96.QuestionID = 96
 LEFT JOIN Answer ans97 ON ans97.UserID = r.UsuarioID AND ans97.SurveyID = r.SurveyID AND ans97.QuestionID = 97;
+
+INSERT OR REPLACE INTO Experiencia_Trabajo_Actual (
+    RespuestaID, Experiencia_Respuesta_Negativa_SM, Discutido_SM_Empleador,
+    Descripcion_Conversacion_Empleador_SM, Discutido_SM_Companeros,
+    Descripcion_Conversacion_Companeros_SM, Companero_Discutio_SM_Conmigo,
+    Descripcion_Conversacion_Companero_SM, Contexto_Respuesta_Negativa, Percepcion_Apoyo_SM
+)
+SELECT 
+    r.RespuestaID,
+    CASE WHEN ans56.AnswerText = '-1' THEN NULL ELSE TRIM(ans56.AnswerText) END,
+    CASE WHEN ans58.AnswerText IN ('0', '1') THEN CAST(ans58.AnswerText AS INTEGER) ELSE NULL END,
+    CASE WHEN ans59.AnswerText IN ('-1', '.') THEN NULL ELSE TRIM(ans59.AnswerText) END,
+    CASE WHEN ans60.AnswerText IN ('0', '1') THEN CAST(ans60.AnswerText AS INTEGER) ELSE NULL END,
+    CASE WHEN ans61.AnswerText IN ('-1', '.') THEN NULL ELSE TRIM(ans61.AnswerText) END,
+    CASE WHEN ans62.AnswerText IN ('0', '1') THEN CAST(ans62.AnswerText AS INTEGER) ELSE NULL END,
+    CASE WHEN ans63.AnswerText IN ('-1', '.') THEN NULL ELSE TRIM(ans63.AnswerText) END,
+    CASE WHEN ans82.AnswerText IN ('-1', '.') THEN NULL ELSE TRIM(ans82.AnswerText) END,
+    CASE WHEN ans83.AnswerText = '-1' THEN NULL ELSE TRIM(ans83.AnswerText) END
+FROM Respuesta r
+LEFT JOIN Answer ans56 ON ans56.UserID = r.UsuarioID AND ans56.SurveyID = r.SurveyID AND ans56.QuestionID = 56
+LEFT JOIN Answer ans58 ON ans58.UserID = r.UsuarioID AND ans58.SurveyID = r.SurveyID AND ans58.QuestionID = 58
+LEFT JOIN Answer ans59 ON ans59.UserID = r.UsuarioID AND ans59.SurveyID = r.SurveyID AND ans59.QuestionID = 59
+LEFT JOIN Answer ans60 ON ans60.UserID = r.UsuarioID AND ans60.SurveyID = r.SurveyID AND ans60.QuestionID = 60
+LEFT JOIN Answer ans61 ON ans61.UserID = r.UsuarioID AND ans61.SurveyID = r.SurveyID AND ans61.QuestionID = 61
+LEFT JOIN Answer ans62 ON ans62.UserID = r.UsuarioID AND ans62.SurveyID = r.SurveyID AND ans62.QuestionID = 62
+LEFT JOIN Answer ans63 ON ans63.UserID = r.UsuarioID AND ans63.SurveyID = r.SurveyID AND ans63.QuestionID = 63
+LEFT JOIN Answer ans82 ON ans82.UserID = r.UsuarioID AND ans82.SurveyID = r.SurveyID AND ans82.QuestionID = 82
+LEFT JOIN Answer ans83 ON ans83.UserID = r.UsuarioID AND ans83.SurveyID = r.SurveyID AND ans83.QuestionID = 83
+WHERE (ans56.AnswerText IS NOT NULL AND ans56.AnswerText NOT IN ('-1'))
+   OR (ans58.AnswerText IS NOT NULL AND ans58.AnswerText IN ('0', '1'))
+   OR (ans59.AnswerText IS NOT NULL AND ans59.AnswerText NOT IN ('-1'))
+   OR (ans60.AnswerText IS NOT NULL AND ans60.AnswerText IN ('0', '1'))
+   OR (ans61.AnswerText IS NOT NULL AND ans61.AnswerText NOT IN ('-1'))
+   OR (ans62.AnswerText IS NOT NULL AND ans62.AnswerText IN ('0', '1'))
+   OR (ans63.AnswerText IS NOT NULL AND ans63.AnswerText NOT IN ('-1'))
+   OR (ans82.AnswerText IS NOT NULL AND ans82.AnswerText NOT IN ('-1'))
+   OR (ans83.AnswerText IS NOT NULL AND ans83.AnswerText NOT IN ('-1'));
+
+INSERT OR REPLACE INTO Impacto_Social_Trabajo_Actual (
+    RespuestaID, Salud_Mental_Entrevista, Confianza_Colegas, Confianza_Liderazgo,
+    Salud_Fisica_Entrevista, Apertura_Circulo_Social, Efecto_Revelar_Observado,
+    Apertura_Clientes, Apertura_Companeros, Comodidad_SF_VS_SM_Companeros,
+    Efecto_Revelar_SM_Cliente, Efecto_Revelar_SM_Companero, Expectativa_Reaccion_Equipo,
+    Disposicion_Entrevista_SM, Consecuencias_Discutir_SF, Consecuencias_Discutir_SM,
+    Disposicion_SM_Companeros, Disposicion_SM_Supervisor, Mencionar_SF_Entrevista,
+    Consecuencias_SM_Companeros, Consecuencias_SM_Empleador_Actual,
+    Consecuencias_SM_Companeros_Actual, Impacto_Negativo_SM_Cliente,
+    Impacto_Negativo_SM_Companero, Percepcion_Negativa_Equipo_SM
+)
+SELECT 
+    r.RespuestaID,
+    CASE WHEN ans12.AnswerText = '-1' THEN NULL ELSE TRIM(ans12.AnswerText) END,
+    CASE WHEN ans18.AnswerText = '-1' THEN NULL ELSE TRIM(ans18.AnswerText) END,
+    CASE WHEN ans19.AnswerText = '-1' THEN NULL ELSE TRIM(ans19.AnswerText) END,
+    CASE WHEN ans29.AnswerText = '-1' THEN NULL ELSE TRIM(ans29.AnswerText) END,
+    CASE WHEN ans30.AnswerText = '-1' THEN NULL ELSE TRIM(ans30.AnswerText) END,
+    CASE WHEN ans31.AnswerText = '-1' THEN NULL ELSE TRIM(ans31.AnswerText) END,
+    CASE WHEN ans52.AnswerText = '-1' THEN NULL ELSE TRIM(ans52.AnswerText) END,
+    CASE WHEN ans53.AnswerText = '-1' THEN NULL ELSE TRIM(ans53.AnswerText) END,
+    CASE WHEN ans57.AnswerText = '-1' THEN NULL ELSE TRIM(ans57.AnswerText) END,
+    CASE WHEN ans66.AnswerText = '-1' THEN NULL ELSE TRIM(ans66.AnswerText) END,
+    CASE WHEN ans67.AnswerText = '-1' THEN NULL ELSE TRIM(ans67.AnswerText) END,
+    CASE WHEN CAST(ans81.AnswerText AS INTEGER) BETWEEN 0 AND 10 THEN CAST(ans81.AnswerText AS INTEGER) ELSE NULL END,
+    CASE WHEN ans88.AnswerText IN ('0', '1') THEN CAST(ans88.AnswerText AS INTEGER) ELSE NULL END,
+    CASE WHEN ans90.AnswerText = '-1' THEN NULL ELSE TRIM(ans90.AnswerText) END,
+    CASE WHEN ans98.AnswerText = '-1' THEN NULL ELSE TRIM(ans98.AnswerText) END,
+    CASE WHEN ans99.AnswerText = '-1' THEN NULL ELSE TRIM(ans99.AnswerText) END,
+    CASE WHEN ans100.AnswerText = '-1' THEN NULL ELSE TRIM(ans100.AnswerText) END,
+    CASE WHEN ans101.AnswerText = '-1' THEN NULL ELSE TRIM(ans101.AnswerText) END,
+    CASE WHEN ans102.AnswerText = '-1' THEN NULL ELSE TRIM(ans102.AnswerText) END,
+    CASE WHEN ans104.AnswerText = '-1' THEN NULL ELSE TRIM(ans104.AnswerText) END,
+    CASE WHEN ans105.AnswerText = '-1' THEN NULL ELSE TRIM(ans105.AnswerText) END,
+    CASE WHEN ans106.AnswerText = '-1' THEN NULL ELSE TRIM(ans106.AnswerText) END,
+    CASE WHEN ans107.AnswerText = '-1' THEN NULL ELSE TRIM(ans107.AnswerText) END,
+    CASE WHEN ans114.AnswerText = '-1' THEN NULL ELSE TRIM(ans114.AnswerText) END
+FROM Respuesta r
+LEFT JOIN Answer ans12  ON ans12.UserID = r.UsuarioID  AND ans12.SurveyID = r.SurveyID  AND ans12.QuestionID = 12
+LEFT JOIN Answer ans18  ON ans18.UserID = r.UsuarioID  AND ans18.SurveyID = r.SurveyID  AND ans18.QuestionID = 18
+LEFT JOIN Answer ans19  ON ans19.UserID = r.UsuarioID  AND ans19.SurveyID = r.SurveyID  AND ans19.QuestionID = 19
+LEFT JOIN Answer ans29  ON ans29.UserID = r.UsuarioID  AND ans29.SurveyID = r.SurveyID  AND ans29.QuestionID = 29
+LEFT JOIN Answer ans30  ON ans30.UserID = r.UsuarioID  AND ans30.SurveyID = r.SurveyID  AND ans30.QuestionID = 30
+LEFT JOIN Answer ans31  ON ans31.UserID = r.UsuarioID  AND ans31.SurveyID = r.SurveyID  AND ans31.QuestionID = 31
+LEFT JOIN Answer ans52  ON ans52.UserID = r.UsuarioID  AND ans52.SurveyID = r.SurveyID  AND ans52.QuestionID = 52
+LEFT JOIN Answer ans53  ON ans53.UserID = r.UsuarioID  AND ans53.SurveyID = r.SurveyID  AND ans53.QuestionID = 53
+LEFT JOIN Answer ans57  ON ans57.UserID = r.UsuarioID  AND ans57.SurveyID = r.SurveyID  AND ans57.QuestionID = 57
+LEFT JOIN Answer ans66  ON ans66.UserID = r.UsuarioID  AND ans66.SurveyID = r.SurveyID  AND ans66.QuestionID = 66
+LEFT JOIN Answer ans67  ON ans67.UserID = r.UsuarioID  AND ans67.SurveyID = r.SurveyID  AND ans67.QuestionID = 67
+LEFT JOIN Answer ans81  ON ans81.UserID = r.UsuarioID  AND ans81.SurveyID = r.SurveyID  AND ans81.QuestionID = 81
+LEFT JOIN Answer ans88  ON ans88.UserID = r.UsuarioID  AND ans88.SurveyID = r.SurveyID  AND ans88.QuestionID = 88
+LEFT JOIN Answer ans90  ON ans90.UserID = r.UsuarioID  AND ans90.SurveyID = r.SurveyID  AND ans90.QuestionID = 90
+LEFT JOIN Answer ans98  ON ans98.UserID = r.UsuarioID  AND ans98.SurveyID = r.SurveyID  AND ans98.QuestionID = 98
+LEFT JOIN Answer ans99  ON ans99.UserID = r.UsuarioID  AND ans99.SurveyID = r.SurveyID  AND ans99.QuestionID = 99
+LEFT JOIN Answer ans100 ON ans100.UserID = r.UsuarioID AND ans100.SurveyID = r.SurveyID AND ans100.QuestionID = 100
+LEFT JOIN Answer ans101 ON ans101.UserID = r.UsuarioID AND ans101.SurveyID = r.SurveyID AND ans101.QuestionID = 101
+LEFT JOIN Answer ans102 ON ans102.UserID = r.UsuarioID AND ans102.SurveyID = r.SurveyID AND ans102.QuestionID = 102
+LEFT JOIN Answer ans104 ON ans104.UserID = r.UsuarioID AND ans104.SurveyID = r.SurveyID AND ans104.QuestionID = 104
+LEFT JOIN Answer ans105 ON ans105.UserID = r.UsuarioID AND ans105.SurveyID = r.SurveyID AND ans105.QuestionID = 105
+LEFT JOIN Answer ans106 ON ans106.UserID = r.UsuarioID AND ans106.SurveyID = r.SurveyID AND ans106.QuestionID = 106
+LEFT JOIN Answer ans107 ON ans107.UserID = r.UsuarioID AND ans107.SurveyID = r.SurveyID AND ans107.QuestionID = 107
+LEFT JOIN Answer ans114 ON ans114.UserID = r.UsuarioID AND ans114.SurveyID = r.SurveyID AND ans114.QuestionID = 114;
     """
 
     try:
