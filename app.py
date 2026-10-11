@@ -50,3 +50,31 @@ p_bibli = st.Page("Paginas/10_Bibliografia.py", title="Bibliografía")
 
 todas_las_paginas = [p_welcom, p_vista, p_intro, p_equipo, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_consultas, p_bibli]
 pg = st.navigation(todas_las_paginas, position="hidden")
+
+#Texto y Orden del menú
+with st.sidebar: #avisos y notas
+    st.markdown("# TechWell Analítica 💻 ")
+    st.markdown("🚧 Dashboard en desarrollo 🚧")
+    st.markdown("---")
+    
+    #cuadros para seleccionar 
+    #inicio
+    with st.expander("🚀 inicio", expanded=True):
+        st.page_link(p_welcom)
+        st.page_link(p_vista)
+        st.page_link(p_intro)
+        st.page_link(p_equipo)
+
+    #Presentación Académica
+    with st.expander("📖 Presentación Académica", expanded=True):
+        st.page_link(p_plant)
+        st.page_link(p_teorico)
+        st.page_link(p_metodo)
+    
+    #Análisis y Cierre
+    with st.expander("📊 Análisis", expanded=True):
+        st.page_link(p_resultados)
+        st.page_link(p_querys_prof)
+        st.page_link(p_consultas)
+        st.page_link(p_bibli)
+pg.run()
