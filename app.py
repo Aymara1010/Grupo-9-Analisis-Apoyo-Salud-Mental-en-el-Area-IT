@@ -33,14 +33,20 @@ st.markdown(''
     """,
     unsafe_allow_html=True
 )
-# Configuración de las Páginas del proyecto
-pages = [
-    st.Page("Paginas/01_Inicio.py", title="Inicio"),
-    st.Page("Paginas/02_Planteamiento.py", title="Planteamiento de Problema"),
-    st.Page("Paginas/03_Marco_Teorico.py", title="Marco Teórico"),
-    st.Page("Paginas/04_Marco_Metodologico.py", title="Marco Metodologico"),
-    st.Page("Paginas/05_Resultados_y_Conclusiones.py", title="Resultados y Conclusiones")
-    ]
+#Definición de las paginas
+p_welcom = st.Page("Paginas/08_Welcome.py", title="Bienvenida")
+p_vista = st.Page("Paginas/01_Inicio.py", title="Vista General")
+p_intro = st.Page("paginas/06_introduccion.py", title="Introducción")
+p_equipo = st.Page("paginas/07_Equipo_investigacion.py", title="Equipo de Investigación")
 
-page = st.navigation(pages)
-page.run()
+p_plant = st.Page("Paginas/02_Planteamiento.py", title="Lectura General ")
+p_teorico = st.Page("Paginas/03_Marco_Teorico.py", title="Metodología")
+p_metodo = st.Page("Paginas/04_Marco_Metodologico.py", title="Diccionario de Datos")
+
+p_resultados = st.Page("Paginas/05_Resultados_y_Conclusiones.py", title="Resultados y Conclusiones")
+p_querys_prof = st.Page("Paginas/09_querys_prof.py", title="Querys Generales")
+p_consultas = st.Page("Paginas/11_sql_interactivo.py", title="Consultas Aquí")
+p_bibli = st.Page("Paginas/10_Bibliografia.py", title="Bibliografía")
+
+todas_las_paginas = [p_welcom, p_vista, p_intro, p_equipo, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_consultas, p_bibli]
+pg = st.navigation(todas_las_paginas, position="hidden")
