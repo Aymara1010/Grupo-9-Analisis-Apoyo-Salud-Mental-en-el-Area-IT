@@ -36,8 +36,8 @@ st.markdown(''
 #Definición de las paginas
 p_welcom = st.Page("Paginas/08_Welcome.py", title="Bienvenida")
 p_vista = st.Page("Paginas/01_Inicio.py", title="Vista General")
-p_intro = st.Page("paginas/06_introduccion.py", title="Introducción")
-p_equipo = st.Page("paginas/07_Equipo_investigacion.py", title="Equipo de Investigación")
+p_intro = st.Page("Paginas/06_introduccion.py", title="Introducción")
+p_equipo = st.Page("Paginas/07_Equipo_investigacion.py", title="Equipo de Investigación")
 
 p_plant = st.Page("Paginas/02_Planteamiento.py", title="Lectura General ")
 p_teorico = st.Page("Paginas/03_Marco_Teorico.py", title="Metodología")
