@@ -33,7 +33,7 @@ Realizar un Análisis comparativo sobre la provisión de apoyo y recursos en sal
 ⚠️🔨 En Construcción...
 
 ### 📚 Base de Datos:
-La base de datos utilizada para este proyecto es de Kaggle y proviene de Open Source Mental Illness (OSMI), donde se utilizan datos de encuestas de salud mental de los años 2014, 2016, 2017, 2018 y 2019.
+La base de datos utilizada para este proyecto es de Kaggle y proviene de Open Source Mental Illness (OSMI), la fuente original tiene datos desde 2014, el proyecto se acota al período 2017–2019 por consistencia en las variables.                                                                                       
 
 [👉 Ver Base de Datos](https://www.kaggle.com/datasets/anth7310/mental-health-in-the-tech-industry)
 
@@ -64,3 +64,4 @@ El repositorio de este proyecto está estructurado de la siguiente manera:
 - **Christopher Escalante** (@christopherescalanteb-pixel)
 - **Randy Conde** (@randyl21)
 - **Rehide De Pablos** (@depablosrehide-cdm)
+- **Andrea Figuera** (figueraandrea25-hub)
