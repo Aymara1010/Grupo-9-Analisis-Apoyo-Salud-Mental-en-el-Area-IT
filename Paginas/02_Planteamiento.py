@@ -71,3 +71,106 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
   
+  #objetivo general y objetivos específicos
+    st.markdown("""
+    <style>
+    .obj-general-card {
+        background: linear-gradient(135deg, #3C096C, #7B2CBF);
+        color: #FFFFFF;
+        border: 3px solid #E0AAFF;
+        padding: 25px 35px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0px 8px 25px rgba(123, 44, 191, 0.4);
+        margin: 10px auto 30px auto;
+    }
+    .obj-general-label {
+        font-size: 13px; text-transform: uppercase; letter-spacing: 3px;
+        color: #E0AAFF; font-weight: bold; margin-bottom: 10px; display: block;
+    }
+    .obj-general-text {
+        font-size: 19px; line-height: 1.5; font-weight: 600; margin: 0;
+    }
+    
+    /* TARJETAS DE OBJETIVOS ESPECÍFICOS CON EFECTO HOVER */
+    .obj-esp-card {
+        background-color: #10002B;
+        border-left: 6px solid #E0AAFF;
+        border-top: 1px solid #3C096C; 
+        border-right: 1px solid #3C096C; 
+        border-bottom: 1px solid #3C096C;
+        padding: 20px; 
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px; 
+        min-height: 140px;
+        transition: all 0.3s ease-in-out; /* Animación fluida */
+    }
+    
+    /* EFECTO CUANDO PASAS EL MOUSE */
+    .obj-esp-card:hover {
+        transform: translateY(-8px) scale(1.02); /* Se eleva y crece un poco */
+        box-shadow: 0px 10px 25px rgba(224, 170, 255, 0.35); /* Resplandor claro */
+        border-left-color: #FFD60A; /* Cambia el borde a un acento llamativo */
+        border-color: #7B2CBF;
+    }
+
+    .obj-esp-numero {
+        color: #E0AAFF; font-size: 12px; font-weight: bold; text-transform: uppercase;
+        letter-spacing: 1px; margin-bottom: 8px; display: block;
+    }
+    .obj-esp-text {
+        color: #FFFFFF; font-size: 14px; line-height: 1.5; margin: 0;
+    }
+    </style>
+
+    <div class="obj-general-card">
+        <span class="obj-general-label">🎯 Objetivo General</span>
+        <p class="obj-general-text">
+            "Evaluar y comparar estadísticamente la provisión de apoyo, las políticas de bienestar y la percepción organizacional de la salud mental en el sector tecnológico entre Estados Unidos, Europa y Oceanía durante el período 2017 - 2019."
+        </p>
+    </div>
+""", unsafe_allow_html=True)
+
+    st.markdown("<h4 style='text-align: center; color: #E0AAFF; margin-bottom: 25px;'>📌 Objetivos Específicos</h4>", unsafe_allow_html=True)
+
+# OBJETIVOS ESPECÍFICOS
+    objetivos = [
+    ("Objetivo Específico 01", "Comparar la frecuencia relativa de empresas tecnológicas que ofrecen beneficios de salud mental entre EE. UU., Europa y Oceanía."),
+    ("Objetivo Específico 02", "Determinar la proporción de empleados que conocen sus opciones de atención de salud mental laboral según su región geográfica."),
+    ("Objetivo Específico 03", "Evaluar el puntaje promedio y la dispersión de la importancia que los empleadores otorgan a la salud mental por categoría de puesto."),
+    ("Objetivo Específico 04", "Analizar la distribución de frecuencias de la calificación que otorgan los empleados al apoyo general de la industria tecnológica."),
+    ("Objetivo Específico 05", "Examinar la evolución temporal del puntaje promedio de importancia otorgada por los empleadores durante el periodo 2017 - 2019."),
+    ("Objetivo Específico 06", "Identificar las necesidades actuales y carencias de apoyo mediante minería de textos y análisis de sentimientos en comentarios."),
+    ("Objetivo Específico 07", "Analizar los motivos y el nivel de molestia en conversaciones laborales reportadas por empleados que vivieron una mala respuesta corporativa.")
+]
+
+    # DISTRIBUCIÓN columnas
+    col1, col2 = st.columns(2)
+
+    with col1:
+      for num, texto in objetivos[0:5:2]:  # Impares (1, 3, 5)
+        st.markdown(f"""
+            <div class="obj-esp-card">
+                <span class="obj-esp-numero">{num}</span>
+                <p class="obj-esp-text">{texto}</p>
+            </div>
+        """, unsafe_allow_html=True)
+
+        with col2:
+      for num, texto in objetivos[1:6:2]:  # Pares (2, 4, 6)
+        st.markdown(f"""
+            <div class="obj-esp-card">
+                <span class="obj-esp-numero">{num}</span>
+                <p class="obj-esp-text">{texto}</p>
+            </div>
+        """, unsafe_allow_html=True)
+
+# Objetivo 7 centrado al fondo
+    num_7, texto_7 = objetivos[6]
+    st.markdown(f"""
+    <div class="obj-esp-card" style="max-width: 650px; margin: 0 auto 20px auto;">
+        <span class="obj-esp-numero" style="text-align: center;">{num_7}</span>
+        <p class="obj-esp-text" style="text-align: center;">{texto_7}</p>
+    </div>
+""", unsafe_allow_html=True)
