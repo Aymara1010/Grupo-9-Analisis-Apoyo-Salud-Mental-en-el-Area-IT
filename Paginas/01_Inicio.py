@@ -54,3 +54,14 @@ st.markdown("""
     <p class="fuente">Fuente: Open Sourcing Mental Illness (OSMI) – 2017-2019</p>
 </div>
 """, unsafe_allow_html=True)
+
+# Banner de imagen inferior y pie de foto
+ruta_imagen = "sin imagen"
+
+if os.path.exists(ruta_imagen):
+    st.image(ruta_imagen, use_container_width=True)
+else:
+    st.info(" esperando imagen ... ⏳ (Aún no hay imagen en la carpeta)")
+
+st.markdown("---")
+st.markdown("⚠️🔨 En Construcción... 🚧")
