@@ -178,6 +178,7 @@ CREATE TABLE IF NOT EXISTS Impacto_Social_Trabajo_Actual (
     Impacto_Negativo_SM_Companero VARCHAR,
     Percepcion_Negativa_Equipo_SM VARCHAR,
     FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS Experiencia_Trabajo_Actual (
     RespuestaID INTEGER PRIMARY KEY,

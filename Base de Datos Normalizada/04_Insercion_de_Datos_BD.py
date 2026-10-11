@@ -13,7 +13,6 @@ def insertar_datos(db_path="mental_health.sqlite"):
 
     print("Insertando Datos...")
     script = """
-
 INSERT OR REPLACE INTO Usuarios_Trabaja_USA (RespuestaID, Estado_USA_Empleo)
 SELECT r.RespuestaID,
        e.EstadoID AS Estado_USA_Empleo

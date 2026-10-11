@@ -110,7 +110,7 @@ UPDATE Answer
 SET AnswerText = 'Trastorno del Espectro Autista (TEA)'
 WHERE QuestionID = 115 
   AND (AnswerText LIKE '%Autism%' 
-       OR AnswerText LIKE '%Asperger%' 
+       OR AnswerText LIKE '%Asperge%' 
        OR AnswerText LIKE '%PDD-NOS%' 
        OR AnswerText LIKE '%Pervasive Development%');
 
