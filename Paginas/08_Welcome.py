@@ -61,3 +61,18 @@ st.markdown("""
         </p>
     </div>
 """, unsafe_allow_html=True)
+
+#video
+ruta_video = "SIN VIDEO AUN"  
+
+if os.path.exists(ruta_video):
+    # Si el archivo existe
+    col_v1, col_v2, col_v3 = st.columns([1, 8, 1])
+    with col_v2:
+        st.video(ruta_video)
+else:
+    # Si no existe
+    st.info("⏳ Esperando video de introducción... (El archivo aún no se ha agregado a la carpeta)")
+
+st.markdown("---")
+st.markdown("⚠️🔨 En Construcción... 🚧")
