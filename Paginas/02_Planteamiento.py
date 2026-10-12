@@ -71,7 +71,7 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
   
-  with tab2:
+with tab2:
 
   #objetivo general y objetivos específicos
     st.markdown("""
@@ -136,7 +136,7 @@ with tab1:
 
     st.markdown("<h4 style='text-align: center; color: #E0AAFF; margin-bottom: 25px;'>📌 Objetivos Específicos</h4>", unsafe_allow_html=True)
 
-# OBJETIVOS ESPECÍFICOS
+#OBJETIVOS ESPECÍFICOS
     objetivos = [
     ("Objetivo Específico 01", "Comparar la frecuencia relativa de empresas tecnológicas que ofrecen beneficios de salud mental entre EE. UU., Europa y Oceanía."),
     ("Objetivo Específico 02", "Determinar la proporción de empleados que conocen sus opciones de atención de salud mental laboral según su región geográfica."),
@@ -147,7 +147,7 @@ with tab1:
     ("Objetivo Específico 07", "Analizar los motivos y el nivel de molestia en conversaciones laborales reportadas por empleados que vivieron una mala respuesta corporativa.")
 ]
 
-    # DISTRIBUCIÓN columnas
+    #DISTRIBUCIÓN EN COLUMNAS CON BUCLES
     col1, col2 = st.columns(2)
 
     with col1:
@@ -159,7 +159,7 @@ with tab1:
             </div>
         """, unsafe_allow_html=True)
 
-        with col2:
+    with col2:
       for num, texto in objetivos[1:6:2]:  # Pares (2, 4, 6)
         st.markdown(f"""
             <div class="obj-esp-card">
@@ -176,12 +176,96 @@ with tab1:
         <p class="obj-esp-text" style="text-align: center;">{texto_7}</p>
     </div>
 """, unsafe_allow_html=True)
-    
-    with tab3:
+
+with tab3:
     st.subheader("Justificación de la Investigación")
     with st.container(border=True):
         st.markdown("""La salud mental en el ámbito laboral del área IT ha dejado de ser un tema secundario para convertirse en un factor crítico que impacta no solo la calidad de vida del empleado, sino también la productividad y retención de talento en las organizaciones. Por lo tanto, visibilizar y entender cómo se aborda esta problemática es fundamental para el desarrollo sostenible del sector. El presente análisis se justifica al proporcionar una evaluación comparativa e identificar las brechas existentes entre las políticas de bienestar de las empresas tecnológicas en Estados Unidos frente a las de Europa y Oceanía. Al contrastar un modelo donde el acceso a la salud mental depende fuertemente de los beneficios otorgados por el empleador (EE. UU.) contra modelos con marcos regulatorios o sistemas de salud pública diferentes, el estudio permite determinar qué enfoques generan una mayor percepción de apoyo, equidad y conocimiento de cobertura por parte de los trabajadores. 
         """)
         st.write("")
-        st.markdown("""Finalmente, desde una perspectiva analítica y metodológica, esta investigación transforma datos categóricos y cualitativos provenientes de encuestas aplicadas entre 2014 y 2019 en métricas cuantitativas claras. A través de la limpieza estructurada en SQL y la visualización de datos en plataformas como Power BI y Python, se busca entregar una herramienta interactiva (dashboard) que facilite a los departamentos de Recursos Humanos y líderes organizacionales la toma de decisiones basadas en evidencia, impulsando así mejoras reales en la cultura organizacional de la industria tecnológica. 
+        st.markdown("""Finalmente, desde una perspectiva analítica y metodológica, esta investigación transforma datos categóricos y cualitativos provenientes de encuestas aplicadas entre 2014 y 2019 en métricas cuantitativas claras. A través de la limpieza estructurada en SQL y la visualización de datos en plataformas como Power BI y Python, se busca entregar una herramienta interactiva (dashboard) que facilite a los departamentos de Recursos Humanos y líderes organizacionales la toma de decisiones basadas en evidencia, impulsando así mejoras reales en la cultura organizacional de la industria tecnológica
+        """)
+with tab4:
+    st.subheader("Variables Seleccionadas")
+    st.markdown("Cada posible variable está asociada a una pregunta y a su respectiva id, las mayoría de las respuestas a estas preguntas suelen ser categóricas (Sí o No). Para cumplir con los objetivos de este análisis comparativo entre Estados Unidos, Europa y Oceania, hemos seleccionado las siguientes **10 variables clave** de la base de datos:")
+    with st.expander("variable: Pais_Vivienda (País de Residencia)"):
+        st.markdown("""
+        - **Pregunta original: (id: 3):** "What country do you live in?"
+        - **Definición conceptual / operacional:**  Nación en la cual reside habitualmente el encuestado. Se agrupan geográficamente en regiones (Estados Unidos, Europa y Oceanía) para el análisis territorial comparativo.")
+        - **Tipo de variable:** Cualitativa.
+        - **Nivel / Escala de medición:** Nominal.
+        - **Categorías / Valores posibles:** Nombres de países registrados (ej. United States, United Kingdom, Germany, Australia).
+        - **Tabla destino:** Info_Usuario (Clave foránea hacia País).
+        """)
+    with st.expander("variable: Estado_USA_Vivienda (Estado de Residencia en EE. UU.)"):
+        st.markdown("""
+        - **Pregunta original: (id: 4):** "If you live in the United States, which state or territory do you live in?"
+        - **Definición conceptual / operacional:** Estado o territorio federal de residencia dentro de los Estados Unidos para los encuestados domiciliados en dicho país.
+        - **Tipo de variable:** Cualitativa.
+        - **Nivel / Escala de medición:** Nominal.
+        - **Categorías / Valores posibles:** Nombres de entidades subnacionales de EE. UU. (ej. California, New York, Texas).
+        - **Tabla destino:** Usuarios_USA (Clave foránea hacia Estados_USA).
+        """)
+    with st.expander("variable: Pais_Empleo (País del Lugar de Trabajo)"):
+        st.markdown("""
+        - **Pregunta original: (id: 50):** "What country do you work in?"
+        - **Definición conceptual / operacional:** País donde se localiza la sede laboral o empresa empleadora del trabajador tecnológico. Constituye la variable de segmentación geográfica primaria (EE. UU. frente a Europa y Oceanía).
+        - **Tipo de variable:** Cualitativa.
+                     - **Nivel / Escala de medición:** Nominal.
+        - **Categorías / Valores posibles:** Nombres de países registrados (agrupados en EE. UU., Europa y Oceanía).
+        - **Tabla destino:** Info_Usuario (Clave foránea hacia Pais).
+        """)
+    with st.expander("variable: Estado_USA_Empleo (Estado del Empleo en EE. UU.)"):
+        st.markdown("""
+        - **Pregunta original: (id: 51):** "What US state or territory do you work in?"
+        - **Definición conceptual / operacional:** Estado o territorio estadounidense en el que se ubica la entidad empleadora del encuestado.
+        - **Tipo de variable:** Cualitativa.
+        - **Nivel / Escala de medición:** Nominal.
+        - **Categorías / Valores posibles:** Nombres de estados de EE. UU. (California, Washington, Massachusetts, etc.).
+        - **Tabla destino:** Usuarios_USA (Clave foránea hacia Estados_USA).
+        """)
+    with st.expander("variable: Prioridad_Salud_Mental (Importancia Empresarial a la Salud Mental)"):
+        st.markdown("""
+        - **Pregunta original: (id: 65):** "Overall, how much importance does your employer place on mental health?"
+        - **Definición conceptual / operacional:** Puntuación numérica percibida por el empleado respecto a la relevancia o prioridad institucional que su empresa otorga al bienestar mental.
+        - **Tipo de variable:** Cuantitativa discreta.
+        - **Nivel / Escala de medición:** Intervalar / Escala discreta.
+        - **Categorías / Valores posibles:** Números enteros del 0 (ninguna importancia) al 10 (máxima importancia).
+        - **Tabla destino:** Beneficios_Trabajo_Actual.
+        """)
+    with st.expander("variable: Percepcion_Apoyo_SM_Industria (Evaluación del Apoyo de la Industria Tech)"):
+        st.markdown("""
+        - **Pregunta original: (id: 85):** "Overall, how well do you think the tech industry supports employees with mental health issues?"
+        - **Definición conceptual / operacional:** Nivel de respaldo percibido que el sector tecnológico general brinda a los trabajadores con trastornos o dificultades de salud mental.
+        - **Tipo de variable:** Cuantitativa discreta / Cualitativa ordinal.
+        - **Nivel / Escala de medición:** Ordinal / Intervalar.
+        - **Categorías / Valores posibles:** Escala entera de 1 (apoyo deficiente / pésimo) a 5 (apoyo óptimo / excelente).
+        - **Tabla destino:** Opinion_Industria.
+        """)
+    with st.expander("variable: Sugerencias_Mejora_SM_Industria (Recomendaciones de los Empleados)"):
+        st.markdown("""
+        - **Pregunta original: (id: 86):** "Briefly describe what you think the industry as a whole and/or employers could do to improve mental health support for employees."
+        - **Definición conceptual / operacional:** Propuestas abiertas y recomendaciones redactadas por los empleados para optimizar las políticas de bienestar mental corporativas. Se procesa mediante matrices de términos ponderados (TF-IDF) y cálculo de polaridad continua.
+        - **Tipo de variable:** Cualitativa (Texto no estructurado).
+        - **Nivel / Escala de medición:** Nominal / Corpus textual.
+        - **Categorías / Valores posibles:** Descripciones de experiencias.
+        - **Tabla destino:** Opinion_Industria.
+        """)
+    with st.expander("variable: Experiencia_Respuesta_Negativa_SM (Reporte de Reacción Desfavorable)"):
+        st.markdown("""
+        - **Pregunta original: (id: 56):** "Have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?"
+        - **Definición conceptual / operacional:** Indicador de haber vivido o presenciado una respuesta insensible, mal gestionada o punitiva ante una dificultad de salud mental en el trabajo. Opera como criterio de filtro para analizar situaciones de conflicto.
+        - **Tipo de variable:** Cualitativa.
+        - **Nivel / Escala de medición:** Nominal (Dicotómica / Politómica).
+        - **Categorías / Valores posibles:** Yes, No, Maybe (o sus equivalentes binarios/categóricos).
+        - **Tabla destino:** Experiencia_Trabajo_Actual.
+        """)
+    with st.expander("variable: Descripcion_Conversacion_Companeros_SM (Diálogo Propio con Compañeros)"):
+        st.markdown("""
+        - **Pregunta original: (id: 61):** "Describe the conversation with coworkers you had about your mental health including their reactions."
+        - **Definición conceptual / operacional:** Relato cualitativo emitido por el trabajador sobre el diálogo entablado con compañeros de trabajo al revelar su condición de salud mental, incluyendo sus reacciones percibidas. Se analiza mediante frecuencias léxicas y sentimiento.
+        - **Tipo de variable:** Cualitativa (Texto no estructurado).
+        - **Nivel / Escala de medición:** Nominal / Corpus textual.
+        - **Categorías / Valores posibles:** Descripciones de experiencias
+        - **Tabla destino:** Experiencia_Trabajo_Actual.
         """)
