@@ -64,6 +64,11 @@ def limpiar_respuestas(conn, ruta_destino):
                 ) THEN 'Femenino'
                 ELSE 'Otro' END
             WHERE QuestionID = 2;
+            
+            UPDATE Answer
+            SET AnswerText = 'I don''t know'
+            WHERE QuestionID IN (11, 10, 91)
+            AND (TRIM(AnswerText) IN ('Don''t know', 'I don''t know'));  
         """)
 
         conn.commit()
