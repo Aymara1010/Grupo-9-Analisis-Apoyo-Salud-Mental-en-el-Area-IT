@@ -183,6 +183,66 @@ CREATE TABLE IF NOT EXISTS Opinion_Industria (
     Comentarios_Adicionales_Encuesta VARCHAR,
     FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
 );
+
+-- Trabajo Actual
+CREATE TABLE IF NOT EXISTS Beneficios_Trabajo_Actual (
+    RespuestaID INTEGER PRIMARY KEY,
+    Beneficio VARCHAR,
+    Privacidad_Tratamiento VARCHAR,
+    Conocimiento_Cobertura VARCHAR,
+    Conversacion_Empresarial VARCHAR,
+    Disponibilidad_Recursos VARCHAR,
+    Gestion_Licencia VARCHAR,
+    Acceso_Servicios INTEGER CHECK (Acceso_Servicios IN (0, 1, NULL)),
+    Conocimiento_Recursos_Externos VARCHAR,
+    Prioridad_Salud_Fisica INTEGER CHECK (Prioridad_Salud_Fisica BETWEEN 0 AND 10 OR Prioridad_Salud_Fisica IS NULL),
+    Prioridad_Salud_Mental INTEGER CHECK (Prioridad_Salud_Mental BETWEEN 0 AND 10 OR Prioridad_Salud_Mental IS NULL),
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Impacto_SM_Trabajo (
+    RespuestaID INTEGER PRIMARY KEY,
+    Interferencia_Bajo_Tratamiento VARCHAR,
+    Interferencia_Sin_Tratamiento VARCHAR,
+    Productividad_Afectada_SM VARCHAR,
+    Porcentaje_Tiempo_Afectado_SM VARCHAR,
+    Identificacion_Publica_SM INTEGER CHECK (Identificacion_Publica_SM IN (0, 1, NULL)),
+    Repercusion_Carrera_SM INTEGER CHECK (Repercusion_Carrera_SM IN (0, 1, NULL)),
+    Detalle_Impacto_Profesional INTEGER CHECK (Detalle_Impacto_Profesional BETWEEN 0 AND 10 OR Detalle_Impacto_Profesional IS NULL),
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Impacto_Social_Trabajo_Actual (
+    RespuestaID INTEGER PRIMARY KEY,
+    Salud_Mental_Entrevista VARCHAR,
+    Confianza_Colegas VARCHAR,
+    Confianza_Liderazgo VARCHAR,
+    Salud_Fisica_Entrevista VARCHAR,
+    Apertura_Circulo_Social VARCHAR,
+    Efecto_Revelar_Observado VARCHAR,
+    Apertura_Clientes VARCHAR,
+    Apertura_Companeros VARCHAR,
+    Comodidad_SF_VS_SM_Companeros VARCHAR,
+    Efecto_Revelar_SM_Cliente VARCHAR,
+    Efecto_Revelar_SM_Companero VARCHAR,
+    Expectativa_Reaccion_Equipo INTEGER CHECK (Expectativa_Reaccion_Equipo BETWEEN 0 AND 10 OR Expectativa_Reaccion_Equipo IS NULL),
+    Disposicion_Entrevista_SM INTEGER CHECK (Disposicion_Entrevista_SM IN (0, 1, NULL)),
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Experiencia_Trabajo_Actual (
+    RespuestaID INTEGER PRIMARY KEY,
+    Experiencia_Respuesta_Negativa_SM VARCHAR,
+    Discutido_SM_Empleador INTEGER CHECK (Discutido_SM_Empleador IN (0, 1, NULL)),
+    Descripcion_Conversacion_Empleador_SM VARCHAR,
+    Discutido_SM_Companeros INTEGER CHECK (Discutido_SM_Companeros IN (0, 1, NULL)),
+    Descripcion_Conversacion_Companeros_SM VARCHAR,
+    Companero_Discutio_SM_Conmigo INTEGER CHECK (Companero_Discutio_SM_Conmigo IN (0, 1, NULL)),
+    Descripcion_Conversacion_Companero_SM VARCHAR,
+    Contexto_Respuesta_Negativa VARCHAR,
+    Percepcion_Apoyo_SM VARCHAR,
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
     """
     
     try:
