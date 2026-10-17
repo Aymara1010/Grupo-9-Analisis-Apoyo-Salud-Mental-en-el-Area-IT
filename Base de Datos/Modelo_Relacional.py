@@ -1,6 +1,38 @@
 import sqlite3
 import os
 
+def clonar_datos_filtrados(ruta_origen, ruta_destino):
+    if not os.path.exists(ruta_origen):
+        print(f"No se encontró el archivo.")
+        return
+
+    conn = sqlite3.connect(ruta_destino)
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("ATTACH DATABASE ? AS origen;", (ruta_origen,))
+
+        cursor.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS Survey AS 
+            SELECT * FROM origen.Survey 
+            WHERE SurveyID IN (2017, 2018, 2019);
+
+            CREATE TABLE IF NOT EXISTS Answer AS 
+            SELECT * FROM origen.Answer 
+            WHERE SurveyID IN (2017, 2018, 2019);
+        """)
+
+        cursor.execute("DETACH DATABASE origen;")
+        conn.commit()
+        return conn
+
+    except sqlite3.Error as e:
+        print(f"Error de SQLite en extraccion: {e}")
+        conn.rollback()
+        conn.close()
+        return None
+
 def normalizar_base_de_datos(db_path="mental_health.sqlite"):
 
     if not os.path.exists(db_path):
