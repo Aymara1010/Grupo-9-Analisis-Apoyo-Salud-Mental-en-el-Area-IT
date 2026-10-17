@@ -33,6 +33,48 @@ def clonar_datos_filtrados(ruta_origen, ruta_destino):
         conn.close()
         return None
 
+def limpiar_respuestas(conn, ruta_destino):
+    cursor = conn.cursor()
+    try:
+        cursor.executescript(
+            """
+            UPDATE Answer
+            SET AnswerText = CASE 
+                WHEN TRIM(AnswerText) = '-1' THEN NULL 
+                ELSE TRIM(AnswerText) END;
+
+            UPDATE Answer
+            SET AnswerText = CASE 
+                WHEN AnswerText = 'United States of America' THEN 'United States' 
+                ELSE AnswerText END
+            WHERE QuestionID IN (3, 50);
+
+            UPDATE Answer
+            SET AnswerText = CASE 
+                WHEN AnswerText IN (
+                    'Male', 'male', 'MALE', 'Male-ish', 'something kinda male?',
+                    'Guy (-ish) ^_^', 'male leaning androgynous', 
+                    'ostensibly male, unsure what that really means',
+                    'Ostensibly Male', 'Cishet male', 'Masculine', 
+                    'masculino', 'SWM', 'Demiguy', 'I have a penis'
+                ) THEN 'Masculino'
+                WHEN AnswerText IN (
+                    'Female', 'female', 'Woman-identified', 'Female-identified',
+                    'Female assigned at birth', 'fm', 'femmina', 'Female-ish'
+                ) THEN 'Femenino'
+                ELSE 'Otro' END
+            WHERE QuestionID = 2;
+        """)
+
+        conn.commit()
+        print(f"Proceso completado exitosamente en '{ruta_destino}'.")
+
+    except sqlite3.Error as e:
+        print(f"Error de SQLite en limpieza: {e}")
+        conn.rollback()
+    finally:
+        conn.close()
+
 def normalizar_base_de_datos(db_path="mental_health.sqlite"):
 
     if not os.path.exists(db_path):
@@ -55,16 +97,6 @@ CREATE TABLE IF NOT EXISTS Pais (
 CREATE TABLE IF NOT EXISTS Estados_USA (
     EstadoID INTEGER PRIMARY KEY AUTOINCREMENT,
     Estado VARCHAR NOT NULL UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS Trabajos (
-    PuestoID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Puesto_Trabajo_Categoria VARCHAR NOT NULL UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS Condiciones (
-    CondicionID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Condicion VARCHAR NOT NULL UNIQUE
 );
 
 -- Encuesta y Preguntas
@@ -108,6 +140,3 @@ CREATE TABLE IF NOT EXISTS Respuesta (
         conn.rollback()
     finally:
         conn.close()
-
-if __name__ == "__main__":
-    normalizar_base_de_datos("mental_health.sqlite")
