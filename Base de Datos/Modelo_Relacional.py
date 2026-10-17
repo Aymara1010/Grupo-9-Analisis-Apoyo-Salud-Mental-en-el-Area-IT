@@ -75,10 +75,9 @@ def limpiar_respuestas(conn, ruta_destino):
     finally:
         conn.close()
 
-def normalizar_base_de_datos(db_path="mental_health.sqlite"):
-
+def normalizar_base_de_datos(db_path):
     if not os.path.exists(db_path):
-        print(f"No se encontró el archivo.")
+        print(f"No se encontró el archivo en: {db_path}")
         return
 
     print(f"Conectando a {db_path}...")
@@ -102,32 +101,32 @@ CREATE TABLE IF NOT EXISTS Estados_USA (
 -- Encuesta y Preguntas
 
 CREATE TABLE IF NOT EXISTS Encuesta (
-    SurveyID INTEGER PRIMARY KEY,
-    Description VARCHAR NOT NULL UNIQUE
+    EncuestaID INTEGER PRIMARY KEY,
+    Descripcion VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Pregunta (
-    QuestionID INTEGER PRIMARY KEY,
-    QuestionText VARCHAR NOT NULL,
+    PreguntaID INTEGER PRIMARY KEY,
+    Pregunta VARCHAR NOT NULL,
     Tabla_Destino VARCHAR,
     Columna_Destino VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS Pregunta_Encuesta (
-    QuestionID INTEGER NOT NULL,
-    SurveyID INTEGER NOT NULL,
-    PRIMARY KEY (QuestionID, SurveyID),
-    FOREIGN KEY (QuestionID) REFERENCES Pregunta(QuestionID) ON DELETE CASCADE,
-    FOREIGN KEY (SurveyID) REFERENCES Encuesta(SurveyID) ON DELETE CASCADE
+    PreguntaID INTEGER NOT NULL,
+    EncuestaID INTEGER NOT NULL,
+    PRIMARY KEY (PreguntaID, EncuestaID),
+    FOREIGN KEY (PreguntaID) REFERENCES Pregunta(PreguntaID) ON DELETE CASCADE,
+    FOREIGN KEY (EncuestaID) REFERENCES Encuesta(EncuestaID) ON DELETE CASCADE
 );
 
 -- Respuestas (Núcleo de la bd)
 CREATE TABLE IF NOT EXISTS Respuesta (
     RespuestaID INTEGER PRIMARY KEY AUTOINCREMENT,
-    UsuarioID INTEGER NOT NULL,
-    SurveyID INTEGER NOT NULL,
-    FOREIGN KEY (SurveyID) REFERENCES Encuesta(SurveyID) ON DELETE CASCADE,
-    UNIQUE(UsuarioID, SurveyID)
+    EncuestadoID INTEGER NOT NULL,
+    EncuestaID INTEGER NOT NULL,
+    FOREIGN KEY (EncuestaID) REFERENCES Encuesta(EncuestaID) ON DELETE CASCADE,
+    UNIQUE(EncuestadoID, EncuestaID)
 );
     """
     
@@ -136,7 +135,7 @@ CREATE TABLE IF NOT EXISTS Respuesta (
         conn.commit()
         print("Tablas creadas correctamente.")
     except sqlite3.Error as e:
-        print("Error de creación")
+        print(f"Error de creación: {e}")
         conn.rollback()
     finally:
         conn.close()
