@@ -1,0 +1,105 @@
+PreguntaID;Pregunta;Tabla_Destino;Columna_Destino
+1;What is your age?;Info_Usuario;Edad
+2;What is your gender?;Info_Usuario;Genero
+3;What country do you live in?;Info_Usuario;Pais_Vivienda
+4;If you live in the United States, which state or territory do you live in?;Usuarios_Vive_USA;Estado_USA_Vivienda
+5;Are you self-employed?;Trabajo_Usuario;Freelance
+6;Do you have a family history of mental illness?;Estado_Mental;Historial
+7;Have you ever sought treatment for a mental health disorder from a mental health professional?;Estado_Mental;Tratamiento
+8;How many employees does your company or organization have?;Trabajo_Usuario;Num_Empleados
+9;Is your employer primarily a tech company/organization?;Trabajo_Usuario;Empresa_Tec
+10;Does your employer provide mental health benefits as part of healthcare coverage?;Beneficios_Trabajo_Actual;Beneficio
+11;Is your anonymity protected if you choose to take advantage of mental health or substance abuse treatment resources provided by your employer?;Beneficios_Trabajo_Actual;Privacidad_Tratamiento
+12;Would you bring up a mental health issue with a potential employer in an interview?;Impacto_Social_Trabajo_Actual;Salud_Mental_Entrevista
+13;Is your primary role within your company related to tech/IT?;Trabajo_Usuario;Perfil_Tecnologico
+14;Do you know the options for mental health care available under your employer-provided health coverage?;Beneficios_Trabajo_Actual;Conocimiento_Cobertura
+15;Has your employer ever formally discussed mental health (for example, as part of a wellness campaign or other official communication)?;Beneficios_Trabajo_Actual;Conversacion_Empresarial
+16;Does your employer offer resources to learn more about mental health disorders and options for seeking help?;Beneficios_Trabajo_Actual;Disponibilidad_Recursos
+17;If a mental health issue prompted you to request a medical leave from work, how easy or difficult would it be to ask for that leave?;Beneficios_Trabajo_Actual;Gestion_Licencia
+18;Would you feel comfortable discussing a mental health issue with your coworkers?;Impacto_Social_Trabajo_Actual;Confianza_Colegas
+19;Would you feel comfortable discussing a mental health issue with your direct supervisor(s)?;Impacto_Social_Trabajo_Actual;Confianza_Liderazgo
+20;Do you have medical coverage (private insurance or state-provided) that includes treatment of mental health disorders?;Beneficios_Trabajo_Actual;Acceso_Servicios
+21;Do you know local or online resources to seek help for a mental health issue?;Beneficios_Trabajo_Actual;Conocimiento_Recursos_Externos
+22;Do you have previous employers?;Trabajo_Usuario;Experiencia_Laboral_Previa
+23;Have your previous employers provided mental health benefits?;Beneficios_Trabajo_Anterior;Beneficios_Anteriores
+24;Were you aware of the options for mental health care provided by your previous employers?;Beneficios_Trabajo_Anterior;Conocimiento_Cobertura_Anterior
+25;Did your previous employers ever formally discuss mental health (as part of a wellness campaign or other official communication)?;Beneficios_Trabajo_Anterior;Comunicacion_Anterior
+26;Did your previous employers provide resources to learn more about mental health disorders and how to seek help?;Beneficios_Trabajo_Anterior;Recursos_Anteriores
+27;Was your anonymity protected if you chose to take advantage of mental health or substance abuse treatment resources with previous employers?;Beneficios_Trabajo_Anterior;Privacidad_Anterior
+28;Would you have been willing to discuss your mental health with your direct supervisor(s)?;Impacto_Social_Trabajo_Anterior;Confianza_Liderazgo_Anterior
+29;Would you be willing to bring up a physical health issue with a potential employer in an interview?;Impacto_Social_Trabajo_Actual;Salud_Fisica_Entrevista
+30;How willing would you be to share with friends and family that you have a mental illness?;Impacto_Social_Trabajo_Actual;Apertura_Circulo_Social
+31;Have your observations of how another individual who discussed a mental health disorder made you less likely to reveal a mental health issue yourself in your current workplace?;Impacto_Social_Trabajo_Actual;Efecto_Revelar_Observado
+32;Have you had a mental health disorder in the past?;Estado_Mental;Historial_Previo
+33;Do you currently have a mental health disorder?;Estado_Mental;Condicion_Actual
+34;Have you ever been diagnosed with a mental health disorder?;Estado_Mental;Diagnostico_Oficial
+48;If you have a mental health disorder, how often do you feel that it interferes with your work when being treated effectively?;Impacto_SM_Trabajo;Interferencia_Bajo_Tratamiento
+49;If you have a mental health disorder, how often do you feel that it interferes with your work when not being treated effectively (i.e., when you are experiencing symptoms)?;Impacto_SM_Trabajo;Interferencia_Sin_Tratamiento
+50;What country do you work in?;Info_Usuario;Pais_Empleo
+51;What US state or territory do you work in?;Usuarios_Trabaja_USA;Estado_USA_Empleo
+52;If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to clients or business contacts?;Impacto_Social_Trabajo_Actual;Apertura_Clientes
+53;If you have been diagnosed or treated for a mental health disorder, do you ever reveal this to coworkers or employees?;Impacto_Social_Trabajo_Actual;Apertura_Companeros
+54;Do you believe your productivity is ever affected by a mental health issue?;Impacto_SM_Trabajo;Productividad_Afectada_SM
+55;If yes, what percentage of your work time (time performing primary or secondary job functions) is affected by a mental health issue?;Impacto_SM_Trabajo;Porcentaje_Tiempo_Afectado_SM
+56;Have you observed or experienced an unsupportive or badly handled response to a mental health issue in your current or previous workplace?;Experiencia_Trabajo_Actual;Experiencia_Respuesta_Negativa_SM
+57;Would you feel more comfortable talking to your coworkers about your physical health or your mental health?;Impacto_Social_Trabajo_Actual;Comodidad_SF_VS_SM_Companeros
+58;Have you ever discussed your mental health with your employer?;Experiencia_Trabajo_Actual;Discutido_SM_Empleador
+59;Describe the conversation you had with your employer about your mental health, including their reactions and what actions were taken to address your mental health issue/questions.;Experiencia_Trabajo_Actual;Descripcion_Conversacion_Empleador_SM
+60;Have you ever discussed your mental health with coworkers?;Experiencia_Trabajo_Actual;Discutido_SM_Companeros
+61;Describe the conversation with coworkers you had about your mental health including their reactions.;Experiencia_Trabajo_Actual;Descripcion_Conversacion_Companeros_SM
+62;Have you ever had a coworker discuss their or another coworker's mental health with you?;Experiencia_Trabajo_Actual;Companero_Discutio_SM_Conmigo
+63;Describe the conversation your coworker had with you about their mental health (please do not use names).;Experiencia_Trabajo_Actual;Descripcion_Conversacion_Companero_SM
+64;Overall, how much importance does your employer place on physical health?;Beneficios_Trabajo_Actual;Prioridad_Salud_Fisica
+65;Overall, how much importance does your employer place on mental health?;Beneficios_Trabajo_Actual;Prioridad_Salud_Mental
+66;If you have revealed a mental health disorder to a client or business contact, how has this affected you or the relationship?;Impacto_Social_Trabajo_Actual;Efecto_Revelar_SM_Cliente
+67;If you have revealed a mental health disorder to a coworker or employee, how has this impacted you or the relationship?;Impacto_Social_Trabajo_Actual;Efecto_Revelar_SM_Companero
+68;Was your employer primarily a tech company/organization?;Trabajo_Usuario;Empresa_Tec_Anterior
+69;Would you have felt more comfortable talking to your previous employer about your physical health or your mental health?;Impacto_Social_Trabajo_Anterior;Comodidad_SF_VS_SM_Anterior
+70;Did you ever discuss your mental health with your previous employer?;Experiencias_Trabajo_Anterior;Discutido_SM_Empleador_Anterior
+71;Describe the conversation you had with your previous employer about your mental health, including their reactions and actions taken to address your mental health issue/questions.;Experiencias_Trabajo_Anterior;Descripcion_Conversacion_Liderazgo_Anterior
+72;Did you ever discuss your mental health with a previous coworker(s)?;Experiencias_Trabajo_Anterior;Discutido_SM_Colegas_Anteriores
+73;Describe the conversation you had with your previous coworkers about your mental health including their reactions.;Experiencias_Trabajo_Anterior;Descripcion_Conversacion_Colegas_Anterior
+74;Did you ever have a previous coworker discuss their or another coworker's mental health with you?;Experiencias_Trabajo_Anterior;Dialogo_Colega_Anterior_SM
+75;Describe the conversation your coworker had with you about their mental health (please do not use names).;Experiencias_Trabajo_Anterior;Relato_Conversacion_Colega_Anterior
+76;Overall, how much importance did your previous employer place on physical health?;Beneficios_Trabajo_Anterior;Prioridad_Fisica_Anterior
+77;Overall, how much importance did your previous employer place on mental health?;Beneficios_Trabajo_Anterior;Prioridad_Mental_Anterior
+78;Are you openly identified at work as a person with a mental health issue?;Impacto_SM_Trabajo;Identificacion_Publica_SM
+79;Has being identified as a person with a mental health issue affected your career?;Impacto_SM_Trabajo;Repercusion_Carrera_SM
+80;How has it affected your career?;Impacto_SM_Trabajo;Detalle_Impacto_Profesional
+81;If they knew you suffered from a mental health disorder, how do you think that your team members/co-workers would react?;Impacto_Social_Trabajo_Actual;Expectativa_Reaccion_Equipo
+82;Describe the circumstances of the badly handled or unsupportive response.;Experiencia_Trabajo_Actual;Contexto_Respuesta_Negativa
+83;Have you observed or experienced supportive or well handled response to a mental health issue in your current or previous workplace?;Experiencia_Trabajo_Actual;Percepcion_Apoyo_SM
+85;Overall, how well do you think the tech industry supports employees with mental health issues?;Opinion_Industria;Percepcion_Apoyo_SM_Industria
+86;Briefly describe what you think the industry as a whole and/or employers could do to improve mental health support for employees.;Opinion_Industria;Sugerencias_Mejora_SM_Industria
+87;If there is anything else you would like to tell us that has not been covered by the survey questions, please use this space to do so.;Opinion_Industria;Comentarios_Adicionales_Encuesta
+88;Would you be willing to talk to one of us more extensively about your experiences with mental health issues in the tech industry? (Note that all interview responses would be used anonymously and only with your permission.);Impacto_Social_Trabajo_Actual;Disposicion_Entrevista_SM
+89;What is your race?;Info_Usuario;Raza_Etnia
+90;Do you think that discussing a physical health issue with your employer would have negative consequences?;Impacto_Social_Trabajo_Actual;Consecuencias_Discutir_SF
+91;Do you feel that your employer takes mental health as seriously as physical health?;Beneficios_Trabajo_Actual;Empresa_Seriedad_SM_VS_SF
+92;If you have a mental health condition, do you feel that it interferes with your work?;Impacto_SM_Trabajo;Interferencia_SM_Trabajo_General
+93;Do you work remotely (outside of an office) at least 50% of the time?;Trabajo_Usuario;Trabajo_Remoto_50
+94;Do you know the options for mental health care your employer provides?;Beneficios_Trabajo_Actual;Conocimiento_Opciones_SM_Empleador
+95;Has your employer ever discussed mental health as part of an employee wellness program?;Beneficios_Trabajo_Actual;Empresa_Programa_Bienestar_SM
+96;Does your employer provide resources to learn more about mental health issues and how to seek help?;Beneficios_Trabajo_Actual;Empresa_Recursos_Ayuda_SM
+97;How easy is it for you to take medical leave for a mental health condition?;Beneficios_Trabajo_Actual;Facilidad_Licencia_Medica_SM
+98;Do you think that discussing a mental health issue with your employer would have negative consequences?;Impacto_Social_Trabajo_Actual;Consecuencias_Discutir_SM
+99;Would you be willing to discuss a mental health issue with your coworkers?;Impacto_Social_Trabajo_Actual;Disposicion_SM_Companeros
+100;Would you be willing to discuss a mental health issue with your direct supervisor(s)?;Impacto_Social_Trabajo_Actual;Disposicion_SM_Supervisor
+101;Would you bring up a physical health issue with a potential employer in an interview?;Impacto_Social_Trabajo_Actual;Mencionar_SF_Entrevista
+102;Have you heard of or observed negative consequences for coworkers with mental health conditions in your workplace?;Impacto_Social_Trabajo_Actual;Consecuencias_SM_Companeros
+103;Any additional notes or comments;Opinion_Industria;Notas_Comentarios_Adicionales
+104;Do you think that discussing a mental health disorder with your employer would have negative consequences?;Impacto_Social_Trabajo_Actual;Consecuencias_SM_Empleador_Actual
+105;Have you heard of or observed negative consequences for co-workers who have been open about mental health issues in your workplace?;Impacto_Social_Trabajo_Actual;Consecuencias_SM_Companeros_Actual
+106;If you have revealed a mental health issue to a client or business contact, do you believe this has impacted you negatively?;Impacto_Social_Trabajo_Actual;Impacto_Negativo_SM_Cliente
+107;If you have revealed a mental health issue to a coworker or employee, do you believe this has impacted you negatively?;Impacto_Social_Trabajo_Actual;Impacto_Negativo_SM_Companero
+108;Do you think that discussing a mental health disorder with previous employers would have negative consequences?;Impacto_Social_Trabajo_Anterior;Consecuencias_SM_Empleador_Anterior
+109;Do you think that discussing a physical health issue with previous employers would have negative consequences?;Impacto_Social_Trabajo_Anterior;Consecuencias_SF_Empleador_Anterior
+110;Would you have been willing to discuss a mental health issue with your previous co-workers?;Impacto_Social_Trabajo_Anterior;Disposicion_SM_Companeros_Anteriores
+111;Did you feel that your previous employers took mental health as seriously as physical health?;Beneficios_Trabajo_Anterior;Empresa_Anterior_Seriedad_SM_VS_SF
+112;Did you hear of or observe negative consequences for co-workers with mental health issues in your previous workplaces?;Impacto_Social_Trabajo_Anterior;Consecuencias_SM_Companeros_Anteriores
+113;Do you feel that being identified as a person with a mental health issue would hurt your career?;Impacto_SM_Trabajo;Perjuicio_Carrera_SM
+114;Do you think that team members/co-workers would view you more negatively if they knew you suffered from a mental health issue?;Impacto_Social_Trabajo_Actual;Percepcion_Negativa_Equipo_SM
+115;If yes, what condition(s) have you been diagnosed with?;Condicion_Diagnosticada;Condiciones_SM_Diagnosticadas
+116;If maybe, what condition(s) do you believe you have?;Condicion_Sospechada;Condiciones_SM_Sospechadas
+117;Which of the following best describes your work position?;Trabajo_Respuesta;Puesto_Trabajo_Categoria
+118;Do you work remotely?;Trabajo_Usuario;Trabajo_Remoto

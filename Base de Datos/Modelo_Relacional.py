@@ -1,4 +1,5 @@
 import sqlite3
+import pandas as pd
 import os
 
 def clonar_datos_filtrados(ruta_origen, ruta_destino):
@@ -290,3 +291,13 @@ CREATE TABLE IF NOT EXISTS Impacto_Social_Trabajo_Anterior (
         conn.rollback()
     finally:
         conn.close()
+        
+def insertar_preguntas(db_path):
+    if not os.path.exists(db_path):
+        print(f"No se encontró el archivo.")
+        return
+
+    df = pd.read_csv("Preguntas.csv", sep=";")
+    conn = sqlite3.connect(db_path)
+    df.to_sql("Pregunta", conn, if_exists="append", index=False)
+    conn.close()
