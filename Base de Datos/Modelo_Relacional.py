@@ -248,6 +248,37 @@ CREATE TABLE IF NOT EXISTS Experiencia_Trabajo_Actual (
     Percepcion_Apoyo_SM VARCHAR,
     FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
 );
+
+-- Trabajo Anterior
+CREATE TABLE IF NOT EXISTS Beneficios_Trabajo_Anterior (
+    RespuestaID INTEGER PRIMARY KEY,
+    Beneficios_Anteriores VARCHAR,
+    Conocimiento_Cobertura_Anterior VARCHAR,
+    Comunicacion_Anterior VARCHAR,
+    Recursos_Anteriores VARCHAR,
+    Privacidad_Anterior VARCHAR,
+    Prioridad_Fisica_Anterior INTEGER CHECK (Prioridad_Fisica_Anterior BETWEEN 0 AND 10 OR Prioridad_Fisica_Anterior IS NULL),
+    Prioridad_Mental_Anterior INTEGER CHECK (Prioridad_Mental_Anterior BETWEEN 0 AND 10 OR Prioridad_Mental_Anterior IS NULL),
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Experiencias_Trabajo_Anterior (
+    RespuestaID INTEGER PRIMARY KEY,
+    Discutido_SM_Empleador_Anterior INTEGER CHECK (Discutido_SM_Empleador_Anterior IN (0, 1, NULL)),
+    Descripcion_Conversacion_Liderazgo_Anterior VARCHAR,
+    Discutido_SM_Colegas_Anteriores INTEGER CHECK (Discutido_SM_Colegas_Anteriores IN (0, 1, NULL)),
+    Descripcion_Conversacion_Colegas_Anterior VARCHAR,
+    Dialogo_Colega_Anterior_SM INTEGER CHECK (Dialogo_Colega_Anterior_SM IN (0, 1, NULL)),
+    Relato_Conversacion_Colega_Anterior VARCHAR,
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Impacto_Social_Trabajo_Anterior (
+    RespuestaID INTEGER PRIMARY KEY,
+    Confianza_Liderazgo_Anterior VARCHAR,
+    Comodidad_SF_VS_SM_Anterior VARCHAR,
+    FOREIGN KEY (RespuestaID) REFERENCES Respuesta(RespuestaID) ON DELETE CASCADE
+);
     """
     
     try:
