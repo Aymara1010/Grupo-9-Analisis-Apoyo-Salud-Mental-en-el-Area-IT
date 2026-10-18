@@ -135,3 +135,50 @@ def migrar_estado_y_trabajo_actual(db_path="modelo_relacional.sqlite"):
     """
     ejecutar_script(sql, db_path)
     print("Estado mental y trabajo actual migrados.")
+   
+def migrar_social_y_trabajo_anterior(db_path="modelo_relacional.sqlite"):
+    sql = """
+    PRAGMA foreign_keys = OFF;
+
+    INSERT OR REPLACE INTO Impacto_Social_Trabajo_Actual (RespuestaID, Salud_Mental_Entrevista, Confianza_Colegas, Confianza_Liderazgo, Salud_Fisica_Entrevista, Apertura_Circulo_Social, Efecto_Revelar_Observado, Apertura_Clientes, Apertura_Companeros, Comodidad_SF_VS_SM_Companeros, Efecto_Revelar_SM_Cliente, Efecto_Revelar_SM_Companero, Expectativa_Reaccion_Equipo, Disposicion_Entrevista_SM)
+    SELECT r.RespuestaID,
+        MAX(CASE WHEN a.QuestionID = 12 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 18 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 19 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 29 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 30 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 31 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 52 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 53 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 57 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 66 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 67 THEN a.AnswerText END),
+        MAX(CASE WHEN a.QuestionID = 81 AND CAST(a.AnswerText AS INTEGER) BETWEEN 0 AND 10 THEN CAST(a.AnswerText AS INTEGER) END),
+        MAX(CASE WHEN a.QuestionID = 88 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END)
+    FROM Respuesta r
+    LEFT JOIN Answer a ON a.UserID = r.EncuestadoID AND a.SurveyID = r.EncuestaID AND a.QuestionID IN (12, 18, 19, 29, 30, 31, 52, 53, 57, 66, 67, 81, 88)
+    GROUP BY r.RespuestaID;
+
+    INSERT OR REPLACE INTO Experiencia_Trabajo_Actual (RespuestaID, Experiencia_Respuesta_Negativa_SM, Discutido_SM_Empleador, Descripcion_Conversacion_Empleador_SM, Discutido_SM_Companeros, Descripcion_Conversacion_Companeros_SM, Companero_Discutio_SM_Conmigo, Descripcion_Conversacion_Companero_SM, Contexto_Respuesta_Negativa, Percepcion_Apoyo_SM)
+    SELECT r.RespuestaID,
+        MAX(CASE WHEN a.QuestionID = 56 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 58 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END), MAX(CASE WHEN a.QuestionID = 59 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 60 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END), MAX(CASE WHEN a.QuestionID = 61 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 62 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END), MAX(CASE WHEN a.QuestionID = 63 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 82 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 83 THEN a.AnswerText END)
+    FROM Respuesta r
+    LEFT JOIN Answer a ON a.UserID = r.EncuestadoID AND a.SurveyID = r.EncuestaID AND a.QuestionID IN (56, 58, 59, 60, 61, 62, 63, 82, 83)
+    GROUP BY r.RespuestaID;
+
+    INSERT OR REPLACE INTO Beneficios_Trabajo_Anterior (RespuestaID, Beneficios_Anteriores, Conocimiento_Cobertura_Anterior, Comunicacion_Anterior, Recursos_Anteriores, Privacidad_Anterior, Prioridad_Fisica_Anterior, Prioridad_Mental_Anterior)
+    SELECT r.RespuestaID,
+        MAX(CASE WHEN a.QuestionID = 23 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 24 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 25 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 26 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 27 THEN a.AnswerText END),
+        MAX(CASE WHEN a.QuestionID = 76 AND CAST(a.AnswerText AS INTEGER) BETWEEN 0 AND 10 THEN CAST(a.AnswerText AS INTEGER) END),
+        MAX(CASE WHEN a.QuestionID = 77 AND CAST(a.AnswerText AS INTEGER) BETWEEN 0 AND 10 THEN CAST(a.AnswerText AS INTEGER) END)
+    FROM Respuesta r
+    LEFT JOIN Answer a ON a.UserID = r.EncuestadoID AND a.SurveyID = r.EncuestaID AND a.QuestionID IN (23, 24, 25, 26, 27, 76, 77)
+    GROUP BY r.RespuestaID;
+
+    INSERT OR REPLACE INTO Experiencias_Trabajo_Anterior (RespuestaID, Discutido_SM_Empleador_Anterior, Descripcion_Conversacion_Liderazgo_Anterior, Discutido_SM_Colegas_Anteriores, Descripcion_Conversacion_Colegas_Anterior, Dialogo_Colega_Anterior_SM, Relato_Conversacion_Colega_Anterior)
+    SELECT r.RespuestaID,
+        MAX(CASE WHEN a.QuestionID = 70 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END), MAX(CASE WHEN a.QuestionID = 71 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 72 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END), MAX(CASE WHEN a.QuestionID = 73 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 74 AND a.AnswerText IN ('0', '1') THEN CAST(a.AnswerText AS INTEGER) END), MAX(CASE WHEN a.QuestionID = 75 AND a.AnswerText NOT IN ('.') THEN a.AnswerText END)
+    FROM Respuesta r
+    LEFT JOIN Answer a ON a.UserID = r.EncuestadoID AND a.SurveyID = r.EncuestaID AND a.QuestionID IN (70, 71, 72, 73, 74, 75)
+    GROUP BY r.RespuestaID;
+
+    INSERT OR REPLACE INTO Impacto_Social_Trabajo_Anterior (RespuestaID, Confianza_Liderazgo_Anterior, Comodidad_SF_VS_SM_Anterior)
+    SELECT r.RespuestaID, MAX(CASE WHEN a.QuestionID = 28 THEN a.AnswerText END), MAX(CASE WHEN a.QuestionID = 69 THEN a.AnswerText END)
+    FROM Respuesta r
+    LEFT JOIN Answer a ON a.UserID = r.EncuestadoID AND a.SurveyID = r.EncuestaID AND a.QuestionID IN (28, 69)
+    GROUP BY r.RespuestaID;
+
+    PRAGMA foreign_keys = ON;
+    """
+    ejecutar_script(sql, db_path)
+    print("Social y trabajo anterior migrados.")
