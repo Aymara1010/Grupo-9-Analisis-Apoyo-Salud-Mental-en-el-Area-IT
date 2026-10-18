@@ -13,3 +13,4 @@ if __name__ == "__main__":
     
 if __name__ == "__main__":
     catalogos = id.migrar_catalogos_y_centro()
+    demofrafia = id.migrar_demografia_y_trabajo()
