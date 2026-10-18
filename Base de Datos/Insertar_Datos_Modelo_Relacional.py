@@ -239,6 +239,89 @@ WHERE Discutido_SM_Empleador_Anterior IS NULL
 DELETE FROM Impacto_Social_Trabajo_Anterior
 WHERE Confianza_Liderazgo_Anterior IS NULL
   AND Comodidad_SF_VS_SM_Anterior IS NULL;
+  
+-- Validación Cruzada:
+
+-- Info_Encuestado
+UPDATE Info_Encuestado
+SET Pais_Empleo = Pais_Vivienda 
+WHERE Pais_Empleo  IS NULL
+
+UPDATE Info_Encuestado
+SET Pais_Vivienda = Pais_Empleo 
+WHERE Pais_Vivienda  IS NULL
+
+UPDATE Info_Encuestado
+SET Raza_Etnia = 'No Declarado' 
+WHERE Raza_Etnia   IS NULL
+
+UPDATE Info_Encuestado
+SET Genero = 'No Declarado' 
+WHERE Genero   IS NULL
+
+UPDATE Info_Encuestado
+SET Edad = ROUND((SELECT AVG(b.Edad)
+                  FROM Info_Encuestado b
+                  WHERE b.Genero = Info_Encuestado.Genero 
+                  AND Info_Encuestado.Pais_Vivienda = b.Pais_Vivienda 
+                  AND b.Edad IS NOT NULL), 2)
+WHERE Edad IS NULL
+
+-- Trabajo Encuestado
+
+UPDATE Trabajo_Encuestado
+SET 
+    Empresa_Tec = 0,
+    Perfil_Tecnologico = 1
+WHERE Freelance = 1 
+  AND (Empresa_Tec IS NULL OR Perfil_Tecnologico IS NULL);
+
+--Beneficios
+UPDATE Beneficios_Trabajo_Actual
+SET Conocimiento_Cobertura = CASE 
+    WHEN Beneficio LIKE 'Not eligible%' OR Beneficio = 'No' THEN 'No'
+    WHEN Beneficio = 'I don''t know' THEN 'I don''t know'
+    WHEN Beneficio = 'Yes' THEN 'Yes'
+    ELSE 'No' END
+WHERE Conocimiento_Cobertura IS NULL;
+
+UPDATE Beneficios_Trabajo_Actual
+SET Conocimiento_Cobertura = CASE 
+    WHEN Acceso_Servicios = 0 
+      OR Conocimiento_Recursos_Externos LIKE 'No%' THEN 'No'
+    WHEN Acceso_Servicios = 1 
+      AND Conocimiento_Recursos_Externos LIKE 'Yes%' THEN 'Yes'
+    WHEN Acceso_Servicios = 1 
+      AND Conocimiento_Recursos_Externos LIKE '%some%' THEN 'I don''t know'
+    WHEN Acceso_Servicios = 1 THEN 'Yes'
+    ELSE 'No'
+END
+WHERE Acceso_Servicios IS NOT NULL;
+
+UPDATE Beneficios_Trabajo_Actual
+SET 
+    Beneficio = 'Not Applicable',
+    Privacidad_Tratamiento = 'Not Applicable',
+    Conversacion_Empresarial = 'Not Applicable'
+WHERE Acceso_Servicios IS NOT NULL 
+  AND Beneficio IS NULL;
+
+-- Texto Complejo
+UPDATE Experiencia_Trabajo_Actual
+SET Descripcion_Conversacion_Companeros_SM = CASE 
+    WHEN Discutido_SM_Companeros = 1 THEN 'No description provided'
+    ELSE 'Not applicable' END
+WHERE Descripcion_Conversacion_Companeros_SM IS NULL;
+
+UPDATE Experiencia_Trabajo_Actual
+SET Descripcion_Conversacion_Companero_SM = CASE 
+    WHEN Companero_Discutio_SM_Conmigo = 1 THEN 'No description provided'
+    ELSE 'Not applicable' END
+WHERE Descripcion_Conversacion_Companero_SM IS NULL;
+
+UPDATE Opinion_Industria
+SET Sugerencias_Mejora_SM_Industria = 'No description provided'
+WHERE Sugerencias_Mejora_SM_Industria IS NULL;
     """
     ejecutar_script(sql, db_path)
     print("base de datos limpiada.")    
