@@ -182,3 +182,63 @@ def migrar_social_y_trabajo_anterior(db_path="modelo_relacional.sqlite"):
     """
     ejecutar_script(sql, db_path)
     print("Social y trabajo anterior migrados.")
+    
+def limpieza(db_path="modelo_relacional.sqlite"):
+    sql = """
+-- Info General
+DELETE FROM Info_Encuestado
+WHERE Edad IS NULL
+  AND Genero IS NULL
+  AND Pais_Vivienda IS NULL
+  AND Pais_Empleo IS NULL
+  AND Raza_Etnia IS NULL;
+
+DELETE FROM Trabajo_Encuestado
+WHERE Freelance IS NULL
+  AND Num_Empleados IS NULL
+  AND Empresa_Tec IS NULL
+  AND Perfil_Tecnologico IS NULL
+  AND Experiencia_Laboral_Previa IS NULL
+  AND Empresa_Tec_Anterior IS NULL;
+
+DELETE FROM Opinion_Industria
+WHERE Percepcion_Apoyo_SM_Industria IS NULL
+  AND Sugerencias_Mejora_SM_Industria IS NULL
+  AND Comentarios_Adicionales_Encuesta IS NULL;
+
+-- Trabajo Actual
+DELETE FROM Experiencia_Trabajo_Actual
+WHERE Experiencia_Respuesta_Negativa_SM IS NULL
+  AND Discutido_SM_Empleador IS NULL
+  AND Descripcion_Conversacion_Empleador_SM IS NULL
+  AND Discutido_SM_Companeros IS NULL
+  AND Descripcion_Conversacion_Companeros_SM IS NULL
+  AND Companero_Discutio_SM_Conmigo IS NULL
+  AND Descripcion_Conversacion_Companero_SM IS NULL
+  AND Contexto_Respuesta_Negativa IS NULL
+  AND Percepcion_Apoyo_SM IS NULL;
+
+-- Trabajo Anterior
+DELETE FROM Beneficios_Trabajo_Anterior
+WHERE Beneficios_Anteriores IS NULL
+  AND Conocimiento_Cobertura_Anterior IS NULL
+  AND Comunicacion_Anterior IS NULL
+  AND Recursos_Anteriores IS NULL
+  AND Privacidad_Anterior IS NULL
+  AND Prioridad_Fisica_Anterior IS NULL
+  AND Prioridad_Mental_Anterior IS NULL;
+
+DELETE FROM Experiencias_Trabajo_Anterior
+WHERE Discutido_SM_Empleador_Anterior IS NULL
+  AND Descripcion_Conversacion_Liderazgo_Anterior IS NULL
+  AND Discutido_SM_Colegas_Anteriores IS NULL
+  AND Descripcion_Conversacion_Colegas_Anterior IS NULL
+  AND Dialogo_Colega_Anterior_SM IS NULL
+  AND Relato_Conversacion_Colega_Anterior IS NULL;
+
+DELETE FROM Impacto_Social_Trabajo_Anterior
+WHERE Confianza_Liderazgo_Anterior IS NULL
+  AND Comodidad_SF_VS_SM_Anterior IS NULL;
+    """
+    ejecutar_script(sql, db_path)
+    print("base de datos limpiada.")    

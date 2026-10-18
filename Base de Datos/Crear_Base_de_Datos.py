@@ -1,5 +1,5 @@
 import Modelo_Relacional as mr
-import Insertar_Datos_Modelo_Dimensional as id
+import Insertar_Datos_Modelo_Relacional as id
 
 bd_original = "mental_health.sqlite"
 bd_relacional = "modelo_relacional.sqlite"
@@ -16,3 +16,4 @@ if __name__ == "__main__":
     demofrafia = id.migrar_demografia_y_trabajo()
     estado = id.migrar_estado_y_trabajo_actual()
     anterior = id.migrar_social_y_trabajo_anterior()
+    limpieza = id.limpieza()
