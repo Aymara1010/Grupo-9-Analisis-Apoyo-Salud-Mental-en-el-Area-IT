@@ -1,14 +1,18 @@
 import sqlite3
 
-def ejecutar_script(sql, db_path):
+def ejecutar_script(sql: str, db_path: str):
     conn = None
     try:
         conn = sqlite3.connect(db_path)
         conn.cursor().executescript(sql)
-        conn.commit()
+        print("Script SQL ejecutado exitosamente.")
     except sqlite3.Error as e:
+        print(f"Error durante la ejecución del script SQL: {e}")
         if conn:
-            conn.rollback()
+            try:
+                conn.rollback()
+            except sqlite3.Error:
+                pass
         raise e
     finally:
         if conn:
@@ -245,19 +249,19 @@ WHERE Confianza_Liderazgo_Anterior IS NULL
 -- Info_Encuestado
 UPDATE Info_Encuestado
 SET Pais_Empleo = Pais_Vivienda 
-WHERE Pais_Empleo  IS NULL
+WHERE Pais_Empleo  IS NULL;
 
 UPDATE Info_Encuestado
 SET Pais_Vivienda = Pais_Empleo 
-WHERE Pais_Vivienda  IS NULL
+WHERE Pais_Vivienda  IS NULL;
 
 UPDATE Info_Encuestado
 SET Raza_Etnia = 'No Declarado' 
-WHERE Raza_Etnia   IS NULL
+WHERE Raza_Etnia   IS NULL;
 
 UPDATE Info_Encuestado
 SET Genero = 'No Declarado' 
-WHERE Genero   IS NULL
+WHERE Genero   IS NULL;
 
 UPDATE Info_Encuestado
 SET Edad = ROUND((SELECT AVG(b.Edad)
@@ -265,7 +269,7 @@ SET Edad = ROUND((SELECT AVG(b.Edad)
                   WHERE b.Genero = Info_Encuestado.Genero 
                   AND Info_Encuestado.Pais_Vivienda = b.Pais_Vivienda 
                   AND b.Edad IS NOT NULL), 2)
-WHERE Edad IS NULL
+WHERE Edad IS NULL;
 
 -- Trabajo Encuestado
 
