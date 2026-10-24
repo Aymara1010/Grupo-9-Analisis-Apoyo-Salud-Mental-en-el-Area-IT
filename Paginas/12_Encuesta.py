@@ -35,3 +35,53 @@ with st.form("encuesta_osmi"):
     with col4:
         condicion_actual = st.radio("Actualmente, ¿consideras que tienes una condición de salud mental?", ["Sí", "No", "Tal vez / No lo sé"])
 
+    st.markdown("---")
+    
+    st.subheader("3. Percepción del Entorno Laboral y Beneficios")
+    col5, col6 = st.columns(2)
+    with col5:
+        beneficios = st.radio("¿Tu empresa ofrece beneficios explícitos para salud mental?", ["Sí", "No", "No lo sé"])
+        privacidad = st.radio("¿Tu empleador protege la privacidad si buscas tratamiento?", ["Sí", "No", "No lo sé"])
+    with col6:
+        cobertura = st.radio("¿Conoces los detalles de la cobertura de salud mental ofrecida?", ["Sí", "No", "No aplica"])
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    imp_mental = st.slider("Importancia que tu empresa le da a la Salud Mental (1-10)", 1, 10, 5)
+    imp_fisica = st.slider("Importancia que tu empresa le da a la Salud Física (1-10)", 1, 10, 5)
+
+    
+    enviado = st.form_submit_button("💜 Enviar Encuesta", use_container_width=True)
+
+if enviado:
+
+    datos = {
+        "p_edad": edad, "p_genero": genero, "p_exp": exp_tech, "p_mod": modalidad,
+        "p_facultad": facultad, "p_area": area_tech, "p_rol": rol, "p_free": freelance,
+        "p_emp": empresa_tech, "p_ant": antecedentes, "p_trat": buscado_tratamiento,
+        "p_cond": condicion_actual, "p_ben": beneficios, "p_priv": privacidad,
+        "p_cob": cobertura, "p_imp_m": imp_mental, "p_imp_f": imp_fisica
+    }
+    
+    query = text("""
+        INSERT INTO public.estudiante (
+            edad, genero, experiencia_tecnologica, modalidad_trabajo, facultad_estudio, 
+            area_tecnologica, rol_especifico, trabaja_freelance, empresa_puramente_tecnologia,
+            antecedentes_familiares, buscado_tratamiento, condicion_actual,
+            beneficios_empresa, privacidad_tratamiento, conoce_cobertura,
+            importancia_salud_mental_empresa, importancia_salud_fisica_empresa
+        ) VALUES (
+            :p_edad, :p_genero, :p_exp, :p_mod, :p_facultad, 
+            :p_area, :p_rol, :p_free, :p_emp,
+            :p_ant, :p_trat, :p_cond,
+            :p_ben, :p_priv, :p_cob,
+            :p_imp_m, :p_imp_f
+        )
+    """)
+    
+    try:
+        with engine.begin() as con:
+            con.execute(query, datos)
+        st.success("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!")
+        st.balloons()
+    except Exception as e:
+        st.error(f"Error al enviar la encuesta: {e}")
