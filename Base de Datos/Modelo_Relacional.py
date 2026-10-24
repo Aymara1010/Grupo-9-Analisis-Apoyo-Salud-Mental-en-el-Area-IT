@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS Respuesta (
 -- Información General del Encuestado
 CREATE TABLE IF NOT EXISTS Info_Encuestado (
     RespuestaID INTEGER PRIMARY KEY,
-    Edad INTEGER,
+    Edad FLOAT,
     Genero VARCHAR,
     Pais_Vivienda INTEGER,
     Pais_Empleo INTEGER,
