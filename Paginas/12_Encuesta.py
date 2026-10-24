@@ -1,13 +1,62 @@
-
 import streamlit as st
+import sqlite3
+import random
 from sqlalchemy import text
 from conexion import engine
 
-st.title("📝 Encuesta: Salud Mental en el Área IT")
-st.markdown("Tu participación nos ayuda a entender mejor el panorama actual. Los datos son anónimos.")
+# --- CONFIGURACIÓN DE ESTILO PERSONALIZADO (LILA / MORADO) ---
+st.markdown("""
+    <style>
+    .stApp {
+        background: linear-gradient(135deg, #f4ebff 0%, #fbf7ff 50%, #f3e8ff 100%);
+    }
+    div[data-testid="stForm"] {
+        background-color: rgba(255, 255, 255, 0.85);
+        border: 1px solid #d8b4fe;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 4px 12px rgba(123, 44, 191, 0.08);
+    }
+    .stButton>button {
+        background: linear-gradient(90deg, #7B2CBF 0%, #3C096C 100%);
+        color: white;
+        border-radius: 12px;
+        font-weight: bold;
+        border: none;
+        padding: 0.6rem 2rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    .stButton>button:hover {
+        background: linear-gradient(90deg, #5a189a 0%, #240046 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(60, 9, 108, 0.3);
+    }
+    h1, h2, h3 {
+        color: #3C096C !important;
+    }
+    .mensaje-motivacional {
+        background-color: #ffffff;
+        border-left: 5px solid #7B2CBF;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-top: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    </style>
+""", unsafe_allow_html=True)
 
+st.title("💜 📝 Encuesta sobre Bienestar y Salud Mental en el Sector Tecnológico")
+st.markdown("""
+Esta encuesta recopila métricas sobre **bienestar emocional, antecedentes y cultura organizacional** 
+en el sector de tecnología. Tu participación es totalmente confidencial y anónima.
+""")
+
+st.divider()
 with st.form("encuesta_osmi"):
-    
+
+     # ------------------- SECCIÓN 1: PERFIL GENERAL ------------------
+
     st.subheader("1. Perfil Demográfico y Laboral")
     
     col1, col2 = st.columns(2)
@@ -15,15 +64,11 @@ with st.form("encuesta_osmi"):
     with col1:
         edad = st.number_input("Edad", min_value=15, max_value=100, value=28)
         genero = st.selectbox("Género", ["Femenino", "Masculino", "No binario", "Prefiero no decirlo"])
-        exp_tech = st.selectbox("Años de experiencia en el sector", ["Menos de 1 año", "1-3 años", "3-5 años", "Más de 5 años"])
-        modalidad = st.selectbox("Modalidad de Trabajo Actual", ["Remoto (100% desde casa)", "Híbrido", "Presencial"])
-
+        facultad = st.selectbox("Facultad de Estudio", ["Ciencias Económicas y Sociales", "Ingeniería", "Ciencias", "Otra"]) 
     with col2:
-        facultad = st.selectbox("Facultad de Estudio", ["Ciencias Económicas y Sociales", "Ingeniería", "Ciencias", "Otra"])
         area_tech = st.selectbox("Área Tecnológica", ["Desarrollo de Software", "Data Science / Análisis", "Ciberseguridad", "Otra"])
-        rol = st.selectbox("Rol Específico", ["Desarrollador Frontend", "Desarrollador Backend", "Data Analyst", "Otro"])
-        freelance = st.selectbox("¿Trabajas como Freelance?", ["Sí", "No"])
-        empresa_tech = st.selectbox("¿Trabajas en una empresa puramente de tecnología?", ["Sí", "No"])
+        rol = st.selectbox("¿Tu rol principal en la empresa está relacionado con la tecnología/TI?", ["Sí", "No"])
+        empresa_tech = st.selectbox("¿Es tu empleador principalmente una empresa u orgnizacion tecnologia?", ["Sí", "No"])
 
     st.markdown("---")
     
