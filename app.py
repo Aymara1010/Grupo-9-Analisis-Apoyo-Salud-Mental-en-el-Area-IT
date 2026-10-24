@@ -47,8 +47,9 @@ p_resultados = st.Page("Paginas/05_Resultados_y_Conclusiones.py", title="Resulta
 p_querys_prof = st.Page("Paginas/09_querys_prof.py", title="Querys Generales")
 p_consultas = st.Page("Paginas/11_sql_interactivo.py", title="Consultas Aquí")
 p_bibli = st.Page("Paginas/10_Bibliografia.py", title="Bibliografía")
+p_encuesta = st.Page("Paginas/12_Encuesta.py", title="📝 Llenar Encuesta")
 
-todas_las_paginas = [p_welcom, p_vista, p_intro, p_equipo, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_consultas, p_bibli]
+todas_las_paginas = [p_welcom, p_vista, p_intro, p_equipo, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_consultas, p_bibli, p_encuesta]
 pg = st.navigation(todas_las_paginas, position="hidden")
 
 #Texto y Orden del menú
@@ -77,4 +78,9 @@ with st.sidebar: #avisos y notas
         st.page_link(p_querys_prof)
         st.page_link(p_consultas)
         st.page_link(p_bibli)
+        
+    with st.expander("📝 Participación", expanded=True):
+        st.page_link(p_encuesta)
+
+
 pg.run()
