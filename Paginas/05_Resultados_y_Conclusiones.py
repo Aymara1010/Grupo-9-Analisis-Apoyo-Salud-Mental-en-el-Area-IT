@@ -182,4 +182,85 @@ fig.update_layout(
 with st.container(border=True):
     st.plotly_chart(fig, use_container_width=True, key="grafico_techwell_final", theme=None)
 
+
+#OBJETIVO NUMERO 2
+
+df1=run_query("""WITH Conteos_Conocimiento AS (
+    SELECT 
+        CASE 
+            WHEN dp.Pais IN ('Estados Unidos', 'United States', 'USA') THEN 'Estados Unidos'
+            WHEN dp.Region IN ('Europa', 'Europe') THEN 'Europa'
+            WHEN dp.Region IN ('Oceanía', 'Oceania') THEN 'Oceanía'
+        END AS Region_Geografica,
+        
+        db.Conocimiento_Cobertura AS Nivel_Conocimiento, 
+        
+        COUNT(f.RespuestaID) AS Cantidad
+    FROM Fact_Respuesta_Encuestado f
+    JOIN Dim_Beneficio_Trabajo db ON f.BeneficiosID = db.BeneficiosID
+    JOIN Dim_Pais dp ON f.Pais_Empleo = dp.PaisID 
+    
+    WHERE (dp.Pais IN ('Estados Unidos', 'United States', 'USA') 
+       OR dp.Region IN ('Europa', 'Europe', 'Oceanía', 'Oceania'))
+      AND db.Conocimiento_Cobertura IS NOT NULL 
+    
+    GROUP BY 1, 2
+),
+Totales_Region AS (
+    SELECT Region_Geografica, SUM(Cantidad) AS Total_Region
+    FROM Conteos_Conocimiento
+    GROUP BY Region_Geografica
+)
+SELECT 
+    c.Region_Geografica,
+    c.Nivel_Conocimiento,
+    c.Cantidad AS Cantidad_Respuestas,
+    t.Total_Region AS Total_Encuestados,
+    ROUND((c.Cantidad * 100.0) / t.Total_Region, 2) AS Proporcion_Porcentaje
+FROM Conteos_Conocimiento c
+JOIN Totales_Region t ON c.Region_Geografica = t.Region_Geografica
+ORDER BY c.Region_Geografica, c.Cantidad DESC;""")
+             
+df1 = run_query("""
+SELECT 
+    CASE 
+        WHEN dp.Pais IN ('Estados Unidos', 'United States', 'USA') THEN 'Estados Unidos'
+        WHEN dp.Region IN ('Europa', 'Oceanía', 'Europe', 'Oceania') THEN 'Europa y Oceanía'
+        ELSE 'Otros' 
+    END AS Region_Geografica,
+    db.Conocimiento_Cobertura AS Nivel_Conocimiento, 
+    COUNT(f.RespuestaID) AS Cantidad_Respuestas,
+    SUM(COUNT(f.RespuestaID)) OVER (
+        PARTITION BY CASE 
+            WHEN dp.Pais IN ('Estados Unidos', 'United States', 'USA') THEN 'Estados Unidos'
+            WHEN dp.Region IN ('Europa', 'Oceanía', 'Europe', 'Oceania') THEN 'Europa y Oceanía'
+            ELSE 'Otros' 
+        END
+    ) AS Total_Encuestados,
+    ROUND(
+        (COUNT(f.RespuestaID) * 100.0) / 
+        SUM(COUNT(f.RespuestaID)) OVER (
+            PARTITION BY CASE 
+                WHEN dp.Pais IN ('Estados Unidos', 'United States', 'USA') THEN 'Estados Unidos'
+                WHEN dp.Region IN ('Europa', 'Oceanía', 'Europe', 'Oceania') THEN 'Europa y Oceanía'
+                ELSE 'Otros' 
+            END
+        ), 2
+    ) AS Proporcion_Porcentaje
+FROM Fact_Respuesta_Encuestado f
+JOIN Dim_Beneficio_Trabajo db ON f.BeneficiosID = db.BeneficiosID
+JOIN Dim_Pais dp ON f.Pais_Empleo = dp.PaisID 
+WHERE db.Conocimiento_Cobertura IS NOT NULL 
+GROUP BY 
+    CASE 
+        WHEN dp.Pais IN ('Estados Unidos', 'United States', 'USA') THEN 'Estados Unidos'
+        WHEN dp.Region IN ('Europa', 'Oceanía', 'Europe', 'Oceania') THEN 'Europa y Oceanía'
+        ELSE 'Otros' 
+    END, 
+    db.Conocimiento_Cobertura
+ORDER BY Region_Geografica, Cantidad_Respuestas DESC;
+""")
+ ########################
+
+
 st.markdown("⚠️🔨 En Construcción...")
