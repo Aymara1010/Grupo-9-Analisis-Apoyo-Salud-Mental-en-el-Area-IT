@@ -261,6 +261,70 @@ GROUP BY
 ORDER BY Region_Geografica, Cantidad_Respuestas DESC;
 """)
  ########################
+st.markdown("""
+<style>
+.tarjeta-objetivo { background-color: #F8F4FF; border-left: 8px solid #3C096C; border-radius: 10px; padding: 15px 20px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); margin-bottom: 25px; }
+.titulo-obj { color: black; font-size: 22px; font-weight: bold; margin: 0; font-family: sans-serif; }
+.texto-obj { color: black; font-size: 16px; margin: 8px 0 0 0; font-family: sans-serif; }
+</style>
+<div class="tarjeta-objetivo">
+    <h2 class="titulo-obj">Objetivo 2</h2>
+    <p class="texto-obj">Determinar la proporción de empleados que conocen sus opciones de atención de salud mental laboral según su región geográfica.</p>
+</div>
+""", unsafe_allow_html=True)
+
+df1['Region_con_N'] = df1['Region_Geografica'] + "<br>(n=" + df1['Total_Encuestados'].astype(str) + ")"
+
+st.markdown("""
+<style>
+.tarjeta-kpi { background-color: #F8F4FF; border-left: 6px solid #7B2CBF; border-radius: 10px; padding: 20px; box-shadow: 0px 8px 20px rgba(123, 44, 191, 0.15); margin-bottom: 25px; font-family: sans-serif; color: black; }
+.titulo-kpi { font-size: 14px; font-weight: bold; color: #3C096C; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.texto-kpi { font-size: 16px; margin: 0; line-height: 1.5; }
+</style>
+<div class="tarjeta-kpi">
+    <div class="titulo-kpi">💡 Conclusiones</div>
+    <p class="texto-kpi">Al comparar la distribución de respuestas, se observan contrastes descriptivos en el nivel de conocimiento sobre las opciones de cobertura entre <b>Estados Unidos</b>, el bloque de <b>Europa y Oceanía</b></p>
+</div>
+""", unsafe_allow_html=True)
+
+fig2 = px.bar(
+    df1,
+    x='Region_con_N',
+    y='Proporcion_Porcentaje',
+    color='Nivel_Conocimiento',
+    barmode='group',
+    text='Proporcion_Porcentaje',
+    color_discrete_map={
+        'Yes': '#7B2CBF',
+        'No': '#c77dff',
+        "I don't know": '#E0AAFF'
+    },
+    category_orders={"Nivel_Conocimiento": ["Yes", "No", "I don't know"]},
+    labels={'Region_con_N': 'Región', 'Proporcion_Porcentaje': 'Proporción (%)', 'Nivel_Conocimiento': 'Conoce su cobertura'},
+    title='<b>Conocimiento sobre Cobertura de Salud Mental</b>',
+    hover_data=['Cantidad_Respuestas', 'Total_Encuestados']
+)
+
+fig2.update_traces(
+    texttemplate='%{text:.1f}%',          
+    textposition='outside',               
+    textfont=dict(color='black', weight='bold'), 
+    marker=dict(line=dict(color='#3C096C', width=1.5)) 
+)
+
+fig2.update_layout(
+    plot_bgcolor='rgba(0,0,0,0)',   
+    paper_bgcolor='rgba(0,0,0,0)',  
+    font=dict(family="sans-serif", color="black", size=12), 
+    title=dict(font=dict(size=18, color="black"), x=0.5, xanchor='center'),
+    xaxis=dict(showgrid=False, title_font=dict(size=14, color="black")),
+    yaxis=dict(showgrid=True, gridcolor='rgba(123, 44, 191, 0.1)', title_font=dict(size=14, color="black"), range=[0, df1['Proporcion_Porcentaje'].max() * 1.25]),
+    margin=dict(t=80, b=60, l=40, r=40),
+    legend=dict(title=None, orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(color="black"))
+)
+
+with st.container(border=True):
+    st.plotly_chart(fig2, use_container_width=True, key="graf_obj2", theme=None)
 
 
 st.markdown("⚠️🔨 En Construcción...")
