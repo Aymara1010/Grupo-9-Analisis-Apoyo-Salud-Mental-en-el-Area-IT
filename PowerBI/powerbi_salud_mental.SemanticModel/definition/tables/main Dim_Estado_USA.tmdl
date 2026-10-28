@@ -1,0 +1,31 @@
+table 'main Dim_Estado_USA'
+	lineageTag: 909d88ca-bda0-46ba-87c8-ad5d75f5ebc0
+
+	column EstadoID
+		dataType: int64
+		formatString: 0
+		lineageTag: ac62c6a1-1674-40a9-94af-d2d604e1b729
+		summarizeBy: none
+		sourceColumn: EstadoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado
+		dataType: string
+		lineageTag: 41e3665d-5f68-47bb-b3b1-252e7572ceea
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Estado_USA' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Estado_USA"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

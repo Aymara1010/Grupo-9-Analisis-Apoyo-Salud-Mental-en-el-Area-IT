@@ -1,0 +1,39 @@
+table 'main Dim_Pais'
+	lineageTag: 186f1143-5c7e-4971-9242-cdaa5c4a2e92
+
+	column PaisID
+		dataType: int64
+		formatString: 0
+		lineageTag: 548b9f9b-bb2a-417a-b888-4ab1fb3ef697
+		summarizeBy: none
+		sourceColumn: PaisID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 74be0882-db07-4e24-860b-221036e7a5c7
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 5f588ef1-517a-4b8b-a2e4-b6e10ad437e6
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Pais' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Pais"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

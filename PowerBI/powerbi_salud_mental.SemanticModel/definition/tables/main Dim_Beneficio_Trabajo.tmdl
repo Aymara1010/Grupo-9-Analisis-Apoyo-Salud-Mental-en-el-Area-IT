@@ -1,0 +1,47 @@
+table 'main Dim_Beneficio_Trabajo'
+	lineageTag: d7f878e0-1154-47ec-bc00-f011dea65803
+
+	column BeneficiosID
+		dataType: int64
+		formatString: 0
+		lineageTag: a0d5f669-bd37-4ba0-9ccd-d7d5296caf1c
+		summarizeBy: none
+		sourceColumn: BeneficiosID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Beneficio
+		dataType: string
+		lineageTag: 534365e3-573f-48af-b4f0-25017bce9e79
+		summarizeBy: none
+		sourceColumn: Beneficio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Privacidad_Tratamiento
+		dataType: string
+		lineageTag: b732ed01-bd21-482b-8f12-7b2d1b4b2107
+		summarizeBy: none
+		sourceColumn: Privacidad_Tratamiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conocimiento_Cobertura
+		dataType: string
+		lineageTag: 6928b646-d579-44ad-88d3-b5f82021c3de
+		summarizeBy: none
+		sourceColumn: Conocimiento_Cobertura
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Beneficio_Trabajo' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Beneficio_Trabajo"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+
