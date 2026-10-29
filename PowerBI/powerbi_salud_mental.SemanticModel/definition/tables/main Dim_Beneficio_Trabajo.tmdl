@@ -1,6 +1,9 @@
 table 'main Dim_Beneficio_Trabajo'
 	lineageTag: d7f878e0-1154-47ec-bc00-f011dea65803
 
+	measure Encuestados = FORMAT([Total Respuestas], "#,0")
+		lineageTag: e74b8466-c573-4fd0-8b73-954f508c7a75
+
 	column BeneficiosID
 		dataType: int64
 		formatString: 0

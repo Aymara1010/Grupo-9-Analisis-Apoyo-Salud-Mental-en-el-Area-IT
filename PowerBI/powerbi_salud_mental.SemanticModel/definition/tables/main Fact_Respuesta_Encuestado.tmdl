@@ -1,6 +1,10 @@
 table 'main Fact_Respuesta_Encuestado'
 	lineageTag: 1bb602d5-183a-463a-9039-adeacbd06e01
 
+	measure 'Total Respuestas' = COUNTROWS('main Fact_Respuesta_Encuestado')
+		formatString: 0
+		lineageTag: f2db91e5-cf7e-4079-b01f-8071a8f48674
+
 	column RespuestaID
 		dataType: int64
 		formatString: 0
