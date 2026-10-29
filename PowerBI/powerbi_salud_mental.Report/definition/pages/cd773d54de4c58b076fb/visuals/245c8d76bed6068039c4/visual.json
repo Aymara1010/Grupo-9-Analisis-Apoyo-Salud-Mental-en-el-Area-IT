@@ -23,11 +23,11 @@
                       "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Property": "Privacidad_Tratamiento"
+                  "Property": "Privacidad ES"
                 }
               },
-              "queryRef": "main Dim_Beneficio_Trabajo.Privacidad_Tratamiento",
-              "nativeQueryRef": "Privacidad_Tratamiento",
+              "queryRef": "main Dim_Beneficio_Trabajo.Privacidad ES",
+              "nativeQueryRef": "Privacidad ES",
               "active": true
             }
           ]
@@ -194,6 +194,19 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
                 }
               }
             }

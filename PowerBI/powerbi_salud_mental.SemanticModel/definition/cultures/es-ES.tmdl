@@ -516,6 +516,16 @@ cultureInfo es-ES
 			            },
 			            "Weight": 0.727
 			          }
+			        },
+			        {
+			          "Año": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -2321,184 +2331,7 @@ cultureInfo es-ES
 			    }
 			  },
 			  "Relationships": {
-			    "main_Dim_Pais_in_region": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Pais"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Pais": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais"
-			          }
-			        },
-			        "main_Dim_Pais.region": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais.region"
-			          }
-			        }
-			      },
-			      "SemanticSlots": {
-			        "Where": {
-			          "Role": "main_Dim_Pais.region"
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Preposition": {
-			            "Subject": {
-			              "Role": "main_Dim_Pais"
-			            },
-			            "Prepositions": [
-			              {
-			                "in": {
-			                  "State": "Generated"
-			                }
-			              }
-			            ],
-			            "Object": {
-			              "Role": "main_Dim_Pais.region"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Paises_are_in_regions"
-			        }
-			      ]
-			    },
-			    "main_Dim_Beneficio_Trabajo_has_beneficios_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Beneficio_Trabajo": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo"
-			          }
-			        },
-			        "main_Dim_Beneficio_Trabajo.beneficios_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo.beneficios_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Beneficio_Trabajo"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo.beneficios_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Beneficio_Trabajos_have_beneficios_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Beneficio_Trabajo_has_beneficio": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Beneficio_Trabajo": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo"
-			          }
-			        },
-			        "main_Dim_Beneficio_Trabajo.beneficio": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo.beneficio"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Beneficio_Trabajo"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo.beneficio"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Beneficio_Trabajos_have_beneficios"
-			        }
-			      ]
-			    },
-			    "main_Dim_Beneficio_Trabajo_has_privacidad_tratamiento": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Beneficio_Trabajo": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo"
-			          }
-			        },
-			        "main_Dim_Beneficio_Trabajo.privacidad_tratamiento": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo.privacidad_tratamiento"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Beneficio_Trabajo"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo.privacidad_tratamiento"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Beneficio_Trabajos_have_privacidad_tratamientos"
-			        }
-			      ]
-			    },
-			    "main_Dim_Beneficio_Trabajo_has_conocimiento_cobertura": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Beneficio_Trabajo": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo"
-			          }
-			        },
-			        "main_Dim_Beneficio_Trabajo.conocimiento_cobertura": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo.conocimiento_cobertura"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Beneficio_Trabajo"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo.conocimiento_cobertura"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Beneficio_Trabajos_have_conocimiento_coberturas"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_encuestados": {
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Trabajo_Encuestado": {
 			      "Binding": {
 			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
 			      },
@@ -2509,854 +2342,42 @@ cultureInfo es-ES
 			            "Entity": "main_Fact_Respuesta_Encuestado"
 			          }
 			        },
-			        "main_Dim_Beneficio_Trabajo.encuestados": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo.encuestados"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo.encuestados"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_encuestados"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_con_beneficios": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Beneficio_Trabajo.con_beneficios": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo.con_beneficios"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo.con_beneficios"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have__con_beneficios"
-			        }
-			      ]
-			    },
-			    "main_Dim_Categorias_Sugerencia_has_categoria_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Categorias_Sugerencia"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Categorias_Sugerencia": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia"
-			          }
-			        },
-			        "main_Dim_Categorias_Sugerencia.categoria_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia.categoria_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Categorias_Sugerencia"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Categorias_Sugerencia.categoria_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Categorias_Sugerencias_have_categoria_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Categorias_Sugerencia_has_categoria": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Categorias_Sugerencia"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Categorias_Sugerencia": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia"
-			          }
-			        },
-			        "main_Dim_Categorias_Sugerencia.categoria": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia.categoria"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Categorias_Sugerencia"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Categorias_Sugerencia.categoria"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Categorias_Sugerencias_have_categorias"
-			        }
-			      ]
-			    },
-			    "main_Dim_Categorias_Sugerencia_has_descripcion": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Categorias_Sugerencia"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Categorias_Sugerencia": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia"
-			          }
-			        },
-			        "main_Dim_Categorias_Sugerencia.descripcion": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia.descripcion"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Categorias_Sugerencia"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Categorias_Sugerencia.descripcion"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Categorias_Sugerencias_have_descripcions"
-			        }
-			      ]
-			    },
-			    "main_Dim_Emocione_has_emocion_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Emociones"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Emocione": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione"
-			          }
-			        },
-			        "main_Dim_Emocione.emocion_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione.emocion_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Emocione"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Emocione.emocion_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Emociones_have_emocion_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Emocione_has_emocion": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Emociones"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Emocione": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione"
-			          }
-			        },
-			        "main_Dim_Emocione.emocion": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione.emocion"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Emocione"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Emocione.emocion"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Emociones_have_emocions"
-			        }
-			      ]
-			    },
-			    "main_Dim_Emocione_has_nivel_emocion": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Emociones"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Emocione": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione"
-			          }
-			        },
-			        "main_Dim_Emocione.nivel_emocion": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione.nivel_emocion"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Emocione"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Emocione.nivel_emocion"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Emociones_have_nivel_emocions"
-			        }
-			      ]
-			    },
-			    "main_Dim_Encuesta_has_encuesta_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Encuesta"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Encuesta": {
-			          "Target": {
-			            "Entity": "main_Dim_Encuesta"
-			          }
-			        },
-			        "main_Dim_Encuesta.encuesta_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Encuesta.encuesta_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Encuesta"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Encuesta.encuesta_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Encuestas_have_encuesta_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Encuesta_has_descripcion": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Encuesta"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Encuesta": {
-			          "Target": {
-			            "Entity": "main_Dim_Encuesta"
-			          }
-			        },
-			        "main_Dim_Encuesta.descripcion": {
-			          "Target": {
-			            "Entity": "main_Dim_Encuesta.descripcion"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Encuesta"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Encuesta.descripcion"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Encuestas_have_descripcions"
-			        }
-			      ]
-			    },
-			    "main_Dim_Estado_Mental_has_salud_mental_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Estado_Mental"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Estado_Mental": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental"
-			          }
-			        },
-			        "main_Dim_Estado_Mental.salud_mental_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental.salud_mental_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_Mental"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_Mental.salud_mental_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_Mentals_have_salud_mental_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Estado_Mental_has_historial": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Estado_Mental"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Estado_Mental": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental"
-			          }
-			        },
-			        "main_Dim_Estado_Mental.historial": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental.historial"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_Mental"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_Mental.historial"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_Mentals_have_historials"
-			        }
-			      ]
-			    },
-			    "main_Dim_Estado_Mental_has_tratamiento": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Estado_Mental"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Estado_Mental": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental"
-			          }
-			        },
-			        "main_Dim_Estado_Mental.tratamiento": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental.tratamiento"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_Mental"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_Mental.tratamiento"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_Mentals_have_tratamientos"
-			        }
-			      ]
-			    },
-			    "main_Dim_Estado_Mental_has_condicion_actual": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Estado_Mental"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Estado_Mental": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental"
-			          }
-			        },
-			        "main_Dim_Estado_Mental.condicion_actual": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental.condicion_actual"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_Mental"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_Mental.condicion_actual"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_Mentals_have_condicion_actuals"
-			        }
-			      ]
-			    },
-			    "main_Dim_Estado_USA_has_estado_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Estado_USA"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Estado_USA": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_USA"
-			          }
-			        },
-			        "main_Dim_Estado_USA.estado_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_USA.estado_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_USA"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_USA.estado_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_USAs_have_estado_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Estado_USA_has_estado": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Estado_USA"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Estado_USA": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_USA"
-			          }
-			        },
-			        "main_Dim_Estado_USA.estado": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_USA.estado"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_USA"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_USA.estado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_USAs_have_estado"
-			        }
-			      ]
-			    },
-			    "main_Dim_Info_Encuestado_has_info_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Info_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Info_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Dim_Info_Encuestado"
-			          }
-			        },
-			        "main_Dim_Info_Encuestado.info_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Info_Encuestado.info_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Info_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Info_Encuestado.info_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Info_Encuestados_have_info_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Info_Encuestado_has_genero": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Info_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Info_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Dim_Info_Encuestado"
-			          }
-			        },
-			        "main_Dim_Info_Encuestado.genero": {
-			          "Target": {
-			            "Entity": "main_Dim_Info_Encuestado.genero"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Info_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Info_Encuestado.genero"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Info_Encuestados_have_generos"
-			        }
-			      ]
-			    },
-			    "main_Dim_Info_Encuestado_has_raza_etnia": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Info_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Info_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Dim_Info_Encuestado"
-			          }
-			        },
-			        "main_Dim_Info_Encuestado.raza_etnia": {
-			          "Target": {
-			            "Entity": "main_Dim_Info_Encuestado.raza_etnia"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Info_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Info_Encuestado.raza_etnia"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Info_Encuestados_have_raza_etnias"
-			        }
-			      ]
-			    },
-			    "main_Dim_Pais_has_pais_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Pais"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Pais": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais"
-			          }
-			        },
-			        "main_Dim_Pais.pais_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais.pais_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Pais"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Pais.pais_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Paises_have_pais_ID"
-			        }
-			      ]
-			    },
-			    "main_Dim_Pais_has_pais": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Pais"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Pais": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais"
-			          }
-			        },
-			        "main_Dim_Pais.pais": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais.pais"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Pais"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Pais.pais"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Paises_have_paises"
-			        }
-			      ]
-			    },
-			    "main_Dim_Pais_has_region": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Pais"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Pais": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais"
-			          }
-			        },
-			        "main_Dim_Pais.region": {
-			          "Target": {
-			            "Entity": "main_Dim_Pais.region"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Pais"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Pais.region"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Paises_have_regions"
-			        }
-			      ]
-			    },
-			    "main_Dim_Trabajo_Encuestado_has_trabajo_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
 			        "main_Dim_Trabajo_Encuestado": {
 			          "Target": {
 			            "Entity": "main_Dim_Trabajo_Encuestado"
 			          }
-			        },
-			        "main_Dim_Trabajo_Encuestado.trabajo_ID": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado.trabajo_ID"
-			          }
 			        }
 			      },
 			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Trabajo_Encuestado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Trabajo_Encuestados"
+			        },
 			        {
 			          "Attribute": {
 			            "Subject": {
 			              "Role": "main_Dim_Trabajo_Encuestado"
 			            },
 			            "Object": {
-			              "Role": "main_Dim_Trabajo_Encuestado.trabajo_ID"
+			              "Role": "main_Fact_Respuesta_Encuestado"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Dim_Trabajo_Encuestados_have_trabajo_ID"
+			          "ID": "main_Dim_Trabajo_Encuestados_have_main_Fact_Respuesta_Encuestados"
 			        }
 			      ]
 			    },
-			    "main_Dim_Trabajo_Encuestado_has_freelance": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Trabajo_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado"
-			          }
-			        },
-			        "main_Dim_Trabajo_Encuestado.freelance": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado.freelance"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Trabajo_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Trabajo_Encuestado.freelance"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Trabajo_Encuestados_have_freelance"
-			        }
-			      ]
-			    },
-			    "main_Dim_Trabajo_Encuestado_has_perfil_tecnologico": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Trabajo_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado"
-			          }
-			        },
-			        "main_Dim_Trabajo_Encuestado.perfil_tecnologico": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado.perfil_tecnologico"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Trabajo_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Trabajo_Encuestado.perfil_tecnologico"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Trabajo_Encuestados_have_perfil_tecnologicos"
-			        }
-			      ]
-			    },
-			    "main_Dim_Trabajo_Encuestado_has_empresa_tec": {
-			      "Binding": {
-			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Dim_Trabajo_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado"
-			          }
-			        },
-			        "main_Dim_Trabajo_Encuestado.empresa_tec": {
-			          "Target": {
-			            "Entity": "main_Dim_Trabajo_Encuestado.empresa_tec"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Trabajo_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Trabajo_Encuestado.empresa_tec"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Trabajo_Encuestados_have_empresa_tec"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_respuesta_ID": {
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Pais": {
 			      "Binding": {
 			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
 			      },
@@ -3367,9 +2388,9 @@ cultureInfo es-ES
 			            "Entity": "main_Fact_Respuesta_Encuestado"
 			          }
 			        },
-			        "main_Fact_Respuesta_Encuestado.respuesta_ID": {
+			        "main_Dim_Pais": {
 			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.respuesta_ID"
+			            "Entity": "main_Dim_Pais"
 			          }
 			        }
 			      },
@@ -3380,479 +2401,17 @@ cultureInfo es-ES
 			              "Role": "main_Fact_Respuesta_Encuestado"
 			            },
 			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.respuesta_ID"
+			              "Role": "main_Dim_Pais"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_respuesta_ID"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_encuestado_ID": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.encuestado_ID": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.encuestado_ID"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.encuestado_ID"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_encuestado_ID"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_pais_vivienda": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.pais_vivienda": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.pais_vivienda"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.pais_vivienda"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_pais_viviendas"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_estado_USA_vivienda": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.estado_USA_vivienda": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.estado_USA_vivienda"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.estado_USA_vivienda"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_estado_USA_viviendas"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_edad": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.edad": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.edad"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.edad"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_edads"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_prioridad_salud_fisica": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.prioridad_salud_fisica": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.prioridad_salud_fisica"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.prioridad_salud_fisica"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_prioridad_salud_fisicas"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_prioridad_salud_mental": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.prioridad_salud_mental": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.prioridad_salud_mental"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.prioridad_salud_mental"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_prioridad_salud_mental"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_percepcion_apoyo_SM_industria": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.percepcion_apoyo_SM_industria": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.percepcion_apoyo_SM_industria"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.percepcion_apoyo_SM_industria"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_percepcion_apoyo_SM_industrias"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_experiencia_respuesta_negativa_SM": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.experiencia_respuesta_negativa_SM": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.experiencia_respuesta_negativa_SM"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.experiencia_respuesta_negativa_SM"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_experiencia_respuesta_negativa_SM"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_sugerencias_mejora_SM_industria": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.sugerencias_mejora_SM_industria": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.sugerencias_mejora_SM_industria"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.sugerencias_mejora_SM_industria"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_sugerencias_mejora_SM_industrias"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_descripcion_conversacion_companeros_sobre_SM": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.descripcion_conversacion_companeros_sobre_SM": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_companeros_sobre_SM"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_companeros_sobre_SM"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_descripcion_conversacion_companeros_sobre_SM"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_descripcion_conversacion_sobre_companero_SM": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.descripcion_conversacion_sobre_companero_SM": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_sobre_companero_SM"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_sobre_companero_SM"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_descripcion_conversacion_sobre_companero_SM"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_emocion_conversacion_sobre_companero": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.emocion_conversacion_sobre_companero": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.emocion_conversacion_sobre_companero"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.emocion_conversacion_sobre_companero"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_emocion_conversacion_sobre_companeros"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_total_respuestas": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Fact_Respuesta_Encuestado.total_respuestas": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado.total_respuestas"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado.total_respuestas"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_total_respuestas"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Beneficio_Trabajo": {
-			          "Target": {
-			            "Entity": "main_Dim_Beneficio_Trabajo"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Beneficio_Trabajo"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Beneficio_Trabajos"
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Paises"
 			        },
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "main_Dim_Beneficio_Trabajo"
+			              "Role": "main_Dim_Pais"
 			            },
 			            "Object": {
 			              "Role": "main_Fact_Respuesta_Encuestado"
@@ -3860,237 +2419,7 @@ cultureInfo es-ES
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Dim_Beneficio_Trabajos_have_main_Fact_Respuesta_Encuestados"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Categorias_Sugerencia": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Categorias_Sugerencia": {
-			          "Target": {
-			            "Entity": "main_Dim_Categorias_Sugerencia"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Categorias_Sugerencia"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Categorias_Sugerencias"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Categorias_Sugerencia"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Categorias_Sugerencias_have_main_Fact_Respuesta_Encuestados"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Emocione": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Emocione": {
-			          "Target": {
-			            "Entity": "main_Dim_Emocione"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Emocione"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Emociones"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Emocione"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Emociones_have_main_Fact_Respuesta_Encuestados"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Encuesta": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Encuesta": {
-			          "Target": {
-			            "Entity": "main_Dim_Encuesta"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Encuesta"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Encuestas"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Encuesta"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Encuestas_have_main_Fact_Respuesta_Encuestados"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Estado_Mental": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Estado_Mental": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_Mental"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_Mental"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Estado_Mentals"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_Mental"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_Mentals_have_main_Fact_Respuesta_Encuestados"
-			        }
-			      ]
-			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Estado_USA": {
-			      "Binding": {
-			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "main_Fact_Respuesta_Encuestado": {
-			          "Target": {
-			            "Entity": "main_Fact_Respuesta_Encuestado"
-			          }
-			        },
-			        "main_Dim_Estado_USA": {
-			          "Target": {
-			            "Entity": "main_Dim_Estado_USA"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            },
-			            "Object": {
-			              "Role": "main_Dim_Estado_USA"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Estado_USAs"
-			        },
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "main_Dim_Estado_USA"
-			            },
-			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "main_Dim_Estado_USAs_have_main_Fact_Respuesta_Encuestados"
+			          "ID": "main_Dim_Paises_have_main_Fact_Respuesta_Encuestados"
 			        }
 			      ]
 			    },
@@ -4147,7 +2476,7 @@ cultureInfo es-ES
 			        }
 			      ]
 			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Pais": {
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Estado_USA": {
 			      "Binding": {
 			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
 			      },
@@ -4158,9 +2487,9 @@ cultureInfo es-ES
 			            "Entity": "main_Fact_Respuesta_Encuestado"
 			          }
 			        },
-			        "main_Dim_Pais": {
+			        "main_Dim_Estado_USA": {
 			          "Target": {
-			            "Entity": "main_Dim_Pais"
+			            "Entity": "main_Dim_Estado_USA"
 			          }
 			        }
 			      },
@@ -4171,17 +2500,17 @@ cultureInfo es-ES
 			              "Role": "main_Fact_Respuesta_Encuestado"
 			            },
 			            "Object": {
-			              "Role": "main_Dim_Pais"
+			              "Role": "main_Dim_Estado_USA"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Paises"
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Estado_USAs"
 			        },
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "main_Dim_Pais"
+			              "Role": "main_Dim_Estado_USA"
 			            },
 			            "Object": {
 			              "Role": "main_Fact_Respuesta_Encuestado"
@@ -4189,11 +2518,11 @@ cultureInfo es-ES
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Dim_Paises_have_main_Fact_Respuesta_Encuestados"
+			          "ID": "main_Dim_Estado_USAs_have_main_Fact_Respuesta_Encuestados"
 			        }
 			      ]
 			    },
-			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Trabajo_Encuestado": {
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Estado_Mental": {
 			      "Binding": {
 			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
 			      },
@@ -4204,10 +2533,1494 @@ cultureInfo es-ES
 			            "Entity": "main_Fact_Respuesta_Encuestado"
 			          }
 			        },
+			        "main_Dim_Estado_Mental": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_Mental"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Estado_Mentals"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_Mental"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_Mentals_have_main_Fact_Respuesta_Encuestados"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Encuesta": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Encuesta": {
+			          "Target": {
+			            "Entity": "main_Dim_Encuesta"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Encuesta"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Encuestas"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Encuesta"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Encuestas_have_main_Fact_Respuesta_Encuestados"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Emocione": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Emocione": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Emocione"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Emociones"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Emocione"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Emociones_have_main_Fact_Respuesta_Encuestados"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Categorias_Sugerencia": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Categorias_Sugerencia": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Categorias_Sugerencia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Categorias_Sugerencias"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Categorias_Sugerencia"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Categorias_Sugerencias_have_main_Fact_Respuesta_Encuestados"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Beneficio_Trabajos"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_main_Fact_Respuesta_Encuestados"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_total_respuestas": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.total_respuestas": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.total_respuestas"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.total_respuestas"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_total_respuestas"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_emocion_conversacion_sobre_companero": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.emocion_conversacion_sobre_companero": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.emocion_conversacion_sobre_companero"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.emocion_conversacion_sobre_companero"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_emocion_conversacion_sobre_companeros"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_descripcion_conversacion_sobre_companero_SM": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.descripcion_conversacion_sobre_companero_SM": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_sobre_companero_SM"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_sobre_companero_SM"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_descripcion_conversacion_sobre_companero_SM"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_descripcion_conversacion_companeros_sobre_SM": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.descripcion_conversacion_companeros_sobre_SM": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_companeros_sobre_SM"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.descripcion_conversacion_companeros_sobre_SM"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_descripcion_conversacion_companeros_sobre_SM"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_sugerencias_mejora_SM_industria": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.sugerencias_mejora_SM_industria": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.sugerencias_mejora_SM_industria"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.sugerencias_mejora_SM_industria"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_sugerencias_mejora_SM_industrias"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_experiencia_respuesta_negativa_SM": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.experiencia_respuesta_negativa_SM": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.experiencia_respuesta_negativa_SM"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.experiencia_respuesta_negativa_SM"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_experiencia_respuesta_negativa_SM"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_percepcion_apoyo_SM_industria": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.percepcion_apoyo_SM_industria": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.percepcion_apoyo_SM_industria"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.percepcion_apoyo_SM_industria"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_percepcion_apoyo_SM_industrias"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_prioridad_salud_mental": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.prioridad_salud_mental": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.prioridad_salud_mental"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.prioridad_salud_mental"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_prioridad_salud_mental"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_prioridad_salud_fisica": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.prioridad_salud_fisica": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.prioridad_salud_fisica"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.prioridad_salud_fisica"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_prioridad_salud_fisicas"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_edad": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.edad": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.edad"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.edad"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_edads"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_estado_USA_vivienda": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.estado_USA_vivienda": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.estado_USA_vivienda"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.estado_USA_vivienda"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_estado_USA_viviendas"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_pais_vivienda": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.pais_vivienda": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.pais_vivienda"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.pais_vivienda"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_pais_viviendas"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_encuestado_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.encuestado_ID": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.encuestado_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.encuestado_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_encuestado_ID"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_respuesta_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Fact_Respuesta_Encuestado.respuesta_ID": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado.respuesta_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Fact_Respuesta_Encuestado.respuesta_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_respuesta_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Trabajo_Encuestado_has_empresa_tec": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
 			        "main_Dim_Trabajo_Encuestado": {
 			          "Target": {
 			            "Entity": "main_Dim_Trabajo_Encuestado"
 			          }
+			        },
+			        "main_Dim_Trabajo_Encuestado.empresa_tec": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado.empresa_tec"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Trabajo_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Trabajo_Encuestado.empresa_tec"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Trabajo_Encuestados_have_empresa_tec"
+			        }
+			      ]
+			    },
+			    "main_Dim_Trabajo_Encuestado_has_perfil_tecnologico": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Trabajo_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado"
+			          }
+			        },
+			        "main_Dim_Trabajo_Encuestado.perfil_tecnologico": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado.perfil_tecnologico"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Trabajo_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Trabajo_Encuestado.perfil_tecnologico"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Trabajo_Encuestados_have_perfil_tecnologicos"
+			        }
+			      ]
+			    },
+			    "main_Dim_Trabajo_Encuestado_has_freelance": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Trabajo_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado"
+			          }
+			        },
+			        "main_Dim_Trabajo_Encuestado.freelance": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado.freelance"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Trabajo_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Trabajo_Encuestado.freelance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Trabajo_Encuestados_have_freelance"
+			        }
+			      ]
+			    },
+			    "main_Dim_Trabajo_Encuestado_has_trabajo_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Trabajo_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Trabajo_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado"
+			          }
+			        },
+			        "main_Dim_Trabajo_Encuestado.trabajo_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Trabajo_Encuestado.trabajo_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Trabajo_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Trabajo_Encuestado.trabajo_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Trabajo_Encuestados_have_trabajo_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Pais_has_region": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Pais"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Pais": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais"
+			          }
+			        },
+			        "main_Dim_Pais.region": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais.region"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Pais"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Pais.region"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Paises_have_regions"
+			        }
+			      ]
+			    },
+			    "main_Dim_Pais_has_pais": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Pais"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Pais": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais"
+			          }
+			        },
+			        "main_Dim_Pais.pais": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais.pais"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Pais"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Pais.pais"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Paises_have_paises"
+			        }
+			      ]
+			    },
+			    "main_Dim_Pais_has_pais_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Pais"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Pais": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais"
+			          }
+			        },
+			        "main_Dim_Pais.pais_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais.pais_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Pais"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Pais.pais_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Paises_have_pais_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Info_Encuestado_has_raza_etnia": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Info_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Info_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Dim_Info_Encuestado"
+			          }
+			        },
+			        "main_Dim_Info_Encuestado.raza_etnia": {
+			          "Target": {
+			            "Entity": "main_Dim_Info_Encuestado.raza_etnia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Info_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Info_Encuestado.raza_etnia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Info_Encuestados_have_raza_etnias"
+			        }
+			      ]
+			    },
+			    "main_Dim_Info_Encuestado_has_genero": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Info_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Info_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Dim_Info_Encuestado"
+			          }
+			        },
+			        "main_Dim_Info_Encuestado.genero": {
+			          "Target": {
+			            "Entity": "main_Dim_Info_Encuestado.genero"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Info_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Info_Encuestado.genero"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Info_Encuestados_have_generos"
+			        }
+			      ]
+			    },
+			    "main_Dim_Info_Encuestado_has_info_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Info_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Info_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Dim_Info_Encuestado"
+			          }
+			        },
+			        "main_Dim_Info_Encuestado.info_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Info_Encuestado.info_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Info_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Info_Encuestado.info_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Info_Encuestados_have_info_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_USA_has_estado": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_USA"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_USA": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_USA"
+			          }
+			        },
+			        "main_Dim_Estado_USA.estado": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_USA.estado"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_USA"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_USA.estado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_USAs_have_estado"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_USA_has_estado_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_USA"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_USA": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_USA"
+			          }
+			        },
+			        "main_Dim_Estado_USA.estado_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_USA.estado_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_USA"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_USA.estado_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_USAs_have_estado_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_Mental_has_condicion_actual": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_Mental"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_Mental": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental"
+			          }
+			        },
+			        "main_Dim_Estado_Mental.condicion_actual": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental.condicion_actual"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_Mental"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_Mental.condicion_actual"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_Mentals_have_condicion_actuals"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_Mental_has_tratamiento": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_Mental"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_Mental": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental"
+			          }
+			        },
+			        "main_Dim_Estado_Mental.tratamiento": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental.tratamiento"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_Mental"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_Mental.tratamiento"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_Mentals_have_tratamientos"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_Mental_has_historial": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_Mental"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_Mental": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental"
+			          }
+			        },
+			        "main_Dim_Estado_Mental.historial": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental.historial"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_Mental"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_Mental.historial"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_Mentals_have_historials"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_Mental_has_salud_mental_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_Mental"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_Mental": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental"
+			          }
+			        },
+			        "main_Dim_Estado_Mental.salud_mental_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_Mental.salud_mental_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_Mental"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Estado_Mental.salud_mental_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_Mentals_have_salud_mental_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Encuesta_has_descripcion": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Encuesta"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Encuesta": {
+			          "Target": {
+			            "Entity": "main_Dim_Encuesta"
+			          }
+			        },
+			        "main_Dim_Encuesta.descripcion": {
+			          "Target": {
+			            "Entity": "main_Dim_Encuesta.descripcion"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Encuesta"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Encuesta.descripcion"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Encuestas_have_descripcions"
+			        }
+			      ]
+			    },
+			    "main_Dim_Encuesta_has_encuesta_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Encuesta"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Encuesta": {
+			          "Target": {
+			            "Entity": "main_Dim_Encuesta"
+			          }
+			        },
+			        "main_Dim_Encuesta.encuesta_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Encuesta.encuesta_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Encuesta"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Encuesta.encuesta_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Encuestas_have_encuesta_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Emocione_has_nivel_emocion": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Emociones"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Emocione": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione"
+			          }
+			        },
+			        "main_Dim_Emocione.nivel_emocion": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione.nivel_emocion"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Emocione"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Emocione.nivel_emocion"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Emociones_have_nivel_emocions"
+			        }
+			      ]
+			    },
+			    "main_Dim_Emocione_has_emocion": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Emociones"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Emocione": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione"
+			          }
+			        },
+			        "main_Dim_Emocione.emocion": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione.emocion"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Emocione"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Emocione.emocion"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Emociones_have_emocions"
+			        }
+			      ]
+			    },
+			    "main_Dim_Emocione_has_emocion_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Emociones"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Emocione": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione"
+			          }
+			        },
+			        "main_Dim_Emocione.emocion_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Emocione.emocion_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Emocione"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Emocione.emocion_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Emociones_have_emocion_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Categorias_Sugerencia_has_descripcion": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Categorias_Sugerencia"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Categorias_Sugerencia": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia"
+			          }
+			        },
+			        "main_Dim_Categorias_Sugerencia.descripcion": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia.descripcion"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Categorias_Sugerencia"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Categorias_Sugerencia.descripcion"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Categorias_Sugerencias_have_descripcions"
+			        }
+			      ]
+			    },
+			    "main_Dim_Categorias_Sugerencia_has_categoria": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Categorias_Sugerencia"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Categorias_Sugerencia": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia"
+			          }
+			        },
+			        "main_Dim_Categorias_Sugerencia.categoria": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia.categoria"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Categorias_Sugerencia"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Categorias_Sugerencia.categoria"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Categorias_Sugerencias_have_categorias"
+			        }
+			      ]
+			    },
+			    "main_Dim_Categorias_Sugerencia_has_categoria_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Categorias_Sugerencia"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Categorias_Sugerencia": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia"
+			          }
+			        },
+			        "main_Dim_Categorias_Sugerencia.categoria_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Categorias_Sugerencia.categoria_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Categorias_Sugerencia"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Categorias_Sugerencia.categoria_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Categorias_Sugerencias_have_categoria_ID"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_con_beneficios": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.con_beneficios": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.con_beneficios"
+			          }
 			        }
 			      },
 			      "Phrasings": [
@@ -4217,25 +4030,222 @@ cultureInfo es-ES
 			              "Role": "main_Fact_Respuesta_Encuestado"
 			            },
 			            "Object": {
-			              "Role": "main_Dim_Trabajo_Encuestado"
+			              "Role": "main_Dim_Beneficio_Trabajo.con_beneficios"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Fact_Respuesta_Encuestados_have_main_Dim_Trabajo_Encuestados"
+			          "ID": "main_Fact_Respuesta_Encuestados_have__con_beneficios"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_encuestados": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
 			        },
+			        "main_Dim_Beneficio_Trabajo.encuestados": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.encuestados"
+			          }
+			        }
+			      },
+			      "Phrasings": [
 			        {
 			          "Attribute": {
 			            "Subject": {
-			              "Role": "main_Dim_Trabajo_Encuestado"
+			              "Role": "main_Fact_Respuesta_Encuestado"
 			            },
 			            "Object": {
-			              "Role": "main_Fact_Respuesta_Encuestado"
+			              "Role": "main_Dim_Beneficio_Trabajo.encuestados"
 			            }
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "main_Dim_Trabajo_Encuestados_have_main_Fact_Respuesta_Encuestados"
+			          "ID": "main_Fact_Respuesta_Encuestados_have_encuestados"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_conocimiento_cobertura": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.conocimiento_cobertura": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.conocimiento_cobertura"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.conocimiento_cobertura"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_conocimiento_coberturas"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_privacidad_tratamiento": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.privacidad_tratamiento": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.privacidad_tratamiento"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.privacidad_tratamiento"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_privacidad_tratamientos"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_beneficio": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.beneficio": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.beneficio"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.beneficio"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_beneficios"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_beneficios_ID": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.beneficios_ID": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.beneficios_ID"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.beneficios_ID"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_beneficios_ID"
+			        }
+			      ]
+			    },
+			    "main_Dim_Pais_in_region": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Pais"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Pais": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais"
+			          }
+			        },
+			        "main_Dim_Pais.region": {
+			          "Target": {
+			            "Entity": "main_Dim_Pais.region"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "Where": {
+			          "Role": "main_Dim_Pais.region"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "main_Dim_Pais"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "main_Dim_Pais.region"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Paises_are_in_regions"
 			        }
 			      ]
 			    }

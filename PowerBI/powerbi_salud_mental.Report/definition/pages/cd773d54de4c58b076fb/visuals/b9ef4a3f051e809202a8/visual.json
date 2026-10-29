@@ -23,11 +23,11 @@
                       "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Property": "Conocimiento_Cobertura"
+                  "Property": "Conocimiento ES"
                 }
               },
-              "queryRef": "main Dim_Beneficio_Trabajo.Conocimiento_Cobertura",
-              "nativeQueryRef": "Conocimiento_Cobertura",
+              "queryRef": "main Dim_Beneficio_Trabajo.Conocimiento ES",
+              "nativeQueryRef": "Conocimiento ES",
               "active": true
             }
           ]
@@ -163,6 +163,19 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
                 }
               }
             }

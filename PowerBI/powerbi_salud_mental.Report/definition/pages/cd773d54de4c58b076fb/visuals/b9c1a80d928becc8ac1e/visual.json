@@ -81,11 +81,19 @@
               {
                 "textRuns": [
                   {
-                    "value": "  Perfil de los encuestados",
+                    "value": "  ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "36pt",
                       "color": "#c77dff"
+                    }
+                  },
+                  {
+                    "value": "Perfil de los encuestados",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "36pt",
+                      "color": "#7b2cbf"
                     }
                   }
                 ]
@@ -107,6 +115,13 @@
                       "Value": "'#3C096C'"
                     }
                   }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
                 }
               }
             }

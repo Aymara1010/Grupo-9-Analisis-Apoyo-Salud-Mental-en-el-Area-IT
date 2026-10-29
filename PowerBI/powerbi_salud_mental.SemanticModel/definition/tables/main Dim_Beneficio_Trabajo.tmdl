@@ -41,6 +41,48 @@ table 'main Dim_Beneficio_Trabajo'
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Beneficio ES' =
+			SWITCH(
+			    'main Dim_Beneficio_Trabajo'[Beneficio],
+			    "Yes", "Sí",
+			    "No", "No",
+			    "I don't know", "No sé",
+			    "Not Applicable", "No aplica",
+			    "Not eligible for coverage / NA", "Sin cobertura / NA",
+			    'main Dim_Beneficio_Trabajo'[Beneficio]
+			)
+		lineageTag: 8fed17ef-b447-41b6-8103-04895746a4b6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Conocimiento ES' =
+			SWITCH(
+			    'main Dim_Beneficio_Trabajo'[Conocimiento_Cobertura],
+			    "Yes", "Sí",
+			    "No", "No",
+			    "I don't know", "No sé",
+			    'main Dim_Beneficio_Trabajo'[Conocimiento_Cobertura]
+			)
+		lineageTag: 2c456fd8-792c-48d1-ab13-def8d7f91319
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Privacidad ES' =
+			SWITCH(
+			    'main Dim_Beneficio_Trabajo'[Privacidad_Tratamiento],
+			    "Yes", "Sí",
+			    "No", "No",
+			    "I don't know", "No sé",
+			    "Not Applicable", "No aplica",
+			    'main Dim_Beneficio_Trabajo'[Privacidad_Tratamiento]
+			)
+		lineageTag: 1a0e065a-732b-4b37-b880-9ae0cadbeecf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'main Dim_Beneficio_Trabajo' = m
 		mode: import
 		source =

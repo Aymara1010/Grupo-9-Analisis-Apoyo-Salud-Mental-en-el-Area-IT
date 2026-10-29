@@ -65,6 +65,11 @@
       "type": "RegisteredResources",
       "items": [
         {
+          "name": "fondo_degradado_(1)799581928943419.png",
+          "path": "fondo_degradado_(1)799581928943419.png",
+          "type": "Image"
+        },
+        {
           "name": "TechWell_Anal_tica31226443243886814.json",
           "path": "TechWell_Anal_tica31226443243886814.json",
           "type": "CustomTheme"
