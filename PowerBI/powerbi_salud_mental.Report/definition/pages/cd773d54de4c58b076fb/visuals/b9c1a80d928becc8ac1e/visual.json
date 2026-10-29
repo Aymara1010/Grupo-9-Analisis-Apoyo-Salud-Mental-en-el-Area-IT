@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "b9c1a80d928becc8ac1e",
   "position": {
-    "x": 0,
-    "y": 0,
-    "z": 3,
-    "height": 91.132536222708609,
-    "width": 1918.2287502487202,
-    "tabOrder": 2
+    "x": 1.9013724913735748,
+    "y": 1.9013724913735748,
+    "z": 0,
+    "height": 376.47175329196779,
+    "width": 1918.484843795937,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "textbox",
@@ -19,15 +19,76 @@
               {
                 "textRuns": [
                   {
-                    "value": "Estados Unidos | Perfil de los encuestados",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "   ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "36pt",
                       "color": "#ffffff"
                     }
+                  },
+                  {
+                    "value": "Estados Unidos",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "54pt",
+                      "color": "#ffffff"
+                    }
                   }
-                ],
-                "horizontalTextAlignment": "center"
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "  Perfil de los encuestados",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "36pt",
+                      "color": "#c77dff"
+                    }
+                  }
+                ]
               }
             ]
           }

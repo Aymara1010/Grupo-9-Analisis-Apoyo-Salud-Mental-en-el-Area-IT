@@ -4,6 +4,10 @@ table 'main Dim_Beneficio_Trabajo'
 	measure Encuestados = FORMAT([Total Respuestas], "#,0")
 		lineageTag: e74b8466-c573-4fd0-8b73-954f508c7a75
 
+	measure '% Con beneficios' = DIVIDE(CALCULATE([Total Respuestas], 'main Dim_Beneficio_Trabajo'[Beneficio] = "Yes"), [Total Respuestas])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8e47b96c-c993-45e2-b306-640c471402e2
+
 	column BeneficiosID
 		dataType: int64
 		formatString: 0

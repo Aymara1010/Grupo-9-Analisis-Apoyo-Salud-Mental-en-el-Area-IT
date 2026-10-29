@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "2c173979d1ed7486d048",
   "position": {
-    "x": 288.95682216956391,
-    "y": 91.132536222708609,
-    "z": 2,
-    "height": 642.37324313079966,
-    "width": 629.03677441528134,
-    "tabOrder": 1
+    "x": 0,
+    "y": 378.53781471878261,
+    "z": 3000,
+    "height": 433.81103545205616,
+    "width": 629.77972714275336,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "donutChart",
@@ -147,37 +147,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "5562886c080092247264",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "main Dim_Info_Encuestado"
-              }
-            },
-            "Property": "Genero"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "63f26d64207ead3e1aca",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "main Fact_Respuesta_Encuestado"
-              }
-            },
-            "Property": "Total Respuestas"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
