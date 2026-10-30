@@ -26,6 +26,50 @@ table 'main Dim_Pais'
 
 		annotation SummarizationSetBy = Automatic
 
+	column País =
+			SWITCH(
+			    'main Dim_Pais'[Pais],
+			    "United Kingdom", "Reino Unido",
+			    "Germany", "Alemania",
+			    "Netherlands", "Países Bajos",
+			    "Spain", "España",
+			    "France", "Francia",
+			    "Switzerland", "Suiza",
+			    "Poland", "Polonia",
+			    "Ireland", "Irlanda",
+			    "Sweden", "Suecia",
+			    "Italy", "Italia",
+			    "Belgium", "Bélgica",
+			    "Denmark", "Dinamarca",
+			    "Finland", "Finlandia",
+			    "Norway", "Noruega",
+			    "Austria", "Austria",
+			    "Czech Republic", "República Checa",
+			    "Greece", "Grecia",
+			    "Romania", "Rumania",
+			    "Hungary", "Hungría",
+			    "Bulgaria", "Bulgaria",
+			    "Lithuania", "Lituania",
+			    "Estonia", "Estonia",
+			    "Slovakia", "Eslovaquia",
+			    "Serbia", "Serbia",
+			    "Bosnia and Herzegovina", "Bosnia y Herzegovina",
+			    "Ukraine", "Ucrania",
+			    "Russia", "Rusia",
+			    "Latvia", "Letonia",
+			    "Iceland", "Islandia",
+			    "Croatia", "Croacia",
+			    "Slovenia", "Eslovenia",
+			    "Luxembourg", "Luxemburgo",
+			    "Australia", "Australia",
+			    "New Zealand", "Nueva Zelanda",
+			    'main Dim_Pais'[Pais]
+			)
+		lineageTag: fd247f92-8d68-4b4f-9045-476100464e8a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'main Dim_Pais' = m
 		mode: import
 		source =

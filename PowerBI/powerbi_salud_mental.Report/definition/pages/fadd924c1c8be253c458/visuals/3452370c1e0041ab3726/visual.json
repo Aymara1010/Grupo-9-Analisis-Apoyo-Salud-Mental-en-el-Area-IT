@@ -23,11 +23,11 @@
                       "Entity": "main Dim_Pais"
                     }
                   },
-                  "Property": "Pais"
+                  "Property": "País"
                 }
               },
-              "queryRef": "main Dim_Pais.Pais",
-              "nativeQueryRef": "Pais",
+              "queryRef": "main Dim_Pais.País",
+              "nativeQueryRef": "País",
               "active": true
             }
           ]
@@ -188,6 +188,92 @@
             }
           }
         }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C096C'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C096C'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C096C'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -334,7 +420,8 @@
               }
             }
           ]
-        }
+        },
+        "howCreated": "User"
       },
       {
         "name": "300f46ad04a438a5cd07",
@@ -349,6 +436,20 @@
           }
         },
         "type": "Advanced"
+      },
+      {
+        "name": "3bb42502973067872026",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "main Dim_Pais"
+              }
+            },
+            "Property": "País"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }
