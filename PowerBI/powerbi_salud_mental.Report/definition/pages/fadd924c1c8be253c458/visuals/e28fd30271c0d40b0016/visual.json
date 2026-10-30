@@ -223,37 +223,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "66a5f3f14741a2527920",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "main Dim_Info_Encuestado"
-              }
-            },
-            "Property": "Genero"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "fccb0790e6057115a800",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "main Fact_Respuesta_Encuestado"
-              }
-            },
-            "Property": "Total Respuestas"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

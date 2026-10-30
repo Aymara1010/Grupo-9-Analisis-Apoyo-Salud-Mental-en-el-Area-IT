@@ -63,9 +63,26 @@ table 'main Dim_Pais'
 			    "Luxembourg", "Luxemburgo",
 			    "Australia", "Australia",
 			    "New Zealand", "Nueva Zelanda",
+			    "United States", "Estados Unidos",
 			    'main Dim_Pais'[Pais]
 			)
+		isHidden
 		lineageTag: fd247f92-8d68-4b4f-9045-476100464e8a
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grupo =
+			SWITCH(
+			    'main Dim_Pais'[Region],
+			    "USA", "Estados Unidos",
+			    "Europa", "Europa y Oceanía",
+			    "Oceania", "Europa y Oceanía",
+			    "Otro"
+			)
+		lineageTag: eb45507e-2ab4-4594-8791-eef0864f6e11
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
