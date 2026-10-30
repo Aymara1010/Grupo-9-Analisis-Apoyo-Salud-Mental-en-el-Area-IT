@@ -86,6 +86,7 @@
     "useDefaultAggregateDisplayName": true,
     "queryLimitOption": "None",
     "customMemoryLimit": "1048576",
-    "customTimeoutLimit": "225"
+    "customTimeoutLimit": "225",
+    "locale": "es-ES"
   }
 }

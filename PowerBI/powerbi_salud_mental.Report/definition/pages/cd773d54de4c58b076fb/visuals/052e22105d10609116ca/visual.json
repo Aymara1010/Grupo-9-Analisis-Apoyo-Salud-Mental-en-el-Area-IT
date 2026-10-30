@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "main Dim_Info_Encuestado.Genero",
-              "nativeQueryRef": "Genero"
+              "nativeQueryRef": "Género",
+              "displayName": "Género"
             }
           ]
         }

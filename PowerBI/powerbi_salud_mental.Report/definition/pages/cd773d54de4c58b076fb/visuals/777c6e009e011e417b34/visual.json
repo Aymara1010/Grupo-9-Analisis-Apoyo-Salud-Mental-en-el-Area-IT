@@ -4,10 +4,10 @@
   "position": {
     "x": 0,
     "y": 381.32151693481882,
-    "z": 10001,
+    "z": 11000,
     "height": 369.29786549993713,
     "width": 769.51369183242707,
-    "tabOrder": 10001
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "filledMap",
@@ -60,6 +60,37 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            },
+            "fillRule": {
+              "linearGradient2": {
+                "min": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'minColor'"
+                      }
+                    }
+                  }
+                },
+                "max": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'maxColor'"
+                      }
+                    }
+                  }
+                },
+                "nullColoringStrategy": {
+                  "strategy": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'asZero'"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -133,6 +164,32 @@
               "expr": {
                 "Literal": {
                   "Value": "90D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Encuestados por estado'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

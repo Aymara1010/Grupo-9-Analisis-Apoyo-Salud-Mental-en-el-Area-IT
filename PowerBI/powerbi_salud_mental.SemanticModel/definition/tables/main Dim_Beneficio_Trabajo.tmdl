@@ -8,6 +8,19 @@ table 'main Dim_Beneficio_Trabajo'
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 8e47b96c-c993-45e2-b306-640c471402e2
 
+	measure 'Empresas que ofrecen apoyo en salud mental' = FORMAT([% Con beneficios], "0.0 %")
+		lineageTag: 2c847cef-9d44-4b27-8afe-a2cf4885fd8c
+
+	measure 'Edad texto' = FORMAT(AVERAGE('main Fact_Respuesta_Encuestado'[Edad]), "0") & " años"
+		lineageTag: 2aed856d-f62c-4298-ba9c-089b1ad0d510
+
+	measure '% Respuestas' = DIVIDE([Total Respuestas], CALCULATE([Total Respuestas], ALLSELECTED('main Dim_Beneficio_Trabajo')))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: efc9736a-8485-4d60-9116-7d599078c7ba
+
+	measure '% Respuestas texto' = FORMAT([% Respuestas], "0.0 %")
+		lineageTag: 6b19a812-7f55-4f03-b125-4210e7f740a8
+
 	column BeneficiosID
 		dataType: int64
 		formatString: 0

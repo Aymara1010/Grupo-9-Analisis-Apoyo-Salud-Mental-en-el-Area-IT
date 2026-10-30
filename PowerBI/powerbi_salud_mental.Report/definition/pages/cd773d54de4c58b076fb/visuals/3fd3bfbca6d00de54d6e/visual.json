@@ -36,37 +36,17 @@
           "projections": [
             {
               "field": {
-                "Arithmetic": {
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "main Fact_Respuesta_Encuestado"
-                        }
-                      },
-                      "Property": "Total Respuestas"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Right": {
-                    "ScopedEval": {
-                      "Expression": {
-                        "Measure": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Entity": "main Fact_Respuesta_Encuestado"
-                            }
-                          },
-                          "Property": "Total Respuestas"
-                        }
-                      },
-                      "Scope": []
-                    }
-                  },
-                  "Operator": 3
+                  "Property": "% Respuestas"
                 }
               },
-              "queryRef": "main Fact_Respuesta_Encuestado.Total Respuestas",
-              "nativeQueryRef": "%TG Total Respuestas"
+              "queryRef": "main Dim_Beneficio_Trabajo.% Respuestas",
+              "nativeQueryRef": "% Respuestas"
             }
           ]
         }
@@ -75,33 +55,13 @@
         "sort": [
           {
             "field": {
-              "Arithmetic": {
-                "Left": {
-                  "Measure": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "main Fact_Respuesta_Encuestado"
-                      }
-                    },
-                    "Property": "Total Respuestas"
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "main Dim_Beneficio_Trabajo"
                   }
                 },
-                "Right": {
-                  "ScopedEval": {
-                    "Expression": {
-                      "Measure": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "main Fact_Respuesta_Encuestado"
-                          }
-                        },
-                        "Property": "Total Respuestas"
-                      }
-                    },
-                    "Scope": []
-                  }
-                },
-                "Operator": 3
+                "Property": "% Respuestas"
               }
             },
             "direction": "Descending"
@@ -120,7 +80,58 @@
                   "Value": "true"
                 }
               }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C096C'"
+                    }
+                  }
+                }
+              }
             }
+          }
+        },
+        {
+          "properties": {
+            "dynamicLabelValue": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "main Dim_Beneficio_Trabajo"
+                    }
+                  },
+                  "Property": "% Respuestas texto"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "highlightMatching": 1
           }
         }
       ],
@@ -135,6 +146,61 @@
                       "Value": "'#C77DFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C096C'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C096C'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
                 }
               }
             }

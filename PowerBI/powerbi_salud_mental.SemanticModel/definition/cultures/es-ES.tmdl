@@ -799,8 +799,15 @@ cultureInfo es-ES
 			          "estado": {
 			            "State": "Generated"
 			          }
+			        },
+			        {
+			          "state or province": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
 			        }
-			      ]
+			      ],
+			      "SemanticType": "Location"
 			    },
 			    "main_Dim_Info_Encuestado": {
 			      "Definition": {
@@ -958,6 +965,16 @@ cultureInfo es-ES
 			        {
 			          "genero": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Género": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -2328,6 +2345,168 @@ cultureInfo es-ES
 			          }
 			        }
 			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.beneficio_ES": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "Beneficio ES"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "beneficio ES": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.conocimiento_ES": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "Conocimiento ES"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "conocimiento ES": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.privacidad_ES": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "Privacidad ES"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "privacidad ES": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.empresas_que_ofrecen_apoyo_en_salud_mental": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "Empresas que ofrecen apoyo en salud mental"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "empresas que ofrecen apoyo en salud mental": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.edad_texto": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "Edad texto"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "edad texto": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Edad promedio": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.respuestas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "% Respuestas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "% respuestas": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "percentage respuesta": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "pct respuesta": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo.respuestas_texto": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "main Dim_Beneficio_Trabajo",
+			          "ConceptualProperty": "% Respuestas texto"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "% respuestas texto": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "percentage respuesta texto": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "pct respuesta texto": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
@@ -2749,6 +2928,237 @@ cultureInfo es-ES
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "main_Dim_Beneficio_Trabajos_have_main_Fact_Respuesta_Encuestados"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_respuestas_texto": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.respuestas_texto": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.respuestas_texto"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.respuestas_texto"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have__respuestas_texto"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_respuestas": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.respuestas": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.respuestas"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.respuestas"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have__respuestas"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_edad_texto": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.edad_texto": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.edad_texto"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.edad_texto"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_edad_texto"
+			        }
+			      ]
+			    },
+			    "main_Fact_Respuesta_Encuestado_has_main_Dim_Beneficio_Trabajo_empresas_que_ofrecen_apoyo_en_salud_mental": {
+			      "Binding": {
+			        "ConceptualEntity": "main Fact_Respuesta_Encuestado"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Fact_Respuesta_Encuestado": {
+			          "Target": {
+			            "Entity": "main_Fact_Respuesta_Encuestado"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.empresas_que_ofrecen_apoyo_en_salud_mental": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.empresas_que_ofrecen_apoyo_en_salud_mental"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Fact_Respuesta_Encuestado"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.empresas_que_ofrecen_apoyo_en_salud_mental"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Fact_Respuesta_Encuestados_have_empresas_que_ofrecen_apoyo_en_salud_mental"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_privacidad_ES": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.privacidad_ES": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.privacidad_ES"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.privacidad_ES"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_privacidad_ESes"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_conocimiento_ES": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.conocimiento_ES": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.conocimiento_ES"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.conocimiento_ES"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_conocimiento_ESes"
+			        }
+			      ]
+			    },
+			    "main_Dim_Beneficio_Trabajo_has_beneficio_ES": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Beneficio_Trabajo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Beneficio_Trabajo": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo"
+			          }
+			        },
+			        "main_Dim_Beneficio_Trabajo.beneficio_ES": {
+			          "Target": {
+			            "Entity": "main_Dim_Beneficio_Trabajo.beneficio_ES"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "main_Dim_Beneficio_Trabajo"
+			            },
+			            "Object": {
+			              "Role": "main_Dim_Beneficio_Trabajo.beneficio_ES"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Beneficio_Trabajos_have_beneficio_ESes"
 			        }
 			      ]
 			    },
@@ -4246,6 +4656,51 @@ cultureInfo es-ES
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "main_Dim_Paises_are_in_regions"
+			        }
+			      ]
+			    },
+			    "main_Dim_Estado_USA_in_estado": {
+			      "Binding": {
+			        "ConceptualEntity": "main Dim_Estado_USA"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "main_Dim_Estado_USA": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_USA"
+			          }
+			        },
+			        "main_Dim_Estado_USA.estado": {
+			          "Target": {
+			            "Entity": "main_Dim_Estado_USA.estado"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "Where": {
+			          "Role": "main_Dim_Estado_USA.estado"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "main_Dim_Estado_USA"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "main_Dim_Estado_USA.estado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "main_Dim_Estado_USAs_are_in_estado"
 			        }
 			      ]
 			    }
