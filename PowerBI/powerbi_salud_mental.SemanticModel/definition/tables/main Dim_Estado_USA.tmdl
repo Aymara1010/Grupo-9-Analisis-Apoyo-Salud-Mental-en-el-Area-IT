@@ -8,13 +8,18 @@ table 'main Dim_Estado_USA'
 		summarizeBy: none
 		sourceColumn: EstadoID
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column Estado
 		dataType: string
 		lineageTag: 41e3665d-5f68-47bb-b3b1-252e7572ceea
+		dataCategory: StateOrProvince
 		summarizeBy: none
 		sourceColumn: Estado
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -26,6 +31,8 @@ table 'main Dim_Estado_USA'
 				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Estado_USA"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = IsHidden
 
 	annotation PBI_ResultType = Table
 

@@ -54,22 +54,7 @@
               {
                 "textRuns": [
                   {
-                    "value": ""
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "   ",
-                    "textStyle": {
-                      "fontWeight": "bold",
-                      "fontSize": "36pt",
-                      "color": "#ffffff"
-                    }
-                  },
-                  {
-                    "value": "Estados Unidos",
+                    "value": "   Estados Unidos",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "54pt",
