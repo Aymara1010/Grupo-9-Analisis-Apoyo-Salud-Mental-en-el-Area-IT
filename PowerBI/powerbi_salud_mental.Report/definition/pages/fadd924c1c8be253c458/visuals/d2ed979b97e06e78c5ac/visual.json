@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "70750efecc2586034c8a",
+  "name": "d2ed979b97e06e78c5ac",
   "position": {
     "x": 0,
     "y": 274.82631851158112,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "main Dim_Info_Encuestado.Genero",
-              "nativeQueryRef": "Genero"
+              "nativeQueryRef": "Género",
+              "displayName": "Género"
             }
           ]
         }

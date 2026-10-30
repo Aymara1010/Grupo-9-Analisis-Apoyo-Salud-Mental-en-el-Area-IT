@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "0d2844fd0450422762a7",
+  "name": "97add98963c300d53144",
   "position": {
     "x": 1585.327413542517,
     "y": 90.520238118940014,
@@ -17,21 +17,16 @@
           "projections": [
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "main Fact_Respuesta_Encuestado"
-                        }
-                      },
-                      "Property": "Edad"
+                    "SourceRef": {
+                      "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Function": 1
+                  "Property": "Edad texto"
                 }
               },
-              "queryRef": "Sum(main Fact_Respuesta_Encuestado.Edad)",
+              "queryRef": "main Dim_Beneficio_Trabajo.Edad texto",
               "nativeQueryRef": "Edad promedio",
               "displayName": "Edad promedio"
             }
@@ -39,26 +34,6 @@
         }
       },
       "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Aggregation": {
-                "Expression": {
-                  "Column": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "main Fact_Respuesta_Encuestado"
-                      }
-                    },
-                    "Property": "Edad"
-                  }
-                },
-                "Function": 1
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
         "isDefaultSort": true
       }
     },
@@ -149,9 +124,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#E0AAFF'"
                     }
                   }
                 }

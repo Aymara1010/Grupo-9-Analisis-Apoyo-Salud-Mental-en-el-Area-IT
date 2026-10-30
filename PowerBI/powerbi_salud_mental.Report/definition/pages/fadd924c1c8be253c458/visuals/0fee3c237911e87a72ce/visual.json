@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "d60602174a608ae74d55",
+  "name": "0fee3c237911e87a72ce",
   "position": {
     "x": 1230.5859398331575,
     "y": 112.53867441814164,
@@ -23,32 +23,16 @@
                       "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Property": "% Con beneficios"
+                  "Property": "Empresas que ofrecen apoyo en salud mental"
                 }
               },
-              "queryRef": "main Dim_Beneficio_Trabajo.% Con beneficios",
-              "nativeQueryRef": "Empresas que ofrecen apoyo en salud mental",
-              "displayName": "Empresas que ofrecen apoyo en salud mental"
+              "queryRef": "main Dim_Beneficio_Trabajo.Beneficios texto",
+              "nativeQueryRef": "Empresas que ofrecen apoyo en salud mental"
             }
           ]
         }
       },
       "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "main Dim_Beneficio_Trabajo"
-                  }
-                },
-                "Property": "% Con beneficios"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
         "isDefaultSort": true
       }
     },
@@ -126,9 +110,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#E0AAFF'"
                     }
                   }
                 }
