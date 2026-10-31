@@ -1,5 +1,4 @@
 import streamlit as st
-import sqlite3
 import random
 from sqlalchemy import text
 from conexion import engine
@@ -7,15 +6,12 @@ from conexion import engine
 # --- CONFIGURACIÓN DE ESTILO PERSONALIZADO (LILA / MORADO) ---
 st.markdown("""
     <style>
-    .stApp {
-        background: linear-gradient(135deg, #f4ebff 0%, #fbf7ff 50%, #f3e8ff 100%);
-    }
     div[data-testid="stForm"] {
         background-color: rgba(255, 255, 255, 0.85);
-        border: 1px solid #d8b4fe;
+        border: 2px solid #d8b4fe;
         border-radius: 20px;
         padding: 2rem;
-        box-shadow: 0 4px 12px rgba(123, 44, 191, 0.08);
+        box-shadow: 0 4px 12px rgba(131, 56, 236, 0.08);
     }
     .stButton>button {
         background: linear-gradient(90deg, #7B2CBF 0%, #3C096C 100%);
@@ -100,23 +96,23 @@ with st.form("encuesta_osmi"):
 if enviado:
 
     datos = {
-        "p_edad": edad, "p_genero": genero, "p_exp": exp_tech, "p_mod": modalidad,
-        "p_facultad": facultad, "p_area": area_tech, "p_rol": rol, "p_free": freelance,
-        "p_emp": empresa_tech, "p_ant": antecedentes, "p_trat": buscado_tratamiento,
+        "p_edad": edad, "p_genero": genero, "p_facultad": facultad, "p_area": area_tech,
+        "p_rol": 1 if rol == "Sí" else 0, "p_emp": 1 if empresa_tech == "Sí" else 0, 
+        "p_ant": antecedentes, "p_trat": 1 if buscado_tratamiento == "Sí" else 0,
         "p_cond": condicion_actual, "p_ben": beneficios, "p_priv": privacidad,
         "p_cob": cobertura, "p_imp_m": imp_mental, "p_imp_f": imp_fisica
     }
     
     query = text("""
         INSERT INTO public.estudiante (
-            edad, genero, experiencia_tecnologica, modalidad_trabajo, facultad_estudio, 
-            area_tecnologica, rol_especifico, trabaja_freelance, empresa_puramente_tecnologia,
-            antecedentes_familiares, buscado_tratamiento, condicion_actual,
+            edad, genero, facultad_estudio, area_tecnologica, rol_especifico,
+            empresa_puramente_tecnologia, antecedentes_familiares, 
+            buscado_tratamiento, condicion_actual,
             beneficios_empresa, privacidad_tratamiento, conoce_cobertura,
             importancia_salud_mental_empresa, importancia_salud_fisica_empresa
         ) VALUES (
-            :p_edad, :p_genero, :p_exp, :p_mod, :p_facultad, 
-            :p_area, :p_rol, :p_free, :p_emp,
+            :p_edad, :p_genero, :p_facultad, 
+            :p_area, :p_rol, :p_emp,
             :p_ant, :p_trat, :p_cond,
             :p_ben, :p_priv, :p_cob,
             :p_imp_m, :p_imp_f
@@ -128,5 +124,19 @@ if enviado:
             con.execute(query, datos)
         st.success("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!")
         st.balloons()
+
+        st.markdown("""
+            <div class="mensaje-motivacional">
+                <h3 style="margin-top: 0; color: #3C096C;">💜 ¡Muchas gracias por tu participación!</h3>
+                <p style="font-size: 1.05rem; color: #2b2b2b;">
+                    Tu contribución es fundamental para generar conciencia, visibilizar el bienestar emocional 
+                    y promover culturas de trabajo más saludables e inclusivas en el sector tecnológico.
+                </p>
+                <blockquote style="border-left: 3px solid #7B2CBF; padding-left: 10px; font-style: italic; color: #5a189a; margin-top: 10px;">
+                    "Cuidar de tu salud mental no es un lujo, es una prioridad. Tómate una pausa cuando lo necesites." 🌿✨
+                </blockquote>
+            </div>
+        """, unsafe_allow_html=True)
+
     except Exception as e:
         st.error(f"Error al enviar la encuesta: {e}")
