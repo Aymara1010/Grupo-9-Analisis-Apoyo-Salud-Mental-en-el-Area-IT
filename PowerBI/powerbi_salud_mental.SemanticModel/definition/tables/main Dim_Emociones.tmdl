@@ -1,0 +1,39 @@
+table 'main Dim_Emociones'
+	lineageTag: 73a7e26d-9c9f-4945-a42d-496a1adf622e
+
+	column EmocionID
+		dataType: int64
+		formatString: 0
+		lineageTag: 95fd2c70-6431-48b7-b3f8-6ceef411938a
+		summarizeBy: none
+		sourceColumn: EmocionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Emocion
+		dataType: string
+		lineageTag: 31889220-807d-4f88-a088-04fc5251de04
+		summarizeBy: none
+		sourceColumn: Emocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nivel_Emocion
+		dataType: string
+		lineageTag: 83b88e5a-64be-42fa-9707-83929c42f6ce
+		summarizeBy: none
+		sourceColumn: Nivel_Emocion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Emociones' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Emociones"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

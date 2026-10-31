@@ -1,0 +1,152 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 218.39999389648438,
+        "y": 190.39999389648438
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 902.5107347567025,
+            "y": 619.84854820775877
+          },
+          "nodeIndex": "main Dim_Beneficio_Trabajo",
+          "nodeLineageTag": "d7f878e0-1154-47ec-bc00-f011dea65803",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 215.31734546049086,
+            "y": 252.61677066096001
+          },
+          "nodeIndex": "main Dim_Categorias_Sugerencia",
+          "nodeLineageTag": "e6cef978-5e13-4f78-ac1c-a4875bbd59c8",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.16598483561347,
+            "y": 600.03501821640589
+          },
+          "nodeIndex": "main Dim_Emociones",
+          "nodeLineageTag": "73a7e26d-9c9f-4945-a42d-496a1adf622e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 573.958949673806
+          },
+          "nodeIndex": "main Dim_Encuesta",
+          "nodeLineageTag": "848459c2-fb8e-4ff5-bee7-ee906c099ccb",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 293.71151422599632,
+            "y": 23.635057967743251
+          },
+          "nodeIndex": "main Dim_Estado_Mental",
+          "nodeLineageTag": "d176e759-8e99-485d-abfa-6cf66a3976fb",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 783.78157592957518,
+            "y": 294.31351243095503
+          },
+          "nodeIndex": "main Dim_Estado_USA",
+          "nodeLineageTag": "909d88ca-bda0-46ba-87c8-ad5d75f5ebc0",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 862.10678155611015,
+            "y": 77.5288861890541
+          },
+          "nodeIndex": "main Dim_Info_Encuestado",
+          "nodeLineageTag": "86802187-d5e2-4ce0-b696-3dcb7a4dd347",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 618.32358653540734,
+            "y": 668.30413223636731
+          },
+          "nodeIndex": "main Dim_Pais",
+          "nodeLineageTag": "186f1143-5c7e-4971-9242-cdaa5c4a2e92",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 577.90502366239264,
+            "y": -50
+          },
+          "nodeIndex": "main Dim_Trabajo_Encuestado",
+          "nodeLineageTag": "8650f4ca-fc1b-4187-a192-b15fe383370b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 499.588168300849,
+            "y": 249.87211570503945
+          },
+          "nodeIndex": "main Fact_Respuesta_Encuestado",
+          "nodeLineageTag": "1bb602d5-183a-463a-9039-adeacbd06e01",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

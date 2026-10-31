@@ -1,0 +1,39 @@
+table 'main Dim_Categorias_Sugerencia'
+	lineageTag: e6cef978-5e13-4f78-ac1c-a4875bbd59c8
+
+	column CategoriaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d191319-7a61-4568-8fef-ba6cb35ac4cc
+		summarizeBy: none
+		sourceColumn: CategoriaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: 8047ec00-f5ae-4cf0-8531-978d25f76d11
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descripcion
+		dataType: string
+		lineageTag: ca6e2203-bf11-48ea-830d-0bdff87ff7a6
+		summarizeBy: none
+		sourceColumn: Descripcion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Categorias_Sugerencia' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Categorias_Sugerencia"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+
