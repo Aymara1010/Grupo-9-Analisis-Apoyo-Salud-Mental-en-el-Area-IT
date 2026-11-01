@@ -1,0 +1,10 @@
+expression 'main databases' =
+		let
+		    Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+		    main_databases = Origen{[Schema="main",Item="databases"]}[Data]
+		in
+		    main_databases
+	lineageTag: 91b4741e-0970-41e4-bf84-151e2647050b
+
+	annotation PBI_ResultType = Table
+

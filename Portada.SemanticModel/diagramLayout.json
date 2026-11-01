@@ -1,0 +1,152 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 24,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 708.92986779484,
+            "y": 297.44574777956541
+          },
+          "nodeIndex": "main Dim_Beneficio_Trabajo",
+          "nodeLineageTag": "05b0c199-8e32-4d5a-9195-5a8604993ddf",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 444.36591186156238,
+            "y": 984.95054259953758
+          },
+          "nodeIndex": "main Dim_Categorias_Sugerencia",
+          "nodeLineageTag": "b1e7f855-8af2-4ec1-a5f3-83d679ec8f8c",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 708.83396382886747,
+            "y": 749.38502857775472
+          },
+          "nodeIndex": "main Dim_Emociones",
+          "nodeLineageTag": "a50e733a-e957-4a8e-b7b3-f232af99de82",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 377.28208533085706
+          },
+          "nodeIndex": "main Dim_Encuesta",
+          "nodeLineageTag": "9b5f9b41-30a6-4793-8561-a01ea968bae8",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 995.824739162529,
+            "y": 606.536392889049
+          },
+          "nodeIndex": "main Dim_Estado_Mental",
+          "nodeLineageTag": "5b40f7b8-a532-4529-bc0e-56ddcc2e5339",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 134.81823369324343,
+            "y": 556.56595587500033
+          },
+          "nodeIndex": "main Dim_Estado_USA",
+          "nodeLineageTag": "66a6b65a-540e-4a48-9502-14d8743fca7d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 525.348057052978,
+            "y": -50
+          },
+          "nodeIndex": "main Dim_Info_Encuestado",
+          "nodeLineageTag": "aaa88a87-d282-4ff4-8726-1ef61911c9bb",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 235.02694862923795,
+            "y": 780.788185313829
+          },
+          "nodeIndex": "main Dim_Pais",
+          "nodeLineageTag": "421a76f4-5ea1-44a2-be12-8c74ad9f4d8e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 239.7769833504434,
+            "y": 149.10807259998637
+          },
+          "nodeIndex": "main Dim_Trabajo_Encuestado",
+          "nodeLineageTag": "24e73f1f-8b7a-49cd-8987-c9950cbdf43b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 421.85448281452074,
+            "y": 427.86151971361289
+          },
+          "nodeIndex": "main Fact_Respuesta_Encuestado",
+          "nodeLineageTag": "f9fecff7-fded-4aff-9303-0f8f2d6f2229",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}
