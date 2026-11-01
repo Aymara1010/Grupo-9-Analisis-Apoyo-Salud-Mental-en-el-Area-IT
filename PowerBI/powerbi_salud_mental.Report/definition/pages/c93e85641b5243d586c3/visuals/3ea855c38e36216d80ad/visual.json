@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "36ef4b6f9e55c7b29360",
+  "name": "3ea855c38e36216d80ad",
   "position": {
-    "x": 149.01960784313727,
-    "y": 909.8039215686274,
-    "z": 4000,
-    "height": 47.058823529411761,
-    "width": 100,
-    "tabOrder": 4000
+    "x": 1641.0714285714284,
+    "y": 130.35714285714283,
+    "z": 0,
+    "height": 66.071428571428569,
+    "width": 166.07142857142856,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "actionButton",
@@ -18,14 +18,19 @@
             "shapeType": {
               "expr": {
                 "Literal": {
-                  "Value": "'information'"
+                  "Value": "'rightArrow'"
                 }
               }
             },
-            "iconSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "25D"
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }
@@ -41,34 +46,7 @@
             "roundEdge": {
               "expr": {
                 "Literal": {
-                  "Value": "30L"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "fill": [
-        {
-          "properties": {
-            "fillColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#682E8E'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "Value": "0L"
                 }
               }
             }
@@ -80,6 +58,58 @@
       ]
     },
     "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Transparent'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
       "visualLink": [
         {
           "properties": {
@@ -87,20 +117,6 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'WebUrl'"
-                }
-              }
-            },
-            "webUrl": {
-              "expr": {
-                "Literal": {
-                  "Value": "'https://github.com/Aymara1010/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT'"
                 }
               }
             }

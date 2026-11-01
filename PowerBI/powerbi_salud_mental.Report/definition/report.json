@@ -11,7 +11,7 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "TechWell_Anal_tica31226443243886814.json",
+      "name": "TechWell_Anal_tica6323529987142238.json",
       "reportVersionAtImport": {
         "visual": "2.14.0",
         "report": "3.4.0",
@@ -65,13 +65,28 @@
       "type": "RegisteredResources",
       "items": [
         {
+          "name": "111111115016930959658961.png",
+          "path": "111111115016930959658961.png",
+          "type": "Image"
+        },
+        {
+          "name": "121212124530931394417987135.png",
+          "path": "121212124530931394417987135.png",
+          "type": "Image"
+        },
+        {
           "name": "fondo_degradado_(1)799581928943419.png",
           "path": "fondo_degradado_(1)799581928943419.png",
           "type": "Image"
         },
         {
-          "name": "TechWell_Anal_tica31226443243886814.json",
-          "path": "TechWell_Anal_tica31226443243886814.json",
+          "name": "Relleno_degradado_19846990710663667.png",
+          "path": "Relleno_degradado_19846990710663667.png",
+          "type": "Image"
+        },
+        {
+          "name": "TechWell_Anal_tica6323529987142238.json",
+          "path": "TechWell_Anal_tica6323529987142238.json",
           "type": "CustomTheme"
         }
       ]
