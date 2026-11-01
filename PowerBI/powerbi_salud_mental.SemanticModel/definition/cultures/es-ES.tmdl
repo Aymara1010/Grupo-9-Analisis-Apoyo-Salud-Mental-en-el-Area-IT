@@ -201,16 +201,6 @@ cultureInfo es-ES
 			            },
 			            "Weight": 0.591
 			          }
-			        },
-			        {
-			          "Empresas que ofrecen apoyo en salud mental": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },

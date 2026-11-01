@@ -419,34 +419,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "fe7e1ec972e0b8b6cb18",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "main Fact_Respuesta_Encuestado"
-              }
-            },
-            "Property": "Total Respuestas"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "e2c4876e63c011ca96c4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "main Dim_Pais"
-              }
-            },
-            "Property": "País"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }
