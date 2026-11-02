@@ -2,6 +2,7 @@ import streamlit as st
 import random
 from sqlalchemy import text
 from conexion import engine
+from google import genai 
 
 # --- CONFIGURACIÓN DE ESTILO PERSONALIZADO (LILA / MORADO) ---
 st.markdown("""
@@ -125,7 +126,33 @@ if enviado:
         st.success("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!")
         st.balloons()
 
-        st.markdown("""
+        frase_motivacional = "Cuidar de tu salud mental no es un lujo, es una prioridad. Tómate una pausa cuando lo necesites. 🌿✨"
+        
+        try:
+            # Inicializar Gemini mediante st.secrets
+            client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+            
+            # Prompt personalizado con datos relevantes de la encuesta
+            prompt = (
+                f"""Actúa como un coach de bienestar empático y amigable enfocado en profesionales de tecnología y estudiantes. "
+                Un usuario de {edad} años, que estudia en la facultad de {facultad} y trabaja en el área de {area_tech},
+                ha completado una encuesta de salud mental. Su valoración de la importancia de la salud mental en su entorno es {imp_mental}/10.
+                Genera una frase motivacional o un consejo breve, cálido y personalizado (de máximo 2 o 3 líneas, acompañado de emojis sutiles)
+                fque valide su esfuerzo, le brinde apoyo emocional y fomente el autocuidado en su carrera tecnológica.
+                No incluyas introducciones como 'Aquí tienes tu frase', responde únicamente con la cita motivacional y aclarando que la respuesta biene de una IA."""
+            )
+            
+            respuesta_ia = client.models.generate_content(
+                model="gemini-3.8-flash",
+                contents=prompt,
+            )
+            if respuesta_ia and respuesta_ia.text:
+                frase_motivacional = respuesta_ia.text.strip()
+        except Exception as ai_error:
+            st.error(f"Error al enviar la encuesta: {ai_error}")
+            pass
+
+        st.markdown(f"""
             <div class="mensaje-motivacional">
                 <h3 style="margin-top: 0; color: #3C096C;">💜 ¡Muchas gracias por tu participación!</h3>
                 <p style="font-size: 1.05rem; color: #2b2b2b;">
@@ -133,7 +160,7 @@ if enviado:
                     y promover culturas de trabajo más saludables e inclusivas en el sector tecnológico.
                 </p>
                 <blockquote style="border-left: 3px solid #7B2CBF; padding-left: 10px; font-style: italic; color: #5a189a; margin-top: 10px;">
-                    "Cuidar de tu salud mental no es un lujo, es una prioridad. Tómate una pausa cuando lo necesites." 🌿✨
+                    {frase_motivacional}
                 </blockquote>
             </div>
         """, unsafe_allow_html=True)
