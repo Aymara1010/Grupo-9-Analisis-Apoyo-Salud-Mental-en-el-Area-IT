@@ -1,16 +1,13 @@
-
-import os
-from dotenv import load_dotenv
+import streamlit as st
 from sqlalchemy import create_engine, URL
-
-load_dotenv()
 
 url = URL.create(
     "postgresql+psycopg2",
-    username=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD"),
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
-    database=os.getenv("DB_NAME"),
+    username=st.secrets["DB_USER"],
+    password=st.secrets["DB_PASSWORD"],
+    host=st.secrets["DB_HOST"],
+    port=int(st.secrets["DB_PORT"]),
+    database=st.secrets["DB_NAME"],
 )
+
 engine = create_engine(url)
