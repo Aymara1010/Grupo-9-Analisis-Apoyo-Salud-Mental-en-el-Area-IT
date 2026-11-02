@@ -4,3 +4,6 @@ pandas
 duckdb
 plotly
 duckdb-engine
+sqlalchemy
+psycopg2-binary
+google-genai
