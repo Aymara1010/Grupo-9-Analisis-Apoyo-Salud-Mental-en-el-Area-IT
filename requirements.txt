@@ -1,6 +1,9 @@
 # librerías necesarias
 streamlit
 pandas
-duckdb
+duckdb==1.5.6
 plotly
 duckdb-engine
+sqlalchemy
+psycopg2-binary
+google-genai
