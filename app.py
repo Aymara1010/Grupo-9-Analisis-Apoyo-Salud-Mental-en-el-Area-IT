@@ -1,6 +1,27 @@
 import streamlit as st
+import duckdb
 # Configuración de la App
 st.set_page_config(page_title="Análisis Salud Mental", page_icon="🧠", layout="wide")
+
+# Preparación del Caché
+@st.cache_resource(show_spinner=False)
+def iniciar_conexion():
+    md_token = st.secrets["MOTHERDUCK_TOKEN"]
+    return duckdb.connect(f"md:?motherduck_token={md_token}")
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def preload_data():
+    conn = iniciar_conexion()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Uno").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Dos").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Tres").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cuatro").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cinco").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Seis").fetchdf()
+   
+with st.spinner("Conectando la Base de Datos..."):   
+    preload_data()
+
 
 #Detalles del menú y degradado de fondos
 st.markdown('' 
@@ -37,7 +58,6 @@ st.markdown(''
 p_welcom = st.Page("Paginas/08_Welcome.py", title="Bienvenida")
 p_vista = st.Page("Paginas/01_Inicio.py", title="Vista General")
 p_intro = st.Page("Paginas/06_introduccion.py", title="Introducción")
-p_equipo = st.Page("Paginas/07_Equipo_investigacion.py", title="Equipo de Investigación")
 
 p_plant = st.Page("Paginas/02_Planteamiento.py", title="Lectura General ")
 p_teorico = st.Page("Paginas/03_Marco_Teorico.py", title="Metodología")
@@ -45,11 +65,10 @@ p_metodo = st.Page("Paginas/04_Marco_Metodologico.py", title="Diccionario de Dat
 
 p_resultados = st.Page("Paginas/05_Resultados_y_Conclusiones.py", title="Resultados y Conclusiones")
 p_querys_prof = st.Page("Paginas/09_querys_prof.py", title="Querys Generales")
-p_consultas = st.Page("Paginas/11_sql_interactivo.py", title="Consultas Aquí")
 p_bibli = st.Page("Paginas/10_Bibliografia.py", title="Bibliografía")
 p_encuesta = st.Page("Paginas/12_Encuesta.py", title="📝 Llenar Encuesta")
 
-todas_las_paginas = [p_welcom, p_vista, p_intro, p_equipo, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_consultas, p_bibli, p_encuesta]
+todas_las_paginas = [p_welcom, p_vista, p_intro, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_bibli, p_encuesta]
 pg = st.navigation(todas_las_paginas, position="hidden")
 
 #Texto y Orden del menú
@@ -60,26 +79,24 @@ with st.sidebar: #avisos y notas
     
     #cuadros para seleccionar 
     #inicio
-    with st.expander("🚀 inicio", expanded=True):
+    with st.expander("🚀 **inicio**", expanded=True):
         st.page_link(p_welcom)
         st.page_link(p_vista)
         st.page_link(p_intro)
-        st.page_link(p_equipo)
 
     #Presentación Académica
-    with st.expander("📖 Presentación Académica", expanded=True):
+    with st.expander("📖 **Presentación Académica**", expanded=True):
         st.page_link(p_plant)
         st.page_link(p_teorico)
         st.page_link(p_metodo)
     
     #Análisis y Cierre
-    with st.expander("📊 Análisis", expanded=True):
+    with st.expander("📊 **Análisis**", expanded=True):
         st.page_link(p_resultados)
         st.page_link(p_querys_prof)
-        st.page_link(p_consultas)
         st.page_link(p_bibli)
         
-    with st.expander("📝 Participación", expanded=True):
+    with st.expander("📝 **Participación**", expanded=True):
         st.page_link(p_encuesta)
 
 
