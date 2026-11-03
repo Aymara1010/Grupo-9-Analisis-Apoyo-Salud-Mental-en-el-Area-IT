@@ -1,24 +1,26 @@
 import streamlit as st
+import duckdb 
+
 # Configuración de la App
 st.set_page_config(page_title="Análisis Salud Mental", page_icon="🧠", layout="wide")
 
-# Preparar Cache de la app
-@st.cache_data(ttl="1h")
-def run_query(query):
-    conn = st.connection("motherduck", type="sql")
-    return conn.query(query)
+@st.cache_resource
+def iniciar_conexion():
+    md_token = st.secrets["MOTHERDUCK_TOKEN"]
+    return duckdb.connect(f"md:?motherduck_token={md_token}")
 
-@st.cache_data(ttl="1h")
+@st.cache_data(ttl=3600)
 def preload_data():
-    run_query(" SELECT * FROM Objetivo_Uno")
-    run_query(" SELECT * FROM Objetivo_Dos")
-    run_query(" SELECT * FROM Objetivo_Tres")
-    run_query(" SELECT * FROM Objetivo_Cuatro")
-    run_query(" SELECT * FROM Objetivo_Cinco")
-    run_query(" SELECT * FROM Objetivo_Seis")
- 
+    conn = iniciar_conexion()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Uno").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Dos").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Tres").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cuatro").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cinco").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Seis").fetchdf()
+
 with st.spinner("Conectando la Base de Datos..."):  
-   preload_data()
+    preload_data()
 
 #Detalles del menú y degradado de fondos
 st.markdown('' 
