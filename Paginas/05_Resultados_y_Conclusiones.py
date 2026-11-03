@@ -118,3 +118,30 @@ renderizar_bloque(
     "El análisis de la distribución porcentual indica que <b>Estados Unidos</b> concentra el mayor porcentaje de respuestas afirmativas en la provisión de beneficios de salud mental. En contraste, el bloque de <b>Europa y Oceanía</b> exhibe una mayor dispersión relativa entre las categorías de respuesta ('Sí', 'No' y 'No lo sé'), lo que evidencia divergencias estructurales significativas en las políticas corporativas de asistencia según la delimitación geográfica.",
     fig1, "g_obj1"
 )
+
+#OBJETIVO 2
+df2_melted = df2.melt(id_vars=['Region_Agrupada', 'Total_Respuestas_Definitivas'], 
+                      value_vars=['Proporcion_SI_PCT', 'Proporcion_NO_PCT'],
+                      var_name='Respuesta', value_name='Porcentaje')
+df2_melted['Respuesta'] = df2_melted['Respuesta'].replace({'Proporcion_SI_PCT': 'Sí conoce', 'Proporcion_NO_PCT': 'No conoce'})
+
+fig2 = px.bar(
+    df2_melted, x='Region_Agrupada', y='Porcentaje', color='Respuesta',
+    barmode='group', text='Porcentaje',
+    color_discrete_map={'Sí conoce': '#7B2CBF', 'No conoce': '#E0AAFF'},
+    labels={'Region_Agrupada': 'Región', 'Porcentaje': 'Proporción (%)'}
+)
+
+estilizar_grafico(
+    fig2,
+    titulo="Proporción de Empleados que Conocen sus Opciones de Cobertura",
+    formato_texto='.1f',
+    es_porcentaje=True
+)
+
+renderizar_bloque(
+    2, "Proporción de empleados que conocen sus opciones de atención",
+    "Determinar la proporción de empleados que conocen sus opciones de atención de salud mental laboral según su región geográfica.",
+    "El análisis comparativo de proporciones evidencia un contraste estructural profundo entre regiones. En <b>Estados Unidos</b>, el conocimiento de las opciones de cobertura se encuentra distribuido de forma equitativa (50.71% afirma conocerlas frente a un 49.29% que las desconoce). En marcado contraste, el bloque de <b>Europa y Oceanía</b> muestra un déficit crítico de información, donde el <b>73.98%</b> de los empleados ignora sus alternativas de atención, lo que subraya la urgencia de optimizar los canales de comunicación y transparencia corporativa en dicha zona geográfica.",
+    fig2, "g_obj2"
+)
