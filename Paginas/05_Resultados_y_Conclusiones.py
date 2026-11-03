@@ -75,3 +75,36 @@ def renderizar_bloque(numero, titulo_obj, texto_desc, texto_concl, figura, key_f
             <p class="texto-kpi">{texto_concl}</p>
         </div>
         """, unsafe_allow_html=True)
+
+# OBJETIVO 1
+fig1 = px.bar(
+    df1, x='region_agrupada', y='Frecuencia_Relativa_Porcentaje', color='Ofrece_Beneficios',
+    barmode='group', text='Frecuencia_Relativa_Porcentaje',
+    color_discrete_sequence=['#7B2CBF', '#c77dff', '#E0AAFF', '#3C096C', '#5a189a'],
+    labels={'region_agrupada': 'Región', 'Frecuencia_Relativa_Porcentaje': 'Frecuencia Relativa (%)', 'Ofrece_Beneficios': 'Ofrece Beneficios'}
+)
+
+#colores oscuros y negrita en los números de las barras
+fig1.update_traces(
+    texttemplate='%{text:.1f}%',
+    textposition='outside',
+    textfont=dict(color='black', size=11, weight='bold')
+)
+
+#diseño general para textos 
+fig1.update_layout(
+    title=dict(text="<b>Frecuencia Relativa de Empresas Tecnológicas con Beneficios de Salud Mental</b>", font=dict(color="black", size=16)),
+    plot_bgcolor='rgba(0,0,0,0)', 
+    paper_bgcolor='rgba(0,0,0,0)',
+    font=dict(family="sans-serif", color="black", size=12),
+    xaxis=dict(showgrid=False, title_font=dict(color="black"), tickfont=dict(color="black")),
+    yaxis=dict(showgrid=True, gridcolor='rgba(123, 44, 191, 0.1)', title_font=dict(color="black"), tickfont=dict(color="black")),
+    legend=dict(font=dict(color="black"), title=dict(font=dict(color="black")))
+)
+
+renderizar_bloque(
+    1, "Comparación de frecuencia de beneficios de salud mental por región",
+    "Comparar la frecuencia relativa de empresas tecnológicas que ofrecen beneficios de salud mental entre Estados Unidos, Europa y Oceanía.",
+    "El análisis de la distribución porcentual indica que <b>Estados Unidos</b> concentra el mayor porcentaje de respuestas afirmativas en la provisión de beneficios de salud mental. En contraste, el bloque de <b>Europa y Oceanía</b> exhibe una mayor dispersión relativa entre las categorías de respuesta ('Sí', 'No' y 'No lo sé'), lo que evidencia divergencias estructurales significativas en las políticas corporativas de asistencia según la delimitación geográfica.",
+    fig1, "g_obj1"
+)
