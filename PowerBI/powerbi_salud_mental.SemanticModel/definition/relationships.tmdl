@@ -1,0 +1,75 @@
+relationship c5ab092e-951d-42e1-a2d1-fc09a6b9ce62
+	fromColumn: 'main Fact_Respuesta_Encuestado'.BeneficiosID
+	toColumn: 'main Dim_Beneficio_Trabajo'.BeneficiosID
+
+	annotation PBI_IsFromSource = FS
+
+relationship dddcdc8a-3411-4b5c-9ad7-3cfae72b6923
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Categoria_Sugerencia_ID
+	toColumn: 'main Dim_Categorias_Sugerencia'.CategoriaID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 7a9dd3e9-3eeb-4bcb-802f-ab0d49dece9c
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Emocion_Conversacion_Companeros
+	toColumn: 'main Dim_Emociones'.EmocionID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 30e2896d-351d-4300-97b1-fb53fcdaed50
+	isActive: false
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Emocion_Conversacion_Sobre_Companero
+	toColumn: 'main Dim_Emociones'.EmocionID
+
+	annotation PBI_IsFromSource = FS
+
+relationship bfb6e2bf-8b10-48e8-ae11-c19eb023e60b
+	fromColumn: 'main Fact_Respuesta_Encuestado'.EncuestaID
+	toColumn: 'main Dim_Encuesta'.EncuestaID
+
+	annotation PBI_IsFromSource = FS
+
+relationship f97cd64c-f19e-43e8-a448-b8d0bee18e4b
+	fromColumn: 'main Fact_Respuesta_Encuestado'.SaludMentalID
+	toColumn: 'main Dim_Estado_Mental'.SaludMentalID
+
+	annotation PBI_IsFromSource = FS
+
+relationship f4f1ed03-f3f0-4c10-a2dd-9db919de6334
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Estado_USA_Empleo
+	toColumn: 'main Dim_Estado_USA'.EstadoID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 2d49749f-1a8c-4afb-9de0-201a3293bbb2
+	isActive: false
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Estado_USA_Vivienda
+	toColumn: 'main Dim_Estado_USA'.EstadoID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 5698c601-ce38-4dda-a08b-d8dd889e4c5b
+	fromColumn: 'main Fact_Respuesta_Encuestado'.InfoID
+	toColumn: 'main Dim_Info_Encuestado'.InfoID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 0ec09ce3-363a-4eac-b5f8-a1c56575901b
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Pais_Empleo
+	toColumn: 'main Dim_Pais'.PaisID
+
+	annotation PBI_IsFromSource = FS
+
+relationship f064d830-b23f-4772-9226-d899a077dbdf
+	isActive: false
+	fromColumn: 'main Fact_Respuesta_Encuestado'.Pais_Vivienda
+	toColumn: 'main Dim_Pais'.PaisID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9e71a55d-83c9-419c-a72c-3b45926e0f73
+	fromColumn: 'main Fact_Respuesta_Encuestado'.TrabajoID
+	toColumn: 'main Dim_Trabajo_Encuestado'.TrabajoID
+
+	annotation PBI_IsFromSource = FS
+

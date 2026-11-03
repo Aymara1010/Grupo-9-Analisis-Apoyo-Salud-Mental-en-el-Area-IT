@@ -1,0 +1,47 @@
+table 'main Dim_Estado_Mental'
+	lineageTag: d176e759-8e99-485d-abfa-6cf66a3976fb
+
+	column SaludMentalID
+		dataType: int64
+		formatString: 0
+		lineageTag: c7ef3912-0439-4884-9084-935d05a4e76d
+		summarizeBy: none
+		sourceColumn: SaludMentalID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Historial
+		dataType: string
+		lineageTag: 75473e2a-6ade-402d-9a9c-700361445675
+		summarizeBy: none
+		sourceColumn: Historial
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tratamiento
+		dataType: string
+		lineageTag: 91908eea-6821-4fc9-a71e-133b3540363d
+		summarizeBy: none
+		sourceColumn: Tratamiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Condicion_Actual
+		dataType: string
+		lineageTag: 693ae47d-fe02-41bc-b559-0b17f03f5890
+		summarizeBy: none
+		sourceColumn: Condicion_Actual
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Estado_Mental' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Estado_Mental"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

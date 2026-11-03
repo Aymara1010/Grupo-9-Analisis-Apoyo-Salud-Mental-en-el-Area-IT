@@ -1,0 +1,47 @@
+table 'main Dim_Trabajo_Encuestado'
+	lineageTag: 8650f4ca-fc1b-4187-a192-b15fe383370b
+
+	column TrabajoID
+		dataType: int64
+		formatString: 0
+		lineageTag: b23e7854-1178-41ed-abe3-fbeadc56a4cb
+		summarizeBy: none
+		sourceColumn: TrabajoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freelance
+		dataType: string
+		lineageTag: 1558ef02-a4f1-479e-9e36-145ee601b562
+		summarizeBy: none
+		sourceColumn: Freelance
+
+		annotation SummarizationSetBy = Automatic
+
+	column Perfil_Tecnologico
+		dataType: string
+		lineageTag: 146ed8d2-bbbe-417b-bbe3-1015e476345e
+		summarizeBy: none
+		sourceColumn: Perfil_Tecnologico
+
+		annotation SummarizationSetBy = Automatic
+
+	column Empresa_Tec
+		dataType: string
+		lineageTag: 02c8a911-f3bf-4576-b65b-295ef148c431
+		summarizeBy: none
+		sourceColumn: Empresa_Tec
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Trabajo_Encuestado' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Trabajo_Encuestado"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,39 @@
+table 'main Dim_Info_Encuestado'
+	lineageTag: 86802187-d5e2-4ce0-b696-3dcb7a4dd347
+
+	column InfoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 76bbb88e-ae8e-4ef1-8bf9-6f5530b4748f
+		summarizeBy: none
+		sourceColumn: InfoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Genero
+		dataType: string
+		lineageTag: e907407a-fbf7-4d23-be9b-dcb8128341b9
+		summarizeBy: none
+		sourceColumn: Genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column Raza_Etnia
+		dataType: string
+		lineageTag: 8116b389-2147-4fe3-bc76-6df4a38c9e9e
+		summarizeBy: none
+		sourceColumn: Raza_Etnia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Info_Encuestado' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Info_Encuestado"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

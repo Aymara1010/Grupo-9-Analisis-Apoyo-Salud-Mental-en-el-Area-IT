@@ -1,0 +1,31 @@
+table 'main Dim_Encuesta'
+	lineageTag: 848459c2-fb8e-4ff5-bee7-ee906c099ccb
+
+	column EncuestaID
+		dataType: int64
+		formatString: 0
+		lineageTag: f813ca88-1bc3-4db5-ae2c-552c95d4e7f4
+		summarizeBy: none
+		sourceColumn: EncuestaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descripcion
+		dataType: string
+		lineageTag: 11b5f458-1a19-4f99-af58-9e0a9eecbfea
+		summarizeBy: none
+		sourceColumn: Descripcion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Encuesta' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Encuesta"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,100 @@
+table 'main Dim_Pais'
+	lineageTag: 186f1143-5c7e-4971-9242-cdaa5c4a2e92
+
+	column PaisID
+		dataType: int64
+		formatString: 0
+		lineageTag: 548b9f9b-bb2a-417a-b888-4ab1fb3ef697
+		summarizeBy: none
+		sourceColumn: PaisID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 74be0882-db07-4e24-860b-221036e7a5c7
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 5f588ef1-517a-4b8b-a2e4-b6e10ad437e6
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column País =
+			SWITCH(
+			    'main Dim_Pais'[Pais],
+			    "United Kingdom", "Reino Unido",
+			    "Germany", "Alemania",
+			    "Netherlands", "Países Bajos",
+			    "Spain", "España",
+			    "France", "Francia",
+			    "Switzerland", "Suiza",
+			    "Poland", "Polonia",
+			    "Ireland", "Irlanda",
+			    "Sweden", "Suecia",
+			    "Italy", "Italia",
+			    "Belgium", "Bélgica",
+			    "Denmark", "Dinamarca",
+			    "Finland", "Finlandia",
+			    "Norway", "Noruega",
+			    "Austria", "Austria",
+			    "Czech Republic", "República Checa",
+			    "Greece", "Grecia",
+			    "Romania", "Rumania",
+			    "Hungary", "Hungría",
+			    "Bulgaria", "Bulgaria",
+			    "Lithuania", "Lituania",
+			    "Estonia", "Estonia",
+			    "Slovakia", "Eslovaquia",
+			    "Serbia", "Serbia",
+			    "Bosnia and Herzegovina", "Bosnia y Herzegovina",
+			    "Ukraine", "Ucrania",
+			    "Russia", "Rusia",
+			    "Latvia", "Letonia",
+			    "Iceland", "Islandia",
+			    "Croatia", "Croacia",
+			    "Slovenia", "Eslovenia",
+			    "Luxembourg", "Luxemburgo",
+			    "Australia", "Australia",
+			    "New Zealand", "Nueva Zelanda",
+			    "United States", "Estados Unidos",
+			    'main Dim_Pais'[Pais]
+			)
+		isHidden
+		lineageTag: fd247f92-8d68-4b4f-9045-476100464e8a
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grupo =
+			SWITCH(
+			    'main Dim_Pais'[Region],
+			    "USA", "Estados Unidos",
+			    "Europa", "Europa y Oceanía",
+			    "Oceania", "Europa y Oceanía",
+			    "Otro"
+			)
+		lineageTag: eb45507e-2ab4-4594-8791-eef0864f6e11
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Pais' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Pais"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

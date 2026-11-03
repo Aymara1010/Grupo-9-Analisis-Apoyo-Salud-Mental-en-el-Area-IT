@@ -1,0 +1,213 @@
+table 'main Fact_Respuesta_Encuestado'
+	lineageTag: 1bb602d5-183a-463a-9039-adeacbd06e01
+
+	measure 'Total Respuestas' = COUNTROWS('main Fact_Respuesta_Encuestado')
+		formatString: 0
+		lineageTag: f2db91e5-cf7e-4079-b01f-8071a8f48674
+
+	column RespuestaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ef4b867-5ed0-42ee-8596-fe64eb733cba
+		summarizeBy: count
+		sourceColumn: RespuestaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EncuestadoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1cd282e9-6ac7-4b2c-92d7-bd58fd925f05
+		summarizeBy: count
+		sourceColumn: EncuestadoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EncuestaID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2970c107-d19a-40b5-8684-4299bbc45b9f
+		summarizeBy: none
+		sourceColumn: EncuestaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column InfoID
+		dataType: int64
+		formatString: 0
+		lineageTag: a1b5a10b-b1b6-4118-8faf-77a1a57bed5c
+		summarizeBy: none
+		sourceColumn: InfoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SaludMentalID
+		dataType: int64
+		formatString: 0
+		lineageTag: edd0c78f-41d8-4f47-983b-81925d23fa1b
+		summarizeBy: none
+		sourceColumn: SaludMentalID
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrabajoID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d5cb8a0-d787-4556-9cb8-401d7dbcc582
+		summarizeBy: none
+		sourceColumn: TrabajoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column BeneficiosID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c580344-c999-432a-bae7-75e62331a563
+		summarizeBy: none
+		sourceColumn: BeneficiosID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais_Vivienda
+		dataType: int64
+		formatString: 0
+		lineageTag: 244672c3-efe6-4531-99c4-e67174190a3d
+		summarizeBy: sum
+		sourceColumn: Pais_Vivienda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado_USA_Vivienda
+		dataType: int64
+		formatString: 0
+		lineageTag: 118eab9b-0c14-4365-9727-7497e0ba7813
+		summarizeBy: sum
+		sourceColumn: Estado_USA_Vivienda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais_Empleo
+		dataType: int64
+		formatString: 0
+		lineageTag: 6fe858c8-afc7-43b3-bd70-4ef222792ff9
+		summarizeBy: none
+		sourceColumn: Pais_Empleo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado_USA_Empleo
+		dataType: int64
+		formatString: 0
+		lineageTag: 34aa408e-2154-414c-9edf-6d43a1fbb27a
+		summarizeBy: none
+		sourceColumn: Estado_USA_Empleo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Edad
+		dataType: double
+		lineageTag: eb2ccc1b-11d1-4c3a-ab81-b67630492719
+		summarizeBy: sum
+		sourceColumn: Edad
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Prioridad_Salud_Fisica
+		dataType: int64
+		formatString: 0
+		lineageTag: 21edb6dd-70cc-4b29-b55b-c425c217b4de
+		summarizeBy: sum
+		sourceColumn: Prioridad_Salud_Fisica
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prioridad_Salud_Mental
+		dataType: int64
+		formatString: 0
+		lineageTag: 62312376-72e6-450b-a871-7082bc6a3da8
+		summarizeBy: sum
+		sourceColumn: Prioridad_Salud_Mental
+
+		annotation SummarizationSetBy = Automatic
+
+	column Percepcion_Apoyo_SM_Industria
+		dataType: int64
+		formatString: 0
+		lineageTag: 772dbd0b-36d9-4ec4-8674-51fb1ae29db8
+		summarizeBy: sum
+		sourceColumn: Percepcion_Apoyo_SM_Industria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Experiencia_Respuesta_Negativa_SM
+		dataType: string
+		lineageTag: 2ee3886c-53b8-416c-8165-122fbc8ac94e
+		summarizeBy: none
+		sourceColumn: Experiencia_Respuesta_Negativa_SM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sugerencias_Mejora_SM_Industria
+		dataType: string
+		lineageTag: b814c61f-839c-4218-98c1-bd01b0e72fd0
+		summarizeBy: none
+		sourceColumn: Sugerencias_Mejora_SM_Industria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria_Sugerencia_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c2296cc-b4f7-4426-9dfd-1ef6082d48aa
+		summarizeBy: none
+		sourceColumn: Categoria_Sugerencia_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descripcion_Conversacion_Companeros_Sobre_SM
+		dataType: string
+		lineageTag: b2427acb-bf0a-4b2c-b5b5-74f2bfee446d
+		summarizeBy: none
+		sourceColumn: Descripcion_Conversacion_Companeros_Sobre_SM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Emocion_Conversacion_Companeros
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e27c0a4-c3a0-41bd-8809-992afce3888d
+		summarizeBy: none
+		sourceColumn: Emocion_Conversacion_Companeros
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descripcion_Conversacion_Sobre_Companero_SM
+		dataType: string
+		lineageTag: 03de7c97-a385-408e-afbb-80f4c8a88479
+		summarizeBy: none
+		sourceColumn: Descripcion_Conversacion_Sobre_Companero_SM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Emocion_Conversacion_Sobre_Companero
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d2181ab-85d2-4baa-b6c7-4fe360263b3f
+		summarizeBy: sum
+		sourceColumn: Emocion_Conversacion_Sobre_Companero
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Fact_Respuesta_Encuestado' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Fact_Respuesta_Encuestado"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

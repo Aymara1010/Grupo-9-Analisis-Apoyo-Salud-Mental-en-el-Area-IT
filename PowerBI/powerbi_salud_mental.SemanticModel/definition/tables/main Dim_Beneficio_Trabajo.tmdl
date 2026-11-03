@@ -1,0 +1,109 @@
+table 'main Dim_Beneficio_Trabajo'
+	lineageTag: d7f878e0-1154-47ec-bc00-f011dea65803
+
+	measure Encuestados = FORMAT([Total Respuestas], "#,0")
+		lineageTag: e74b8466-c573-4fd0-8b73-954f508c7a75
+
+	measure '% Con beneficios' = DIVIDE(CALCULATE([Total Respuestas], 'main Dim_Beneficio_Trabajo'[Beneficio] = "Yes"), [Total Respuestas])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8e47b96c-c993-45e2-b306-640c471402e2
+
+	measure 'Empresas que ofrecen apoyo en salud mental' = FORMAT([% Con beneficios], "0.0 %")
+		lineageTag: 2c847cef-9d44-4b27-8afe-a2cf4885fd8c
+
+	measure 'Edad texto' = FORMAT(AVERAGE('main Fact_Respuesta_Encuestado'[Edad]), "0") & " años"
+		lineageTag: 2aed856d-f62c-4298-ba9c-089b1ad0d510
+
+	measure '% Respuestas' = DIVIDE([Total Respuestas], CALCULATE([Total Respuestas], ALLSELECTED('main Dim_Beneficio_Trabajo')))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: efc9736a-8485-4d60-9116-7d599078c7ba
+
+	measure '% Respuestas texto' = FORMAT([% Respuestas], "0.0 %")
+		lineageTag: 6b19a812-7f55-4f03-b125-4210e7f740a8
+
+	column BeneficiosID
+		dataType: int64
+		formatString: 0
+		lineageTag: a0d5f669-bd37-4ba0-9ccd-d7d5296caf1c
+		summarizeBy: none
+		sourceColumn: BeneficiosID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Beneficio
+		dataType: string
+		lineageTag: 534365e3-573f-48af-b4f0-25017bce9e79
+		summarizeBy: none
+		sourceColumn: Beneficio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Privacidad_Tratamiento
+		dataType: string
+		lineageTag: b732ed01-bd21-482b-8f12-7b2d1b4b2107
+		summarizeBy: none
+		sourceColumn: Privacidad_Tratamiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conocimiento_Cobertura
+		dataType: string
+		lineageTag: 6928b646-d579-44ad-88d3-b5f82021c3de
+		summarizeBy: none
+		sourceColumn: Conocimiento_Cobertura
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Beneficio ES' =
+			SWITCH(
+			    'main Dim_Beneficio_Trabajo'[Beneficio],
+			    "Yes", "Sí",
+			    "No", "No",
+			    "I don't know", "No sé",
+			    "Not Applicable", "No aplica",
+			    "Not eligible for coverage / NA", "Sin cobertura / NA",
+			    'main Dim_Beneficio_Trabajo'[Beneficio]
+			)
+		lineageTag: 8fed17ef-b447-41b6-8103-04895746a4b6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Conocimiento ES' =
+			SWITCH(
+			    'main Dim_Beneficio_Trabajo'[Conocimiento_Cobertura],
+			    "Yes", "Sí",
+			    "No", "No",
+			    "I don't know", "No sé",
+			    'main Dim_Beneficio_Trabajo'[Conocimiento_Cobertura]
+			)
+		lineageTag: 2c456fd8-792c-48d1-ab13-def8d7f91319
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Privacidad ES' =
+			SWITCH(
+			    'main Dim_Beneficio_Trabajo'[Privacidad_Tratamiento],
+			    "Yes", "Sí",
+			    "No", "No",
+			    "I don't know", "No sé",
+			    "Not Applicable", "No aplica",
+			    'main Dim_Beneficio_Trabajo'[Privacidad_Tratamiento]
+			)
+		lineageTag: 1a0e065a-732b-4b37-b880-9ae0cadbeecf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'main Dim_Beneficio_Trabajo' = m
+		mode: import
+		source =
+				let
+				  Origen = PostgreSQL.Database("pg.us-east-1-aws.motherduck.com", "modelo_dimensional"),
+				  #"Navegación 1" = Origen{[Schema = "main", Item = "Dim_Beneficio_Trabajo"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+
