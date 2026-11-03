@@ -3,6 +3,27 @@ import pandas as pd
 import duckdb
 import plotly.express as px
 
+def estilizar_grafico(fig, titulo, formato_texto='.1f', es_porcentaje=True):
+    """funcion para graficos colores de letras"""
+    formato = f'%{{text:{formato_texto}}}{"%" if es_porcentaje else ""}'
+    
+    fig.update_traces(
+        texttemplate=formato,
+        textposition='outside',
+        textfont=dict(color='black', size=11, weight='bold')
+    )
+    
+    fig.update_layout(
+        title=dict(text=f"<b>{titulo}</b>", font=dict(color="black", size=16)),
+        plot_bgcolor='rgba(0,0,0,0)', 
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(family="sans-serif", color="black", size=12),
+        xaxis=dict(showgrid=False, title_font=dict(color="black"), tickfont=dict(color="black")),
+        yaxis=dict(showgrid=True, gridcolor='rgba(123, 44, 191, 0.1)', title_font=dict(color="black"), tickfont=dict(color="black")),
+        legend=dict(font=dict(color="black"), title=dict(font=dict(color="black")))
+    )
+    return fig
+
 #1. estilo general pag
 st.markdown("""
 <style>
@@ -84,22 +105,11 @@ fig1 = px.bar(
     labels={'region_agrupada': 'Región', 'Frecuencia_Relativa_Porcentaje': 'Frecuencia Relativa (%)', 'Ofrece_Beneficios': 'Ofrece Beneficios'}
 )
 
-#colores oscuros y negrita en los números de las barras
-fig1.update_traces(
-    texttemplate='%{text:.1f}%',
-    textposition='outside',
-    textfont=dict(color='black', size=11, weight='bold')
-)
-
-#diseño general para textos 
-fig1.update_layout(
-    title=dict(text="<b>Frecuencia Relativa de Empresas Tecnológicas con Beneficios de Salud Mental</b>", font=dict(color="black", size=16)),
-    plot_bgcolor='rgba(0,0,0,0)', 
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(family="sans-serif", color="black", size=12),
-    xaxis=dict(showgrid=False, title_font=dict(color="black"), tickfont=dict(color="black")),
-    yaxis=dict(showgrid=True, gridcolor='rgba(123, 44, 191, 0.1)', title_font=dict(color="black"), tickfont=dict(color="black")),
-    legend=dict(font=dict(color="black"), title=dict(font=dict(color="black")))
+estilizar_grafico(
+    fig1, 
+    titulo="Frecuencia Relativa de Empresas Tecnológicas con Beneficios de Salud Mental", 
+    formato_texto='.1f', 
+    es_porcentaje=True
 )
 
 renderizar_bloque(
