@@ -1,6 +1,27 @@
 import streamlit as st
+import duckdb
 # Configuración de la App
 st.set_page_config(page_title="Análisis Salud Mental", page_icon="🧠", layout="wide")
+
+# Preparación del Caché
+@st.cache_resource(show_spinner=False)
+def iniciar_conexion():
+    md_token = st.secrets["MOTHERDUCK_TOKEN"]
+    return duckdb.connect(f"md:?motherduck_token={md_token}")
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def preload_data():
+    conn = iniciar_conexion()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Uno").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Dos").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Tres").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cuatro").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cinco").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Seis").fetchdf()
+   
+with st.spinner("Conectando la Base de Datos..."):   
+    preload_data()
+
 
 #Detalles del menú y degradado de fondos
 st.markdown('' 
