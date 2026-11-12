@@ -145,3 +145,36 @@ renderizar_bloque(
     "El análisis comparativo de proporciones evidencia un contraste estructural profundo entre regiones. En <b>Estados Unidos</b>, el conocimiento de las opciones de cobertura se encuentra distribuido de forma equitativa (50.71% afirma conocerlas frente a un 49.29% que las desconoce). En marcado contraste, el bloque de <b>Europa y Oceanía</b> muestra un déficit crítico de información, donde el <b>73.98%</b> de los empleados ignora sus alternativas de atención, lo que subraya la urgencia de optimizar los canales de comunicación y transparencia corporativa en dicha zona geográfica.",
     fig2, "g_obj2"
 )
+
+# --- OBJETIVO 3 ---
+fig3 = px.bar(
+    df3, x='Categoria_Puesto', y='Promedio_Prioridad', color='Region_Agrupada',
+    barmode='group', error_y='Dispersion_Prioridad', text='Promedio_Prioridad',
+    color_discrete_sequence=['#3C096C', '#7B2CBF'],
+    labels={'Categoria_Puesto': 'Categoría de Puesto', 'Promedio_Prioridad': 'Promedio de Prioridad (Escala)'}
+)
+
+# Colocar el texto DENTRO de la barra con color blanco para evitar que la línea de error lo cruce
+fig3.update_traces(
+    texttemplate='%{text:.2f}',
+    textposition='inside',
+    insidetextanchor='start', # Esto coloca el texto en la base (parte baja) de la barra
+    textfont=dict(color='white', size=12, weight='bold')
+)
+
+fig3.update_layout(
+    title=dict(text="<b>Promedio y Dispersión de la Prioridad Otorgada por Categoría de Puesto</b>", font=dict(color="black", size=16)),
+    plot_bgcolor='rgba(0,0,0,0)', 
+    paper_bgcolor='rgba(0,0,0,0)',
+    font=dict(family="sans-serif", color="black", size=12),
+    xaxis=dict(showgrid=False, title_font=dict(color="black"), tickfont=dict(color="black")),
+    yaxis=dict(showgrid=True, gridcolor='rgba(123, 44, 191, 0.1)', title_font=dict(color="black"), tickfont=dict(color="black")),
+    legend=dict(font=dict(color="black"), title=dict(font=dict(color="black")))
+)
+
+renderizar_bloque(
+    3, "Promedio y dispersión de la importancia otorgada por categoría de puesto",
+    "Calcular y comparar el puntaje promedio y la dispersión de la importancia que los empleadores otorgan a la salud mental por categoría de puesto.",
+    "El análisis estadístico descriptivo muestra que los puntajes promedio de prioridad se sitúan en rangos intermedios (oscilando entre 4.93 y 6.09). No obstante, la evaluación de la variabilidad debe interpretarse a la luz del tamaño muestral (<i>n</i>): mientras que las categorías con mayor representación poblacional muestran estimaciones robustas y homogéneas entre regiones, los subgrupos con menor frecuencia de respuesta (especialmente <i>n</i>=11 en Europa y Oceanía) presentan una mayor vulnerabilidad a la dispersión, lo que evidencia que la percepción de la prioridad corporativa se consolida con mayor estabilidad en los roles con mayor densidad de datos.",
+    fig3, "g_obj3"
+)
