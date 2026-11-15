@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0ea4b15906044a52b930",
   "position": {
-    "x": 628.66520359524179,
-    "y": 692.21878975104494,
+    "x": 629.41176470588232,
+    "y": 692.156862745098,
     "z": 5000,
-    "height": 386.47451040691095,
-    "width": 623.51221012314966,
+    "height": 329.41176470588232,
+    "width": 623.52941176470586,
     "tabOrder": 4000
   },
   "visual": {
@@ -258,6 +258,18 @@
               "expr": {
                 "Literal": {
                   "Value": "'¿Sabes qué apoyo en salud mental te ofrece tu empresa?'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

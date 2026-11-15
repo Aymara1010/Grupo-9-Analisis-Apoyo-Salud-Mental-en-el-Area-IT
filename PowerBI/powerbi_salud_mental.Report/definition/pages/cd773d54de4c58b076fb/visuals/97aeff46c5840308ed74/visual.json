@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "97aeff46c5840308ed74",
   "position": {
-    "x": 1358.3812731722685,
-    "y": 381.88770688443554,
+    "x": 1356.8627450980391,
+    "y": 368.62745098039215,
     "z": 2000,
-    "height": 368.48813822182376,
-    "width": 559.43199166404156,
+    "height": 370.58823529411762,
+    "width": 443.13725490196077,
     "tabOrder": 5000
   },
   "visual": {
@@ -180,6 +180,18 @@
               "expr": {
                 "Literal": {
                   "Value": "'Encuestados por año'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

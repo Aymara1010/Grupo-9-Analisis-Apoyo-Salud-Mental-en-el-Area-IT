@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "3fd3bfbca6d00de54d6e",
   "position": {
-    "x": 0,
-    "y": 751.07332709498871,
+    "x": 123.52941176470588,
+    "y": 735.29411764705878,
     "z": 4000,
-    "height": 327.83005156589087,
-    "width": 628.748680988313,
+    "height": 327.45098039215685,
+    "width": 505.88235294117646,
     "tabOrder": 3000
   },
   "visual": {
@@ -216,6 +216,18 @@
               "expr": {
                 "Literal": {
                   "Value": "'¿Tu empresa ofrece beneficios de salud mental?'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

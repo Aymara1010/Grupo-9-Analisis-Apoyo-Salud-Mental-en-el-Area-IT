@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "4c55a629080261075342",
   "position": {
-    "x": 0,
-    "y": 381.32151693481882,
+    "x": 143.13725490196077,
+    "y": 378.43137254901961,
     "z": 11000,
-    "height": 310.89727281622612,
-    "width": 769.51369183242707,
+    "height": 311.76470588235293,
+    "width": 625.49019607843138,
     "tabOrder": 11000
   },
   "visual": {
@@ -294,6 +294,18 @@
               "expr": {
                 "Literal": {
                   "Value": "'Encuestados por país'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "ffa4503fd3285dcc340c",
   "position": {
-    "x": 1250.4597492276941,
-    "y": 692.21878975104494,
+    "x": 1237.2549019607843,
+    "y": 692.156862745098,
     "z": 6000,
-    "height": 389.90983938830573,
-    "width": 669.889151371979,
+    "height": 329.41176470588232,
+    "width": 572.54901960784309,
     "tabOrder": 6000
   },
   "visual": {
@@ -283,6 +283,18 @@
               "expr": {
                 "Literal": {
                   "Value": "'¿Tu empresa protege tu privacidad si buscas tratamiento?'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }
