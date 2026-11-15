@@ -1,5 +1,6 @@
 import duckdb
-from matplotlib.pylab import cond
+
+conn = duckdb.connect("mental_health_dimensional.duckdb")
 
 def crear_tablas(duckdb_path="mental_health_dimensional.duckdb"):
     print(f"Conectando a DuckDB en: {duckdb_path}")
@@ -67,9 +68,38 @@ ddl_perfil_y_beneficios = """
     );
     """
 try:
-    cond.execute(ddl_perfil_y_beneficios)
+    conn.execute(ddl_perfil_y_beneficios)
 
     print("Dimensiones de perfil y beneficios creadas.")
 
 except Exception as e:
         print(f"Error al inicializar perfil y beneficios: {e}")
+
+ddl_salud_y_emociones = """
+    -- Dimensión Estado Mental
+    CREATE TABLE IF NOT EXISTS Dim_Estado_Mental (
+        SaludMentalID INTEGER PRIMARY KEY DEFAULT nextval('seq_estado_mental'),
+        Historial VARCHAR,
+        Tratamiento VARCHAR,
+        Condición_Actual VARCHAR
+    );
+
+    -- Dimensión Emociones
+    CREATE TABLE IF NOT EXISTS Dim_Emociones (
+        EmocionID INTEGER PRIMARY KEY DEFAULT nextval('seq_emociones'),
+        Emocion VARCHAR,
+        Nivel_Emocion VARCHAR
+    );
+    """
+
+try:
+        conn.execute(ddl_salud_y_emociones)
+        print("Tablas dimensionales creadas exitosamente.")
+except Exception as e:
+        print(f"Error al inicializar salud y emociones: {e}")
+finally:
+        conn.close()
+
+
+if __name__ == "__main__":
+    crear_tablas()
