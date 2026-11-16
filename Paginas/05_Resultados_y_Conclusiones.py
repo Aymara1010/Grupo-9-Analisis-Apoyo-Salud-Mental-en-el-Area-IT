@@ -179,7 +179,7 @@ renderizar_bloque(
     fig3, "g_obj3"
 )
 
-#  OBJETIVO 4 -
+#  OBJETIVO 4 
 
 fig4 = px.bar(
     df4, x='Calificacion_Apoyo', y='Porcentaje_Concentracion', color='Region_Agrupada',
