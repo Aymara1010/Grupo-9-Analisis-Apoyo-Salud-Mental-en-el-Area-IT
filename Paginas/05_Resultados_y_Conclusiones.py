@@ -178,3 +178,26 @@ renderizar_bloque(
     "El análisis estadístico descriptivo muestra que los puntajes promedio de prioridad se sitúan en rangos intermedios (oscilando entre 4.93 y 6.09). No obstante, la evaluación de la variabilidad debe interpretarse a la luz del tamaño muestral (<i>n</i>): mientras que las categorías con mayor representación poblacional muestran estimaciones robustas y homogéneas entre regiones, los subgrupos con menor frecuencia de respuesta (especialmente <i>n</i>=11 en Europa y Oceanía) presentan una mayor vulnerabilidad a la dispersión, lo que evidencia que la percepción de la prioridad corporativa se consolida con mayor estabilidad en los roles con mayor densidad de datos.",
     fig3, "g_obj3"
 )
+
+#  OBJETIVO 4 -
+
+fig4 = px.bar(
+    df4, x='Calificacion_Apoyo', y='Porcentaje_Concentracion', color='Region_Agrupada',
+    barmode='group', text='Porcentaje_Concentracion',
+    color_discrete_sequence=['#3C096C', '#7B2CBF'],
+    labels={'Calificacion_Apoyo': 'Calificación de Apoyo', 'Porcentaje_Concentracion': 'Frecuencia Relativa (%)', 'Region_Agrupada': 'Región'}
+)
+
+estilizar_grafico(
+    fig4,
+    titulo="Distribución de Frecuencias de la Calificación del Apoyo Tecnológico",
+    formato_texto='.1f',
+    es_porcentaje=True
+)
+
+renderizar_bloque(
+    4, "Distribución de frecuencias de la calificación del apoyo general",
+    "Evaluar la percepción de los empleados sobre el respaldo de la industria tecnológica, comparando las tendencias y concentraciones de respuestas según su zona geográfica.",
+    "El análisis de la distribución de frecuencias revela una concentración de respuestas en los niveles intermedios y favorables de la escala de respaldo. Al contrastar las regiones, se observa que tanto en Estados Unidos como en Europa y Oceanía las modas tienden hacia valoraciones similares, reflejando una percepción compartida sobre el compromiso general de la industria, aunque con sutiles variaciones en la densidad de las calificaciones extremas.",
+    fig4, "g_obj4"
+)
