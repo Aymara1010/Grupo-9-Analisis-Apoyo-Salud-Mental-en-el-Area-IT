@@ -58,9 +58,9 @@ La base de datos utilizada para este proyecto es de Kaggle y proviene de Open So
 [👉 Ver Base de Datos](https://www.kaggle.com/datasets/anth7310/mental-health-in-the-tech-industry)
 
 ### Informe Dinámico en Streamlit:
-⚠️🔨 En Construcción...
+[🧠 Visita Nuestra App de Streamlit](https://encuesta-salud-mental-osmi.streamlit.app/)
 ### Dashboard en PowerBI:
-⚠️🔨 En Construcción...
+[📊 Explora Nuestro Dashboard en PowerBI](https://app.powerbi.com/view?r=eyJrIjoiYmE3MjdjM2YtZjJhNC00MTM1LWE3YWQtN2ZhMjAxZGNhY2I0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9)
 
 ## ¿Cómo Ejecutar el Proyeto?
 ⚠️🔨 En Construcción...
@@ -68,8 +68,10 @@ La base de datos utilizada para este proyecto es de Kaggle y proviene de Open So
 ## 📂 Estrucura del Repositorio
 El repositorio de este proyecto está estructurado de la siguiente manera:
 ```bash
-├── components/               # Elementos visuales aislados (gráficos, tablas, filtros).
+├── Base de Datos/            # Limpieza de la Base de Datos.
 ├── Paginas/                  # Páginas de la App de Streamlit
+├── PowerBI/                  # Páginas de la App de Streamlit
+├── assets/                   # Elementos visuales.
 ├── app.py                    # Código principal de la App de Streamlit
 ├── requirements.txt          # Listado de librerías de Python
 ├── .gitignore
