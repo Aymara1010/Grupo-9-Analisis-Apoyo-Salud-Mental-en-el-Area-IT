@@ -506,16 +506,6 @@ cultureInfo es-ES
 			            },
 			            "Weight": 0.727
 			          }
-			        },
-			        {
-			          "Año": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -955,16 +945,6 @@ cultureInfo es-ES
 			        {
 			          "genero": {
 			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "Género": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
 			          }
 			        }
 			      ]

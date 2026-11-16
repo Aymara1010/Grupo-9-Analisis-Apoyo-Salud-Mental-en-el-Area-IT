@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "ffa4503fd3285dcc340c",
   "position": {
-    "x": 1250.4597492276941,
-    "y": 692.21878975104494,
-    "z": 6000,
-    "height": 389.90983938830573,
-    "width": 669.889151371979,
-    "tabOrder": 6000
+    "x": 657.37933144649276,
+    "y": 687.34031974298171,
+    "z": 4000,
+    "height": 311.94676049873783,
+    "width": 546.34743364185726,
+    "tabOrder": 3000
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +27,25 @@
                 }
               },
               "queryRef": "main Dim_Beneficio_Trabajo.Privacidad ES",
-              "nativeQueryRef": "Privacidad ES",
-              "active": true
+              "nativeQueryRef": "¿Tu empresa protege tu privacidad si buscas tratamiento?",
+              "active": true,
+              "displayName": "¿Tu empresa protege tu privacidad si buscas tratamiento?"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Selector Pregunta"
+                    }
+                  },
+                  "Property": "Selector Pregunta"
+                }
+              },
+              "index": 0,
+              "length": 1
             }
           ]
         },
@@ -281,8 +298,25 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'¿Tu empresa protege tu privacidad si buscas tratamiento?'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Selector Pregunta"
+                    }
+                  },
+                  "Property": "Titulo Dinamico"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "777c6e009e011e417b34",
   "position": {
-    "x": 0,
-    "y": 381.32151693481882,
-    "z": 11000,
-    "height": 369.29786549993713,
-    "width": 769.51369183242707,
-    "tabOrder": 11000
+    "x": 1219.5884647747264,
+    "y": 653.85450929396461,
+    "z": 6000,
+    "height": 327.80846018511437,
+    "width": 579.83324409087436,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "filledMap",
@@ -154,6 +154,24 @@
             ]
           }
         }
+      ],
+      "mapControls": [
+        {
+          "properties": {}
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -177,6 +195,18 @@
               "expr": {
                 "Literal": {
                   "Value": "'Encuestados por estado'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

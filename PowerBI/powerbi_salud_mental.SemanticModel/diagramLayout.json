@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 218.39999389648438,
+        "x": 452,
         "y": 190.39999389648438
       },
       "nodes": [
@@ -134,6 +134,19 @@
           "nodeLineageTag": "1bb602d5-183a-463a-9039-adeacbd06e01",
           "size": {
             "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136.5107347567025,
+            "y": 359.15206611818365
+          },
+          "nodeIndex": "Selector Pregunta",
+          "nodeLineageTag": "3c090046-1273-4115-88b0-d910c6343a95",
+          "size": {
+            "height": 152,
             "width": 234
           },
           "zIndex": 0

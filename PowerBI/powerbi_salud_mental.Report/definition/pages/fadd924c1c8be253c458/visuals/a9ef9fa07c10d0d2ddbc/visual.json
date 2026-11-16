@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "a9ef9fa07c10d0d2ddbc",
   "position": {
-    "x": 0,
-    "y": 751.07332709498871,
-    "z": 4000,
-    "height": 327.83005156589087,
-    "width": 628.748680988313,
-    "tabOrder": 3000
+    "x": 671.47862005660522,
+    "y": 671.47862005660522,
+    "z": 3000,
+    "height": 308.42193834620974,
+    "width": 481.13822382008721,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "barChart",
@@ -23,12 +23,29 @@
                       "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Property": "Beneficio ES"
+                  "Property": "Privacidad ES"
                 }
               },
-              "queryRef": "main Dim_Beneficio_Trabajo.Beneficio ES",
-              "nativeQueryRef": "Beneficio ES",
-              "active": true
+              "queryRef": "main Dim_Beneficio_Trabajo.Privacidad ES",
+              "nativeQueryRef": "¿Tu empresa protege tu privacidad si buscas tratamiento?",
+              "active": true,
+              "displayName": "¿Tu empresa protege tu privacidad si buscas tratamiento?"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Selector Pregunta"
+                    }
+                  },
+                  "Property": "Selector Pregunta"
+                }
+              },
+              "index": 0,
+              "length": 1
             }
           ]
         },
@@ -214,8 +231,25 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'¿Tu empresa ofrece beneficios de salud mental?'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Selector Pregunta"
+                    }
+                  },
+                  "Property": "Titulo Dinamico"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }
