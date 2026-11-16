@@ -1,0 +1,58 @@
+table 'Selector Pregunta'
+	lineageTag: 3c090046-1273-4115-88b0-d910c6343a95
+
+	measure 'Titulo Dinamico' =
+			
+			CONCATENATEX(
+			    VALUES('Selector Pregunta'),
+			    'Selector Pregunta'[Selector Pregunta],
+			    " / "
+			)
+		lineageTag: ca7530e6-28aa-40fc-89cc-f95c28c7df60
+
+	column 'Selector Pregunta'
+		lineageTag: cc9d3b29-24ff-45f3-941d-6ec002bb3e6f
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Selector Pregunta Orden'
+
+		relatedColumnDetails
+			groupByColumn: 'Selector Pregunta Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Selector Pregunta Campos'
+		isHidden
+		lineageTag: df24e6ff-da29-4a3b-9a88-9d2098c66b20
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Selector Pregunta Orden'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Selector Pregunta Orden'
+		isHidden
+		formatString: 0
+		lineageTag: 6bc0326b-4ee5-4166-9dc4-f8773899921f
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Selector Pregunta' = calculated
+		mode: import
+		source =
+				{
+				    ("¿Tu empresa protege tu privacidad si buscas tratamiento?", NAMEOF('main Dim_Beneficio_Trabajo'[privacidad ES]), 0),
+				    ("¿Tu empresa ofrece beneficios de salud mental?", NAMEOF('main Dim_Beneficio_Trabajo'[beneficio ES]), 1),
+				    ("¿Sabes qué apoyo mental te ofrece tu empresa?", NAMEOF('main Dim_Beneficio_Trabajo'[conocimiento Es]), 2)
+				}
+
+	annotation PBI_Id = b11068b4393c41dd9ba7dea01939db8b
+

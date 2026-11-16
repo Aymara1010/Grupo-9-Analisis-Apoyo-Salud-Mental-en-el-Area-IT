@@ -86,7 +86,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'fondo_degradado (1).png'"
+                    "Value": "'Mesa de trabajo 1 copia 3.png'"
                   }
                 }
               },
@@ -95,7 +95,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "fondo_degradado_(1)799581928943419.png"
+                    "ItemName": "Mesa_de_trabajo_1_copia_34584427641473725.png"
                   }
                 }
               },
