@@ -2,6 +2,36 @@ import streamlit as st
 import random
 from sqlalchemy import text
 from conexion import engine
+from google import genai
+from google.genai import types
+
+@st.cache_resource(show_spinner=False)
+def obtener_cliente_ia():
+    return genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+
+def pedir_consejo_ia(resumen_respuestas):
+    cliente = obtener_cliente_ia()
+    instrucciones = (
+        "Actúa como un consejero de bienestar laboral en el área de tecnología, basándote en el contexto OSMI. "
+        "Con los datos del usuario, dale un consejo cercano, empático y directo dividido en 3 partes: "
+        "1. Qué tal se ve su entorno de trabajo actual (comparando el apoyo a la salud mental vs física y sus beneficios). "
+        "2. Una recomendación personal según su historial y la privacidad en su trabajo. "
+        "3. Un consejo práctico que pueda aplicar hoy mismo. "
+        "No pases de 200 palabras, evita dar diagnósticos médicos y responde en Markdown todo en un texto de tres parrafos."
+    )
+    
+    respuesta = cliente.models.generate_content_stream(
+        model="gemini-3.5-flash-lite",
+        contents=resumen_respuestas,
+        config=types.GenerateContentConfig(
+            system_instruction=instrucciones,
+            temperature=0.7
+        )
+    )
+    
+    for fragmento in respuesta:
+        if fragmento.text:
+            yield fragmento.text
 
 # --- CONFIGURACIÓN DE ESTILO PERSONALIZADO (LILA / MORADO) ---
 st.markdown("""
@@ -52,6 +82,10 @@ st.divider()
 
 if "encuesta_enviada" not in st.session_state:
     st.session_state.encuesta_enviada = False
+if "consejo_ia" not in st.session_state:
+    st.session_state.consejo_ia = None
+if "datos_prompt" not in st.session_state:
+    st.session_state.datos_prompt = ""
 
 if not st.session_state.encuesta_enviada:
     with st.form("encuesta_osmi"):
@@ -134,6 +168,14 @@ if not st.session_state.encuesta_enviada:
             try:
                 with engine.begin() as con:
                     con.execute(query, datos)
+                
+                st.session_state.datos_prompt = (
+                    f"Edad: {edad}, Género: {genero}, Facultad: {facultad}, Área: {area_tech}, "
+                    f"Rol TI: {rol}, Empresa Tech: {empresa_tech}, Antecedentes: {antecedentes}, "
+                    f"Buscó tratamiento: {buscado_tratamiento}, Condición actual: {condicion_actual}, "
+                    f"Beneficios: {beneficios}, Privacidad: {privacidad}, Cobertura: {cobertura}, "
+                    f"Importancia Mental: {imp_mental}/10, Importancia Física: {imp_fisica}/10"
+                )
                 st.session_state.encuesta_enviada = True
                 st.rerun()
 
@@ -143,6 +185,19 @@ if not st.session_state.encuesta_enviada:
 else:
     st.success("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!")
     st.balloons()
+
+    st.subheader("💜 Recomendación de tu Consejero Virtual")
+    with st.container(border=True):
+        if st.session_state.consejo_ia is None:
+            try:
+                with st.spinner("Cargando Consejo Perzonalizado..."):
+                  st.session_state.consejo_ia = st.write_stream(
+                    pedir_consejo_ia(st.session_state.datos_prompt)
+                 )
+            except Exception: # as e:
+               st.warning("No se pudo cargar la recomendación en este momento.") #st.error(e)
+        else:
+            st.markdown(st.session_state.consejo_ia)
 
     st.markdown("""
         <div class="mensaje-motivacional">
