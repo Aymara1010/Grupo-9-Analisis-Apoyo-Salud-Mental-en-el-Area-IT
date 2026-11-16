@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "e28fd30271c0d40b0016",
   "position": {
-    "x": 815.68627450980387,
-    "y": 407.84313725490193,
-    "z": 3000,
-    "height": 311.76470588235293,
-    "width": 541.17647058823525,
+    "x": 671.47862005660522,
+    "y": 294.32264973609728,
+    "z": 2000,
+    "height": 377.15597032050789,
+    "width": 481.13822382008721,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "donutChart",
+    "visualType": "pieChart",
     "query": {
       "queryState": {
         "Category": {
@@ -71,19 +71,6 @@
       }
     },
     "objects": {
-      "centerValue": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
       "legend": [
         {
           "properties": {
@@ -164,6 +151,11 @@
               }
             ]
           }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {}
         }
       ]
     },

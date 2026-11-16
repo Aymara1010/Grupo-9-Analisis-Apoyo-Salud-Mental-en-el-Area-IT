@@ -23,6 +23,7 @@ ref table 'main Dim_Info_Encuestado'
 ref table 'main Dim_Pais'
 ref table 'main Dim_Trabajo_Encuestado'
 ref table 'main Fact_Respuesta_Encuestado'
+ref table 'Selector Pregunta'
 
 ref cultureInfo es-ES
 

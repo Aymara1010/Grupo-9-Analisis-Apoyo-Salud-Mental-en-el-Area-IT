@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "777c6e009e011e417b34",
   "position": {
-    "x": 123.52941176470588,
-    "y": 364.70588235294116,
-    "z": 11000,
-    "height": 370.58823529411762,
-    "width": 645.0980392156863,
-    "tabOrder": 11000
+    "x": 1219.5884647747264,
+    "y": 653.85450929396461,
+    "z": 6000,
+    "height": 327.80846018511437,
+    "width": 579.83324409087436,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "filledMap",
@@ -152,6 +152,24 @@
                 }
               }
             ]
+          }
+        }
+      ],
+      "mapControls": [
+        {
+          "properties": {}
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]

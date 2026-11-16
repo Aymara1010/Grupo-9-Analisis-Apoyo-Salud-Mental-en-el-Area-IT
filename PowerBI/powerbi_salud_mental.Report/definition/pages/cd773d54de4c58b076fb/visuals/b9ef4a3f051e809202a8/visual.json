@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "b9ef4a3f051e809202a8",
   "position": {
-    "x": 629.41176470588232,
-    "y": 737.25490196078431,
-    "z": 5000,
-    "height": 327.45098039215685,
-    "width": 623.52941176470586,
-    "tabOrder": 4000
+    "x": 664.42897575154893,
+    "y": 657.37933144649276,
+    "z": 3000,
+    "height": 327.80846018511437,
+    "width": 555.15948902317757,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "barChart",
@@ -23,12 +23,29 @@
                       "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Property": "Conocimiento ES"
+                  "Property": "Privacidad ES"
                 }
               },
-              "queryRef": "main Dim_Beneficio_Trabajo.Conocimiento ES",
-              "nativeQueryRef": "Conocimiento ES",
-              "active": true
+              "queryRef": "main Dim_Beneficio_Trabajo.Privacidad ES",
+              "nativeQueryRef": "¿Tu empresa protege tu privacidad si buscas tratamiento?",
+              "active": true,
+              "displayName": "¿Tu empresa protege tu privacidad si buscas tratamiento?"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Selector Pregunta"
+                    }
+                  },
+                  "Property": "Selector Pregunta"
+                }
+              },
+              "index": 0,
+              "length": 1
             }
           ]
         },
@@ -214,8 +231,13 @@
           "properties": {
             "text": {
               "expr": {
-                "Literal": {
-                  "Value": "'¿Sabes qué apoyo en salud mental te ofrece tu empresa?'"
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Selector Pregunta"
+                    }
+                  },
+                  "Property": "Titulo Dinamico"
                 }
               }
             },

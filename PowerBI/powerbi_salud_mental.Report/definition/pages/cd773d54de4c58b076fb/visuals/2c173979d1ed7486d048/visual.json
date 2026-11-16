@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "2c173979d1ed7486d048",
   "position": {
-    "x": 768.62745098039215,
-    "y": 368.62745098039215,
-    "z": 3000,
-    "height": 370.58823529411762,
-    "width": 588.23529411764707,
+    "x": 664.42897575154893,
+    "y": 283.74818327851295,
+    "z": 2000,
+    "height": 370.10632601545166,
+    "width": 555.15948902317757,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "donutChart",
+    "visualType": "pieChart",
     "query": {
       "queryState": {
         "Category": {
@@ -71,57 +71,6 @@
       }
     },
     "objects": {
-      "centerValue": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "legend": [
-        {
-          "properties": {
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'BottomCenter'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "17D"
-                }
-              }
-            },
-            "labelColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#3C096C'"
-                    }
-                  }
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
       "labels": [
         {
           "properties": {
