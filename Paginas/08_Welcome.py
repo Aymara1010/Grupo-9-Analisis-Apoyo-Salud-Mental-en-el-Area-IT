@@ -89,7 +89,7 @@ st.markdown("---")
 # agradecimiento prof
 if MOSTRAR_PROFESORES:
   st.markdown(
-      "<h3 style='text-align: center; color: #7B2CBF;'>🎓 Agradecimiento"
+      "<h3 style='text-align: center; color: #3C096C;'>🎓 Agradecimiento"
       " Académico</h3>",
       unsafe_allow_html=True,
   )
@@ -125,7 +125,7 @@ if MOSTRAR_PROFESORES:
   with col_p2:
     ruta_profe_2 = "assets/profe_jesus.jpg"
     if os.path.exists(ruta_profe_2):
-      st.image(ruta_profe_2, use_content_width=True)
+      st.image(ruta_profe_2, use_container_width=True)
     else:
       st.info("⏳ Esperando foto del Prof. 2... 🚧")
 
@@ -133,10 +133,22 @@ if MOSTRAR_PROFESORES:
         """
             <div class="custom-card">
                 <h4 style="color: #10002B; margin-bottom: 5px; font-weight: bold;">Prof. Jesús Ochoa </h4>
-                <p style="color: #3C096C; font-size: 0.9rem; margin: 0; font-weight: 500;">Gracias por querer y hacer todo lo posible por que seamos los mejores profesionales desde siempre </p>
+                <p style="color: #3C096C; font-size: 0.9rem; margin: 0; font-weight: 500;">Gracias por querer y hacer todo lo posible porque seamos los mejores profesionales desde siempre </p>
             </div>
         """,
         unsafe_allow_html=True,
     )
 
   st.markdown("---")
+
+  #seccion de equipo de investigacion 
+
+  st.markdown(
+    "<h3 style='text-align: center; color: #3C096C;'>👥 Equipo de Trabajo</h3>",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    "<p style='text-align: center; color: #03045E; margin-bottom: 25px;'>Desarrolladores"
+    " del proyecto de análisis de de Salud Mental en el Sector Information Technology</p>", 
+    unsafe_allow_html=True,
+)
