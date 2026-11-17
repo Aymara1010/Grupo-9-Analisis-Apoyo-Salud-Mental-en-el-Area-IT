@@ -106,12 +106,6 @@ if MOSTRAR_PROFESORES:
   col_p1, col_p2 = st.columns(2)
 
   with col_p1:
-    ruta_profe_1 = "assets/profe_olover.jpg"
-    if os.path.exists(ruta_profe_1):
-      st.image(ruta_profe_1, use_container_width=True)
-    else:
-      st.info("⏳ Esperando foto del Prof. 1... 🚧")
-
     st.markdown(
         """
             <div class="custom-card">
@@ -122,8 +116,14 @@ if MOSTRAR_PROFESORES:
         unsafe_allow_html=True,
     )
 
+    ruta_profe_1 = "assets/prof_oliver(1).jpg"
+    if os.path.exists(ruta_profe_1):
+      st.image(ruta_profe_1, use_container_width=True)
+    else:
+      st.info("⏳ Esperando foto del Prof. 1... 🚧")
+
   with col_p2:
-    ruta_profe_2 = "assets/profe_jesus.jpg"
+    ruta_profe_2 = "assets/prof_jesus(1).jpg"
     if os.path.exists(ruta_profe_2):
       st.image(ruta_profe_2, use_container_width=True)
     else:
