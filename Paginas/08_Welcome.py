@@ -152,3 +152,60 @@ st.markdown(
     " del proyecto de análisis de de Salud Mental en el Sector Information Technology</p>", 
     unsafe_allow_html=True,
 )
+
+# Primera fila de 3 integrantes
+eq1, eq2, eq3 = st.columns(3)
+
+with eq1:
+  ruta_eq_1 = "assets/andrea.jpg"
+  if os.path.exists(ruta_eq_1):
+    st.image(ruta_eq_1, use_container_width=True)
+  else:
+    st.info("⏳ Esperando imagen ... ⏳")
+
+  st.markdown(
+      """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Andrea Figuera</b><br>
+            <b style="color: #3C096C;">(figueraandrea25-hub)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Desarrollador visual de la aplicación </span>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+
+with eq2:
+  ruta_eq_2 = "assets/aymara.jpg"
+  if os.path.exists(ruta_eq_2):
+    st.image(ruta_eq_2, use_container_width=True)
+  else:
+    st.info("⏳ Esperando imagen ... ⏳")
+
+  st.markdown(
+      """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Aymara Andersen</b><br>
+            <b style="color: #3C096C;">(Aymara1010)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Modelado y Datos</span>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+
+with eq3:
+  ruta_eq_3 = "assets/randy.jpg"
+  if os.path.exists(ruta_eq_3):
+    st.image(ruta_eq_3, use_container_width=True)
+  else:
+    st.info("⏳ Esperando imagen ... ⏳")
+
+  st.markdown(
+      """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Randy Conde</b><br>
+            <b style="color: #3C096C;">(randyl21)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Visualización e Investigación </span>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
