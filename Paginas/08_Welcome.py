@@ -70,6 +70,13 @@ st.markdown(
         box-shadow: 0px 10px 25px rgba(123, 44, 191, 0.4);
         border-color: #10002B;
     }
+    [data-testid="stImage"] img {
+        border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
+        object-fit: cover !important;
+        border: 3px solid #7B2CBF !important;
+
+    }
     </style>
 
     <div class="welcome-card">
@@ -205,6 +212,63 @@ with eq3:
             <b style="color: #3C096C;">Randy Conde</b><br>
             <b style="color: #3C096C;">(randyl21)</b><br>
             <span style="color: #000814; font-size: 0.85rem;">Visualización e Investigación </span>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+
+  # Segunda fila de 3 integrantes
+eq4, eq5, eq6 = st.columns(3)
+
+with eq4:
+  ruta_eq_4 = "assets/dipablos.jpg"
+  if os.path.exists(ruta_eq_4):
+    st.image(ruta_eq_4, use_container_width=True)
+  else:
+    st.info("⏳ Esperando imagen ... ⏳")
+
+  st.markdown(
+      """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Rehide De Pablos</b><br>
+            <b style="color: #3C096C;">(depablosrehide-cdm)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Modelado y Datos</span>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+
+with eq5:
+  ruta_eq_5 = "assets/Cristofer.jpg"
+  if os.path.exists(ruta_eq_5):
+    st.image(ruta_eq_5, use_container_width=True)
+  else:
+    st.info("⏳ Esperando imagen ... ⏳")
+
+  st.markdown(
+      """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Christopher Escalande </b><br>
+            <b style="color: #3C096C;">christopherescalanteb-pixel</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Desarrollador visual Power BI</span>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+
+with eq6:
+  ruta_eq_6 = "assets/angelo.jpg"
+  if os.path.exists(ruta_eq_6):
+    st.image(ruta_eq_6, use_container_width=True)
+  else:
+    st.info("⏳ Esperando imagen ... ⏳")
+
+  st.markdown(
+      """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Angelo Freda</b><br>
+            <b style="color: #3C096C;">angelofreda4315-code</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Diseño grafico Power BI</span>
         </div>
     """,
       unsafe_allow_html=True,
