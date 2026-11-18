@@ -18,6 +18,8 @@ def preload_data():
     conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cuatro").fetchdf()
     conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cinco").fetchdf()
     conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Seis").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Pregunta_Uno").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Pregunta_Cuatro").fetchdf()
    
 with st.spinner("Conectando la Base de Datos..."):   
     preload_data()

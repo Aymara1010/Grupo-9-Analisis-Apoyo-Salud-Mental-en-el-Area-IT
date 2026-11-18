@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "ee39c6eadca53b7eeb30",
   "position": {
-    "x": 769.51369183242707,
-    "y": 383.03918142551618,
+    "x": 657.37933144649276,
+    "y": 318.99640480379406,
     "z": 3000,
-    "height": 309.17960832552876,
-    "width": 589.158920309202,
+    "height": 368.34391493918764,
+    "width": 549.87225579438541,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "donutChart",
+    "visualType": "funnel",
     "query": {
       "queryState": {
         "Category": {
@@ -71,57 +71,6 @@
       }
     },
     "objects": {
-      "centerValue": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "legend": [
-        {
-          "properties": {
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'BottomCenter'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "17D"
-                }
-              }
-            },
-            "labelColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#3C096C'"
-                    }
-                  }
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
       "labels": [
         {
           "properties": {
@@ -189,6 +138,18 @@
               "expr": {
                 "Literal": {
                   "Value": "14D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

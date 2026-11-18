@@ -2,6 +2,36 @@ import streamlit as st
 import random
 from sqlalchemy import text
 from conexion import engine
+from google import genai
+from google.genai import types
+
+@st.cache_resource(show_spinner=False)
+def obtener_cliente_ia():
+    return genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+
+def pedir_consejo_ia(resumen_respuestas):
+    cliente = obtener_cliente_ia()
+    instrucciones = (
+        "Actúa como un consejero de bienestar laboral en el área de tecnología, basándote en el contexto OSMI. "
+        "Con los datos del usuario, dale un consejo cercano, empático y directo dividido en 3 partes: "
+        "1. Qué tal se ve su entorno de trabajo actual (comparando el apoyo a la salud mental vs física y sus beneficios). "
+        "2. Una recomendación personal según su historial y la privacidad en su trabajo. "
+        "3. Un consejo práctico que pueda aplicar hoy mismo. "
+        "No pases de 200 palabras, evita dar diagnósticos médicos y responde en Markdown todo en un texto de tres parrafos."
+    )
+    
+    respuesta = cliente.models.generate_content_stream(
+        model="gemini-3.5-flash-lite",
+        contents=resumen_respuestas,
+        config=types.GenerateContentConfig(
+            system_instruction=instrucciones,
+            temperature=0.7
+        )
+    )
+    
+    for fragmento in respuesta:
+        if fragmento.text:
+            yield fragmento.text
 
 # --- CONFIGURACIÓN DE ESTILO PERSONALIZADO (LILA / MORADO) ---
 st.markdown("""
@@ -52,6 +82,10 @@ st.divider()
 
 if "encuesta_enviada" not in st.session_state:
     st.session_state.encuesta_enviada = False
+if "consejo_ia" not in st.session_state:
+    st.session_state.consejo_ia = None
+if "datos_prompt" not in st.session_state:
+    st.session_state.datos_prompt = ""
 
 if not st.session_state.encuesta_enviada:
     with st.form("encuesta_osmi"):
@@ -134,6 +168,14 @@ if not st.session_state.encuesta_enviada:
             try:
                 with engine.begin() as con:
                     con.execute(query, datos)
+                
+                st.session_state.datos_prompt = (
+                    f"Edad: {edad}, Género: {genero}, Facultad: {facultad}, Área: {area_tech}, "
+                    f"Rol TI: {rol}, Empresa Tech: {empresa_tech}, Antecedentes: {antecedentes}, "
+                    f"Buscó tratamiento: {buscado_tratamiento}, Condición actual: {condicion_actual}, "
+                    f"Beneficios: {beneficios}, Privacidad: {privacidad}, Cobertura: {cobertura}, "
+                    f"Importancia Mental: {imp_mental}/10, Importancia Física: {imp_fisica}/10"
+                )
                 st.session_state.encuesta_enviada = True
                 st.rerun()
 
@@ -141,18 +183,35 @@ if not st.session_state.encuesta_enviada:
                 st.error(f"Error al enviar la encuesta: {e}")
 
 else:
-    st.success("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!")
+    st.toast("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!", icon="💜")
     st.balloons()
 
-    st.markdown("""
+    contenedor_tarjeta = st.empty()
+    
+    plantilla_html = """
         <div class="mensaje-motivacional">
-            <h3 style="margin-top: 0; color: #3C096C;">💜 ¡Muchas gracias por tu participación!</h3>
-            <p style="font-size: 1.05rem; color: #2b2b2b;">
-                Tu contribución es fundamental para generar conciencia, visibilizar el bienestar emocional 
-                y promover culturas de trabajo más saludables e inclusivas en el sector tecnológico.
-            </p>
+            <h3 style="margin-top: 0; color: #3C096C;">💜 Recomendación de tu Consejero Virtual: </h3>
+            <div style="font-size: 1.05rem; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 15px;">{texto_ia}</div>
             <blockquote style="border-left: 3px solid #7B2CBF; padding-left: 10px; font-style: italic; color: #5a189a; margin-top: 10px;">
                 "Cuidar de tu salud mental no es un lujo, es una prioridad. Tómate una pausa cuando lo necesites." 🌿✨
             </blockquote>
         </div>
-    """, unsafe_allow_html=True)
+    """
+
+# Actualizar html en tiempo real
+    if st.session_state.consejo_ia is None:
+        texto_acumulado = ""
+        try:
+            for fragmento in pedir_consejo_ia(st.session_state.datos_prompt):
+                texto_acumulado += fragmento.replace("**", "") 
+                contenedor_tarjeta.markdown(plantilla_html.format(texto_ia=texto_acumulado + " ▌"), unsafe_allow_html=True)
+
+            contenedor_tarjeta.markdown(plantilla_html.format(texto_ia=texto_acumulado), unsafe_allow_html=True)
+            st.session_state.consejo_ia = texto_acumulado
+
+        except Exception:
+            contenedor_tarjeta.markdown(plantilla_html.format(texto_ia="<i>No se pudo cargar la recomendación en este momento.</i>"), unsafe_allow_html=True)
+    
+    else:
+        contenedor_tarjeta.markdown(plantilla_html.format(texto_ia=st.session_state.consejo_ia), unsafe_allow_html=True)
+
