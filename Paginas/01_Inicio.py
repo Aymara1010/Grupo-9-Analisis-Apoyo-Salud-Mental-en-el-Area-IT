@@ -142,7 +142,7 @@ with tab1:
             unsafe_allow_html=True,
         )
 
-with col2:
+    with col2:
         st.markdown(
             """
             <div style='
@@ -161,11 +161,10 @@ with col2:
             """,
             unsafe_allow_html=True,
         )
-st.write("")
-st.write("")   
+    st.write("")
+    st.write("")   
 
-# Tarjeta de Técnicas a utilizar
-st.markdown(
+    st.markdown(
         """
         <div style='
             background-color: #FFFFFF;
@@ -188,5 +187,5 @@ st.markdown(
         """,
         unsafe_allow_html=True,
     )
-
+        
 st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
