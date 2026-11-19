@@ -38,7 +38,63 @@ WHERE (Pct_Centinelas - Pct_Centinela_Anterior) > 15""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Uno"
     },
     "Pregunta 2": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH por_encuestado AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        MAX(CASE WHEN a.QuestionID = 64 THEN CAST(TRIM(a.AnswerText) AS REAL) END) AS val_fisica,
+        MAX(CASE WHEN a.QuestionID = 65 THEN CAST(TRIM(a.AnswerText) AS REAL) END) AS val_mental,
+        MAX(CASE WHEN a.QuestionID = 8 THEN TRIM(a.AnswerText) END) AS tramo_empresa
+    FROM Answer a
+    WHERE a.QuestionID IN (64, 65, 8) AND TRIM(a.AnswerText) <> '-1'
+    GROUP BY a.SurveyID, a.UserID
+    HAVING val_fisica IS NOT NULL AND val_mental IS NOT NULL AND tramo_empresa IS NOT NULL
+),
+brechas_ordenadas AS (
+    SELECT SurveyID, tramo_empresa, val_fisica, val_mental,
+        (val_fisica - val_mental) AS brecha,
+        ROW_NUMBER() OVER (PARTITION BY SurveyID, tramo_empresa ORDER BY (val_fisica - val_mental)) AS rn_tramo,
+        COUNT(*) OVER (PARTITION BY SurveyID, tramo_empresa) AS cnt_tramo,
+        ROW_NUMBER() OVER (PARTITION BY SurveyID ORDER BY (val_fisica - val_mental)) AS rn_edicion,
+        COUNT(*) OVER (PARTITION BY SurveyID) AS cnt_edicion
+    FROM por_encuestado
+),
+mediana_por_edicion AS (
+    SELECT SurveyID, AVG(brecha) AS brecha_mediana_edicion
+    FROM brechas_ordenadas
+    WHERE rn_edicion BETWEEN cnt_edicion / 2.0 AND (cnt_edicion / 2.0) + 1
+    GROUP BY SurveyID
+),
+metricas_por_tramo AS (
+    SELECT b.SurveyID, b.tramo_empresa,
+        CASE b.tramo_empresa
+            WHEN '1-5' THEN 1
+            WHEN '6-25' THEN 2
+            WHEN '26-100' THEN 3
+            WHEN '100-500' THEN 4
+            WHEN '500-1000' THEN 5
+            WHEN 'More than 1000' THEN 6
+            ELSE 99
+        END AS orden_tamano,
+        COUNT(*) AS n_encuestados,
+        AVG(CASE WHEN b.rn_tramo BETWEEN b.cnt_tramo / 2.0 AND (b.cnt_tramo / 2.0) + 1 THEN b.brecha END) AS brecha_mediana_tramo,
+        1.0 * SUM(b.val_mental >= b.val_fisica) / COUNT(*) AS prop_mental_ge_fisica
+    FROM brechas_ordenadas b
+    GROUP BY b.SurveyID, b.tramo_empresa
+)
+SELECT
+    s.Description AS "Edición",
+    m.tramo_empresa AS "Tamaño de Empresa",
+    m.n_encuestados AS "Cantidad de Encuestados",
+    ROUND(m.brecha_mediana_tramo, 2) AS "Brecha Mediana (Física - Mental)",
+    ROUND(m.prop_mental_ge_fisica, 4) AS "Proporción Salud Mental >= Física",
+    RANK() OVER (PARTITION BY m.SurveyID ORDER BY m.brecha_mediana_tramo DESC) AS "Ranking de Brecha en la Edición",
+    ROUND(e.brecha_mediana_edicion, 2) AS "Brecha Mediana de la Edición",
+    ROUND(m.brecha_mediana_tramo - e.brecha_mediana_edicion, 2) AS "Diferencia vs. Mediana de la Edición"
+FROM metricas_por_tramo m
+INNER JOIN mediana_por_edicion e ON m.SurveyID = e.SurveyID
+INNER JOIN Survey s ON m.SurveyID = s.SurveyID
+ORDER BY m.SurveyID, m.orden_tamano;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Dos"
     },
     "Pregunta 3": {
@@ -137,28 +193,24 @@ for i, (nombre_boton, datos_consulta) in enumerate(consultas_sugeridas.items()):
             st.session_state["texto_mostrar"] = datos_consulta["mostrar"]
             st.session_state["comando_ejecutar"] = datos_consulta["ejecutar"]
 
+consulta = st.session_state["texto_mostrar"]
+comando = st.session_state["comando_ejecutar"]
+
 st.markdown("**SQL Terminal:**")
-consulta_editada = st.text_area(
-    "Terminal", 
-    value=st.session_state["texto_mostrar"], 
-    height=300, 
-    label_visibility="collapsed"
-)
+st.code(consulta, height=400, language="sql") 
 
 # Ejecutar Consulta
-if st.button("🚀 Ejecutar Query"):
-    if consulta_editada.strip():
+if st.button("🚀 Ejecutar Query", type="primary"):
+    query_a_validar = (comando or consulta or "").strip()
+    if query_a_validar and query_a_validar != "-- Selecciona una pregunta":
         try:
-            if consulta_editada == st.session_state["texto_mostrar"]:
-                query_final = st.session_state["comando_ejecutar"]
-            else:
-                query_final = consulta_editada
+            query_final = comando.strip() if (comando and comando.strip()) else consulta.strip()
 
             df_resultado = conn.execute(query_final).fetchdf()
-            
+
             st.success("Consulta ejecutada correctamente.")
-            st.dataframe(df_resultado, use_container_width=True)
-       
+            st.dataframe(df_resultado, hide_index=True, use_container_width=True)
+
         except Exception as e:
             st.session_state["texto_mostrar"] = "-- Selecciona una pregunta"
             st.session_state["comando_ejecutar"] = ""
