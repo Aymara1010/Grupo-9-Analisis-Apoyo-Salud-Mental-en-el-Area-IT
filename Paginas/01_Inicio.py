@@ -251,5 +251,44 @@ with tab2:
         )
 
     st.markdown("---")
-       
+
+    # Gráfico interactivo con los datos cruzados de tus dimensiones
+    st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
+
+    fig = px.bar(
+        df_grafico,
+        x="Region",
+        y="conteo",
+        color="Tratamiento",
+        barmode="group",
+        title="¿Busca tratamiento para afecciones de salud mental por Región?",
+        color_discrete_sequence=["#9d4edd", "#e0aaff"],
+    )
+
+    fig.update_layout(
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#FFFFFF", size=12),
+        title_font=dict(color="#FFFFFF", size=16),
+        legend=dict(
+            font=dict(color="#FFFFFF"),
+            title=dict(font=dict(color="#FFFFFF")),
+            bgcolor="rgba(0,0,0,0)",
+        ),
+        xaxis=dict(
+            title=dict(font=dict(color="#FFFFFF")),
+            tickfont=dict(color="#FFFFFF"),
+            linecolor="#E0AAFF",
+        ),
+        yaxis=dict(
+            title=dict(font=dict(color="#FFFFFF")),
+            tickfont=dict(color="#FFFFFF"),
+            linecolor="#E0AAFF",
+        ),
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("---")  
+
 st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
