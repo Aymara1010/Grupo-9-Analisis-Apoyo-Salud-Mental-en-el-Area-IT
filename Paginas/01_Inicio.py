@@ -163,3 +163,28 @@ with col2:
         )
 st.write("")
 st.write("")   
+
+# Tarjeta de Técnicas a utilizar
+st.markdown(
+        """
+        <div style='
+            background-color: #FFFFFF;
+            padding: 22px;
+            border-radius: 10px;
+            border-left: 6px solid #581C87;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        '>
+            <h3 style='color: #000000; font-weight: 700; margin-top: 0; margin-bottom: 12px;'>
+                Técnicas a utilizar:
+            </h3>
+            <ul style='color: #000000; font-size: 0.95rem; line-height: 1.6; margin: 0; padding-left: 20px;'>
+                <li style='margin-bottom: 8px;'>Cálculo de frecuencias absolutas y relativas para categorizar la oferta de beneficios por región.</li>
+                <li style='margin-bottom: 8px;'>Elaboración de gráficos de barras para comparar el nivel de conocimiento de cobertura entre EE. UU., Europa y Oceanía.</li>
+                <li style='margin-bottom: 8px;'>Análisis de proporciones para evaluar la percepción de la seriedad en el tratamiento de la salud mental.</li>
+                <li style='margin-bottom: 0;'>Tabulación de datos para resumir la frecuencia de campañas de bienestar organizacional según el país.</li>
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
