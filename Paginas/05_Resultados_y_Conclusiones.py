@@ -697,3 +697,105 @@ with st.expander(f"📌 Objetivo 5: {titulo_obj5}", expanded=False):
         """,
       unsafe_allow_html=True,
   )
+
+  # OBJETIVO 6
+titulo_obj6 = (
+    "Necesidades y beneficios de salud mental en la industria tecnológica"
+)
+desc_obj6 = (
+    "Identificar y comparar las categorías de sugerencias, su detalle, total"
+    " de menciones y porcentaje por región entre <b>Europa y Oceanía</b> y"
+    " <b>USA</b>."
+)
+concl_obj6 = (
+    "Las categorías y el detalle de cada sugerencia permiten contrastar las"
+    " demandas registradas en <b>Europa y Oceanía</b> y <b>USA</b> según su"
+    " peso porcentual y número de menciones (por ejemplo,"
+    " <b>Desestigmatización y Cultura Abierta</b>, <b>Jornada, Carga Laboral"
+    " y Burnout</b>, <b>Educación, Difusión y Espacio Físico</b>,"
+    " <b>Capacitación a Líderes y RRHH</b>, <b>Días de Salud Mental y"
+    " Licencias</b> y <b>Seguros, Beneficios y Cobertura</b>), apoyándose en"
+    " la tabla de detalle para revisar cada propuesta."
+)
+
+df6_plot = df6.copy()
+
+if "Porcentaje_Region" in df6_plot.columns and "Region" in df6_plot.columns:
+  df6_plot = df6_plot.sort_values(
+      ["Region", "Porcentaje_Region"], ascending=[True, False]
+  )
+
+hover_cols_6 = [
+    c for c in ["Detalle_Categoria", "Total_Menciones"] if c in df6_plot.columns
+]
+
+fig6 = px.bar(
+    df6_plot,
+    x="Categoria_Sugerencia",
+    y="Porcentaje_Region",
+    color="Region",
+    barmode="group",
+    text="Porcentaje_Region",
+    hover_data=hover_cols_6,
+    color_discrete_sequence=["#3C096C", "#7B2CBF"],
+    labels={
+        "Categoria_Sugerencia": "Categoría de Demanda / Sugerencia",
+        "Porcentaje_Region": "Peso en la Región (%)",
+        "Region": "Región",
+        "Detalle_Categoria": "Detalle de la Propuesta",
+        "Total_Menciones": "Total de Menciones",
+    },
+)
+
+estilizar_grafico(
+    fig6,
+    titulo="Priorización de Demandas y Propuestas de Mejora por Región (%)",
+    formato_texto=".1f",
+    es_porcentaje=True,
+)
+
+fig6.update_layout(
+    xaxis=dict(tickangle=-20),
+    height=470,
+)
+
+with st.expander(f"📌 Objetivo 6: {titulo_obj6}", expanded=False):
+  st.markdown(
+      f"""
+        <div class="tarjeta-objetivo">
+            <h3 class="titulo-obj">Descripción del Objetivo</h3>
+            <p class="texto-obj">{desc_obj6}</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
+
+  with st.container(border=True):
+    st.plotly_chart(fig6, use_container_width=True, key="g_obj6")
+
+  cols_tabla_6 = [
+      c
+      for c in [
+          "Region",
+          "Categoria_Sugerencia",
+          "Detalle_Categoria",
+          "Total_Menciones",
+          "Porcentaje_Region",
+      ]
+      if c in df6_plot.columns
+  ]
+  if cols_tabla_6:
+    st.dataframe(
+        df6_plot[cols_tabla_6],
+        use_container_width=True,
+        hide_index=True,
+    )
+  st.markdown(
+      f"""
+        <div class="tarjeta-kpi">
+            <div class="titulo-kpi">💡 Conclusión Específica</div>
+            <p class="texto-kpi">{concl_obj6}</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
