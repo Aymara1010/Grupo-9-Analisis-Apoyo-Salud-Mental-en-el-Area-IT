@@ -98,7 +98,92 @@ ORDER BY m.SurveyID, m.orden_tamano;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Dos"
     },
     "Pregunta 3": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH respuestas_codificadas AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        CASE
+            WHEN a.QuestionID IN (10, 23) THEN 'Existencia de beneficios'
+            WHEN a.QuestionID IN (14, 24) THEN 'Conocimiento de la cobertura'
+            WHEN a.QuestionID IN (15, 25) THEN 'Comunicación formal'
+            WHEN a.QuestionID IN (16, 26) THEN 'Disponibilidad de recursos'
+            WHEN a.QuestionID IN (17, 27) THEN 'Protección del anonimato'
+        END AS dimension,
+        CASE WHEN a.QuestionID IN (10, 14, 15, 16, 17) THEN 'actual'
+            ELSE 'anterior'
+        END AS bloque,
+        CASE
+            WHEN LOWER(TRIM(a.AnswerText)) IN (
+                'yes',
+                'yes, they all did',
+                'yes, i was aware of all of them',
+                'yes, always',
+                'very easy',
+                'somewhat easy'
+            ) THEN 2
+            WHEN LOWER(TRIM(a.AnswerText)) IN (
+                'some did',
+                'i was aware of some',
+                'sometimes',
+                'neither easy nor difficult'
+            ) THEN 1
+            WHEN LOWER(TRIM(a.AnswerText)) IN (
+                'no',
+                'no, none did',
+                'none did',
+                'no, i only became aware later',
+                'somewhat difficult',
+                'difficult',
+                'very difficult'
+            ) THEN 0
+        END AS puntaje
+    FROM Answer a
+    WHERE a.QuestionID IN (10, 23, 14, 24, 15, 25, 16, 26, 17, 27)
+      AND TRIM(a.AnswerText) <> '-1'),
+pares_por_usuario AS (
+    SELECT
+        SurveyID,
+        UserID,
+        dimension,
+        MAX(CASE WHEN bloque = 'actual' THEN puntaje END) AS puntaje_actual,
+        MAX(CASE WHEN bloque = 'anterior' THEN puntaje END) AS puntaje_anterior
+    FROM respuestas_codificadas
+    WHERE puntaje IS NOT NULL
+    GROUP BY SurveyID, UserID, dimension
+    HAVING puntaje_actual IS NOT NULL AND puntaje_anterior IS NOT NULL),
+metricas_por_dimension AS (
+    SELECT
+        p.SurveyID,
+        s.Description AS edicion,
+        p.dimension,
+        COUNT(*) AS n_encuestados,
+        1.0 * SUM(p.puntaje_actual > p.puntaje_anterior) / COUNT(*) AS prop_mejoro,
+        1.0 * SUM(p.puntaje_actual < p.puntaje_anterior) / COUNT(*) AS prop_empeoro,
+        1.0 * SUM(p.puntaje_actual = p.puntaje_anterior) / COUNT(*) AS prop_mantuvo
+    FROM pares_por_usuario p
+    INNER JOIN Survey s
+        ON p.SurveyID = s.SurveyID
+    GROUP BY p.SurveyID, s.Description, p.dimension),
+metricas_con_ranking AS (
+    SELECT
+        m.*,
+        RANK() OVER (PARTITION BY m.SurveyID ORDER BY m.prop_mejoro DESC ) AS ranking_mejora,
+        SUM(m.n_encuestados) OVER (
+            PARTITION BY m.SurveyID
+            ORDER BY m.prop_mejoro DESC, m.dimension ASC
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS acumulado_encuestados
+    FROM metricas_por_dimension m )
+SELECT
+    edicion AS "Edición",
+    dimension AS "Dimensión",
+    n_encuestados AS "Encuestados Considerados",
+    ROUND(prop_mejoro, 4) AS "Proporción que Mejoró",
+    ROUND(prop_empeoro, 4) AS "Proporción que Empeoró",
+    ROUND(prop_mantuvo, 4) AS "Proporción que se Mantuvo",
+    ranking_mejora AS "Ranking por Mejora en la Edición",
+    acumulado_encuestados AS "Total Acumulado de Encuestados"
+FROM metricas_con_ranking
+ORDER BY SurveyID, ranking_mejora, dimension;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Tres"
     },
     "Pregunta 4": {
