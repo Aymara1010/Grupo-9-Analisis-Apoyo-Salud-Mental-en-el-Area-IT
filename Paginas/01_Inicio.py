@@ -302,15 +302,15 @@ with tab2:
 
     st.markdown("---")
 
+    st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
+    fig = construir_grafico_region(df_grafico)
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="grafico_busqueda_ayuda_region",
+    )
 
-        st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
-        fig = construir_grafico_region(df_grafico)
-        st.plotly_chart(
-            fig,
-            use_container_width=True,
-            key="grafico_busqueda_ayuda_region",
-        )
-    st.markdown("---")  
+    st.markdown("---")
 
     # Hallazgos Clave
     st.subheader("💡 Hallazgos Clave del Análisis")
