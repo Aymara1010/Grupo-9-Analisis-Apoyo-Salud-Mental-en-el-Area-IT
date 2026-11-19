@@ -96,3 +96,28 @@ st.markdown("---")
 
 # Creación de las pestañas
 tab1, tab2 = st.tabs(["📖 Introducción, Componentes y Técnicas", "📈 Gráficos y Visualizaciones"])
+
+with tab1:
+    # Tarjeta de Introducción
+    st.markdown(
+        """
+        <div style='
+            background-color: #FFFFFF;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 6px solid #581C87;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            margin-top: 10px;
+            margin-bottom: 20px;
+        '>
+            <h3 style='color: #000000; font-weight: 700; margin-top: 0; margin-bottom: 10px;'>
+                Introducción
+            </h3>
+            <p style='margin: 0; font-size: 1rem; line-height: 1.6; color: #000000;'>
+                Este trabajo consiste en un proyecto de análisis de datos aplicado que busca realizar un análisis comparativo y estadístico sobre el acceso a beneficios de salud mental, políticas de bienestar y percepción del apoyo organizacional en el sector tecnológico, contrastando los panoramas de Estados Unidos, Europa y Oceanía pre pandemia. Con el objetivo de identificar brechas críticas en la cobertura médica y evaluar las diferencias en la cultura corporativa entre regiones.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
