@@ -1,13 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "d1c3f82a70c6bb5535ec",
+  "name": "5c7f5c19b9e70d7de4a9",
   "position": {
-    "x": 144.51770825365256,
-    "y": 303.13470511741758,
-    "z": 8000,
-    "height": 285.510594354777,
-    "width": 58.159565516713833,
-    "tabOrder": 7000
+    "x": 62.608695652173907,
+    "y": 0,
+    "z": 0,
+    "height": 122.60869565217389,
+    "width": 1563.9130434782608
   },
   "visual": {
     "visualType": "shape",
@@ -19,6 +18,13 @@
               "expr": {
                 "Literal": {
                   "Value": "'rectangle'"
+                }
+              }
+            },
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
                 }
               }
             }
@@ -50,6 +56,27 @@
             }
           }
         }
+      ],
+      "fill": [
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 3,
+                      "Percent": 0.2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -65,9 +92,28 @@
             }
           }
         }
+      ],
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
   },
+  "parentGroupName": "36532c865a0e2b64b357",
   "howCreated": "InsertVisualButton"
 }

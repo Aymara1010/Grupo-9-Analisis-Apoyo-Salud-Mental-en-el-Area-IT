@@ -1,13 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "d15c63783d4e13bd7098",
+  "name": "3d074820100aee090bd0",
   "position": {
-    "x": 225.58861776179913,
-    "y": 329.57087126137839,
-    "z": 9000,
-    "height": 206.2020959228945,
-    "width": 366.58150386292357,
-    "tabOrder": 9000
+    "x": 97.826086956521735,
+    "y": 8.4557721139430289,
+    "z": 2000,
+    "height": 101.46926536731635,
+    "width": 1485.6521739130433
   },
   "visual": {
     "visualType": "advancedSlicerVisual",
@@ -67,7 +66,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''main Dim_Beneficio_Trabajo''[Privacidad ES]'"
+                                "Value": "'''main Dim_Beneficio_Trabajo''[Conocimiento ES]'"
                               }
                             }
                           ]
@@ -95,7 +94,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''main Dim_Beneficio_Trabajo''[Privacidad ES]'"
+                                      "Value": "'''main Dim_Beneficio_Trabajo''[Conocimiento ES]'"
                                     }
                                   }
                                 ]
@@ -119,7 +118,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "¿Tu empresa protege tu privacidad si buscas tratamiento?"
+                            "0": "¿Sabes qué apoyo mental te ofrece tu empresa?"
                           }
                         ]
                       }
@@ -130,8 +129,129 @@
             }
           }
         }
+      ],
+      "selection": [
+        {
+          "properties": {
+            "strictSingleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "layout": [
+        {
+          "properties": {
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cards'"
+                }
+              }
+            },
+            "orientation": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "cellPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "overFlow": [
+        {
+          "properties": {
+            "overFlowDirection": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "shapeCustomRectangle": [
+        {
+          "properties": {
+            "rectangleRoundedCurve": {
+              "expr": {
+                "Literal": {
+                  "Value": "30L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
       ]
     },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "syncGroup": {
+      "groupName": "Selector Pregunta",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "parentGroupName": "36532c865a0e2b64b357"
 }
