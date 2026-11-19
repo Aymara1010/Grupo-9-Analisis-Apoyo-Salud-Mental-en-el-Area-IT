@@ -63,7 +63,7 @@ h2.welcome-title {
     unsafe_allow_html=True,
 )
 
-# Enlace visible y elegante hacia el Power BI
+# Enlace hacia el Power BI
 st.markdown(
 """
 <div style='
