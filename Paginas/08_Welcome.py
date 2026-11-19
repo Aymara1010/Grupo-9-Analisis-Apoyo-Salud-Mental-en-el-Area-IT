@@ -1,8 +1,16 @@
 import os
+from PIL import Image
 import streamlit as st
 
 # cambiar a false para quitar el agradecimiento a los profes
 MOSTRAR_PROFESORES = True  # Cambiar a false para no mostrar más
+
+@st.cache_data(show_spinner=False)
+def cargar_imagen(ruta: str):
+    if os.path.exists(ruta):
+        return Image.open(ruta)
+    return None
+
 
 #tarjetas
 st.markdown(
@@ -109,9 +117,9 @@ st.markdown(
 eq1, eq2, eq3 = st.columns(3)
 
 with eq1:
-    ruta_eq_1 = "assets/andrea.jpg"
-    if os.path.exists(ruta_eq_1):
-        st.image(ruta_eq_1, use_container_width=True)
+    img_eq_1 = cargar_imagen("assets/andrea.jpg")
+    if img_eq_1 is not None:
+        st.image(img_eq_1, use_container_width=True)
     else:
         st.info("⏳ Esperando imagen ... ⏳")
 
@@ -127,9 +135,9 @@ with eq1:
     )
 
 with eq2:
-    ruta_eq_2 = "assets/aymara.jpg"
-    if os.path.exists(ruta_eq_2):
-        st.image(ruta_eq_2, use_container_width=True)
+    img_eq_2 = cargar_imagen("assets/aymara.jpg")
+    if img_eq_2 is not None:
+        st.image(img_eq_2, use_container_width=True)
     else:
         st.info("⏳ Esperando imagen ... ⏳")
 
@@ -145,9 +153,9 @@ with eq2:
     )
 
 with eq3:
-    ruta_eq_3 = "assets/randy.jpg"
-    if os.path.exists(ruta_eq_3):
-        st.image(ruta_eq_3, use_container_width=True)
+    img_eq_3 = cargar_imagen("assets/randy.jpg")
+    if img_eq_3 is not None:
+        st.image(img_eq_3, use_container_width=True)
     else:
         st.info("⏳ Esperando imagen ... ⏳")
 
@@ -166,9 +174,9 @@ with eq3:
 eq4, eq5, eq6 = st.columns(3)
 
 with eq4:
-    ruta_eq_4 = "assets/dipablos.jpg"
-    if os.path.exists(ruta_eq_4):
-        st.image(ruta_eq_4, use_container_width=True)
+    img_eq_4 = cargar_imagen("assets/dipablos.jpg")
+    if img_eq_4 is not None:
+        st.image(img_eq_4, use_container_width=True)
     else:
         st.info("⏳ Esperando imagen ... ⏳")
 
@@ -184,9 +192,9 @@ with eq4:
     )
 
 with eq5:
-    ruta_eq_5 = "assets/Cristofer.jpg"
-    if os.path.exists(ruta_eq_5):
-        st.image(ruta_eq_5, use_container_width=True)
+    img_eq_5 = cargar_imagen("assets/Cristofer.jpg")
+    if img_eq_5 is not None:
+        st.image(img_eq_5, use_container_width=True)
     else:
         st.info("⏳ Esperando imagen ... ⏳")
 
@@ -202,9 +210,9 @@ with eq5:
     )
 
 with eq6:
-    ruta_eq_6 = "assets/angelo.jpg"
-    if os.path.exists(ruta_eq_6):
-        st.image(ruta_eq_6, use_container_width=True)
+    img_eq_6 = cargar_imagen("assets/angelo.jpg")
+    if img_eq_6 is not None:
+        st.image(img_eq_6, use_container_width=True)
     else:
         st.info("⏳ Esperando imagen ... ⏳")
 
@@ -218,6 +226,8 @@ with eq6:
         """,
         unsafe_allow_html=True,
     )
+
+st.markdown("---")
 
 if "sorpresa_abierta" not in st.session_state:
     st.session_state.sorpresa_abierta = False
@@ -246,12 +256,12 @@ if MOSTRAR_PROFESORES:
             "Este proyecto es el resultado de la constancia, investigación y rigor estadístico. "
             "Queremos expresar nuestro más profundo agradecimiento a nuestros profesores por su constante guía "
             "y apoyo en la Escuela de Estadística de la UCV. Que nunca sientan que toda su dedicación fue en vano. Gracias "
-            "a nuestros compañeros que dìa a dìa tomaron de su tiempo para guiarnos. Gracias Vico 💜 Gracias Kleyber 💙 </p>",
+            "a nuestros compañeros que día a día tomaron de su tiempo para guiarnos. Gracias Vico 💜 Gracias Kleyber 💙 </p>",
             unsafe_allow_html=True,
         )
 
         col_p1, col_p2 = st.columns(2)
-
+        
         with col_p1:
             st.markdown(
                 """
