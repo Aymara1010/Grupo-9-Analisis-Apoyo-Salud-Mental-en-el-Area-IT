@@ -142,3 +142,24 @@ with tab1:
             unsafe_allow_html=True,
         )
 
+with col2:
+        st.markdown(
+            """
+            <div style='
+                background-color: #FFFFFF;
+                padding: 20px;
+                border-radius: 10px;
+                border-left: 6px solid #581C87;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+                height: 100%;
+            '>
+                <h4 style='color: #000000; margin-top: 0; margin-bottom: 10px; font-weight: 700;'>Análisis estadístico comparativo</h4>
+                <p style='margin: 0; color: #000000; font-size: 0.95rem; line-height: 1.5;'>
+                    Aplicación de estadística descriptiva y comparativa para evaluar diferencias regionales y responder a las preguntas de investigación planteadas.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+st.write("")
+st.write("")   
