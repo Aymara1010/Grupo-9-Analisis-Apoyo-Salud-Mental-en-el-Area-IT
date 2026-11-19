@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "a9ef9fa07c10d0d2ddbc",
   "position": {
-    "x": 671.47862005660522,
-    "y": 671.47862005660522,
+    "x": 592.17391304347825,
+    "y": 736.95652173913038,
     "z": 3000,
-    "height": 308.42193834620974,
-    "width": 481.13822382008721,
+    "height": 297.39130434782606,
+    "width": 573.91304347826087,
     "tabOrder": 2000
   },
   "visual": {
@@ -23,13 +23,13 @@
                       "Entity": "main Dim_Beneficio_Trabajo"
                     }
                   },
-                  "Property": "Privacidad ES"
+                  "Property": "Conocimiento ES"
                 }
               },
-              "queryRef": "main Dim_Beneficio_Trabajo.Privacidad ES",
-              "nativeQueryRef": "¿Tu empresa protege tu privacidad si buscas tratamiento?",
+              "queryRef": "main Dim_Beneficio_Trabajo.Conocimiento ES",
+              "nativeQueryRef": "¿Sabes qué apoyo mental te ofrece tu empresa?",
               "active": true,
-              "displayName": "¿Tu empresa protege tu privacidad si buscas tratamiento?"
+              "displayName": "¿Sabes qué apoyo mental te ofrece tu empresa?"
             }
           ],
           "fieldParameters": [

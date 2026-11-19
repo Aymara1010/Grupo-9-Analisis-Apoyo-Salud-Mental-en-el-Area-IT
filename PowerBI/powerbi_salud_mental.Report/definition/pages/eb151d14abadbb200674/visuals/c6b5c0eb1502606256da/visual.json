@@ -1,44 +1,36 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "58342d301a1db6ce7600",
+  "name": "c6b5c0eb1502606256da",
   "position": {
-    "x": 130.41841964354012,
-    "y": 318.99640480379406,
+    "x": 130.12279475262648,
+    "y": 943.03603189779392,
     "z": 8000,
-    "height": 273.17371682092863,
-    "width": 74.021265203090337,
-    "tabOrder": 7000
+    "height": 40,
+    "width": 100,
+    "tabOrder": 8000
   },
   "visual": {
-    "visualType": "shape",
+    "visualType": "actionButton",
     "objects": {
-      "shape": [
+      "icon": [
         {
           "properties": {
-            "tileShape": {
+            "shapeType": {
               "expr": {
                 "Literal": {
-                  "Value": "'rectangle'"
+                  "Value": "'information'"
                 }
               }
             }
+          },
+          "selector": {
+            "id": "default"
           }
         }
-      ],
-      "rotation": [
-        {
-          "properties": {
-            "shapeAngle": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "outline": [
+      ]
+    },
+    "visualContainerObjects": {
+      "visualLink": [
         {
           "properties": {
             "show": {
@@ -47,19 +39,18 @@
                   "Value": "true"
                 }
               }
-            }
-          }
-        }
-      ]
-    },
-    "visualContainerObjects": {
-      "border": [
-        {
-          "properties": {
-            "show": {
+            },
+            "type": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "'WebUrl'"
+                }
+              }
+            },
+            "webUrl": {
+              "expr": {
+                "Literal": {
+                  "Value": "'https://encuesta-salud-mental-osmi.streamlit.app/'"
                 }
               }
             }
