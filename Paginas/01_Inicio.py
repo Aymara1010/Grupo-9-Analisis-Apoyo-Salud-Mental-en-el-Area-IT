@@ -291,4 +291,24 @@ with tab2:
 
     st.markdown("---")  
 
+    # Hallazgos Clave
+    st.subheader("💡 Hallazgos Clave del Análisis")
+
+    col_a, col_b = st.columns(2)
+
+    with col_a:
+        st.info(
+            "**📌 Confidencialidad y Soporte:**\n\nLos datos del modelo indican que"
+            " aquellos empleados que cuentan con un seguro médico con cobertura"
+            " explícita en salud mental reportan una mayor disposición a hablar de"
+            " sus problemas laborales."
+        )
+
+    with col_b:
+        st.info(
+            "**📌 El Factor Remoto:**\n\nSe identificó una correlación notable entre"
+            " el aislamiento en modalidades de trabajo y los niveles de estrés"
+            " reportados en las dimensiones tecnológicas."
+        )
+
 st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
