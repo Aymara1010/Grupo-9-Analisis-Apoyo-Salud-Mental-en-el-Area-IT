@@ -188,3 +188,5 @@ st.markdown(
         """,
         unsafe_allow_html=True,
     )
+
+st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
