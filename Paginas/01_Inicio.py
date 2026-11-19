@@ -1,7 +1,83 @@
 import os
 import duckdb
+import pandas as pd
 import plotly.express as px
 import streamlit as st
+
+
+@st.cache_data(ttl=600, show_spinner="Consultando modelo en MotherDuck...")
+def cargar_datos_tab2(token: str):
+    conn = duckdb.connect(f"md:?motherduck_token={token}")
+    try:
+        total_registros = conn.execute(
+            "SELECT COUNT(*) FROM modelo_dimensional.Fact_Respuesta_Encuestado"
+        ).fetchone()[0]
+
+        pct_tratamiento = conn.execute("""
+            SELECT ROUND(
+                (SUM(CASE WHEN LOWER(TRIM(m.Tratamiento)) IN ('yes', 'sí', 'si', 's') THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
+                1
+            )
+            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
+            JOIN modelo_dimensional.Dim_Estado_Mental m ON f.SaludMentalID = m.SaludMentalID
+        """).fetchone()[0]
+
+        pct_beneficios = conn.execute("""
+            SELECT ROUND(
+                (SUM(CASE WHEN LOWER(TRIM(b.Beneficio)) = 'no' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
+                1
+            )
+            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
+            JOIN modelo_dimensional.Dim_Beneficio_Trabajo b ON f.BeneficiosID = b.BeneficiosID
+        """).fetchone()[0]
+
+        df_grafico = conn.execute("""
+            SELECT p.Region, m.Tratamiento, COUNT(*) AS conteo
+            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
+            JOIN modelo_dimensional.Dim_Pais p ON f.Pais_Empleo = p.PaisID
+            JOIN modelo_dimensional.Dim_Estado_Mental m ON f.SaludMentalID = m.SaludMentalID
+            GROUP BY p.Region, m.Tratamiento
+        """).df()
+
+        return total_registros, pct_tratamiento, pct_beneficios, df_grafico
+    finally:
+        conn.close()
+
+
+@st.cache_data(show_spinner=False)
+def construir_grafico_region(df_grafico: pd.DataFrame):
+    fig = px.bar(
+        df_grafico,
+        x="Region",
+        y="conteo",
+        color="Tratamiento",
+        barmode="group",
+        title="¿Busca tratamiento para afecciones de salud mental por Región?",
+        color_discrete_sequence=["#9d4edd", "#e0aaff"],
+    )
+
+    fig.update_layout(
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#FFFFFF", size=12),
+        title_font=dict(color="#FFFFFF", size=16),
+        legend=dict(
+            font=dict(color="#FFFFFF"),
+            title=dict(font=dict(color="#FFFFFF")),
+            bgcolor="rgba(0,0,0,0)",
+        ),
+        xaxis=dict(
+            title=dict(font=dict(color="#FFFFFF")),
+            tickfont=dict(color="#FFFFFF"),
+            linecolor="#E0AAFF",
+        ),
+        yaxis=dict(
+            title=dict(font=dict(color="#FFFFFF")),
+            tickfont=dict(color="#FFFFFF"),
+            linecolor="#E0AAFF",
+        ),
+    )
+    return fig
 
 # Título y tarjeta
 st.markdown(
@@ -121,7 +197,7 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
-    
+
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
@@ -162,8 +238,9 @@ with tab1:
             """,
             unsafe_allow_html=True,
         )
+
     st.write("")
-    st.write("")   
+    st.write("")
 
     st.markdown(
         """
@@ -191,41 +268,14 @@ with tab1:
 
 with tab2:
     try:
-        conn = duckdb.connect(
-            "md:?motherduck_token=" + st.secrets["MOTHERDUCK_TOKEN"]
+        total_registros, pct_tratamiento, pct_beneficios, df_grafico = cargar_datos_tab2(
+            st.secrets["MOTHERDUCK_TOKEN"]
         )
-
-        total_registros = conn.execute(
-            "SELECT COUNT(*) FROM modelo_dimensional.Fact_Respuesta_Encuestado"
-        ).fetchone()[0]
-
-        pct_tratamiento = conn.execute("""
-            SELECT ROUND((SUM(CASE WHEN LOWER(TRIM(m.Tratamiento)) IN ('yes', 'sí', 'si', 's') THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 1)
-            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
-            JOIN modelo_dimensional.Dim_Estado_Mental m ON f.SaludMentalID = m.SaludMentalID
-        """).fetchone()[0]
-
-        pct_beneficios = conn.execute("""
-            SELECT ROUND((SUM(CASE WHEN LOWER(TRIM(b.Beneficio)) = 'no' THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 1)
-            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
-            JOIN modelo_dimensional.Dim_Beneficio_Trabajo b ON f.BeneficiosID = b.BeneficiosID
-        """).fetchone()[0]
-
-        df_grafico = conn.execute("""
-            SELECT p.Region, m.Tratamiento, COUNT(*) AS conteo
-            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
-            JOIN modelo_dimensional.Dim_Pais p ON f.Pais_Empleo = p.PaisID
-            JOIN modelo_dimensional.Dim_Estado_Mental m ON f.SaludMentalID = m.SaludMentalID
-            GROUP BY p.Region, m.Tratamiento
-        """).df()
-
         conexion_exitosa = True
-
     except Exception as e:
         conexion_exitosa = False
         st.error(f"❌ Error al consultar tu modelo de datos: {e}")
 
-   # Mostrar Métricas Clave (KPIs) reales
     if conexion_exitosa:
         col1, col2, col3 = st.columns(3)
 
@@ -252,43 +302,14 @@ with tab2:
 
     st.markdown("---")
 
-    # Gráfico interactivo con los datos cruzados de tus dimensiones
-    st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
 
-    fig = px.bar(
-        df_grafico,
-        x="Region",
-        y="conteo",
-        color="Tratamiento",
-        barmode="group",
-        title="¿Busca tratamiento para afecciones de salud mental por Región?",
-        color_discrete_sequence=["#9d4edd", "#e0aaff"],
-    )
-
-    fig.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#FFFFFF", size=12),
-        title_font=dict(color="#FFFFFF", size=16),
-        legend=dict(
-            font=dict(color="#FFFFFF"),
-            title=dict(font=dict(color="#FFFFFF")),
-            bgcolor="rgba(0,0,0,0)",
-        ),
-        xaxis=dict(
-            title=dict(font=dict(color="#FFFFFF")),
-            tickfont=dict(color="#FFFFFF"),
-            linecolor="#E0AAFF",
-        ),
-        yaxis=dict(
-            title=dict(font=dict(color="#FFFFFF")),
-            tickfont=dict(color="#FFFFFF"),
-            linecolor="#E0AAFF",
-        ),
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
+        st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
+        fig = construir_grafico_region(df_grafico)
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            key="grafico_busqueda_ayuda_region",
+        )
     st.markdown("---")  
 
     # Hallazgos Clave
