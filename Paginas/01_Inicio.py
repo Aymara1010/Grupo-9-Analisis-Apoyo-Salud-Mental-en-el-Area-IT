@@ -224,4 +224,32 @@ with tab2:
     except Exception as e:
         conexion_exitosa = False
         st.error(f"❌ Error al consultar tu modelo de datos: {e}")
+
+   # Mostrar Métricas Clave (KPIs) reales
+    if conexion_exitosa:
+        col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric(
+            label="Total Registros Analizados",
+            value=f"{total_registros:,}",
+            delta="MotherDuck (Esquema Dimensional)",
+        )
+
+    with col2:
+        st.metric(
+            label="Búsqueda de Tratamiento",
+            value=f"{pct_tratamiento}%",
+            delta="Tendencia global",
+        )
+
+    with col3:
+        st.metric(
+            label="Sin Beneficios de Salud Mental",
+            value=f"{pct_beneficios}%",
+            delta="Brecha empresarial",
+        )
+
+    st.markdown("---")
+       
 st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
