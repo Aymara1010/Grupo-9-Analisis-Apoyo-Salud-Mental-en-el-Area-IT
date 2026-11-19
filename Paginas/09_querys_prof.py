@@ -249,7 +249,70 @@ ORDER BY g.SurveyID, g.proporcion_tratamiento_grupo DESC;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Cuatro"
     },
     "Pregunta 5": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH por_encuestado AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        CASE
+            WHEN LOWER(a.AnswerText) LIKE 'mood disorder%'
+              OR LOWER(a.AnswerText) IN ('depression', 'seasonal affective disorder') THEN 'Mood Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'anxiety disorder%'
+              OR LOWER(a.AnswerText) = 'post-partum / anxiety' THEN 'Anxiety Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'attention deficit%'
+              OR LOWER(a.AnswerText) LIKE 'add (%'
+              OR LOWER(a.AnswerText) LIKE '%adhd%' THEN 'Attention Deficit Hyperactivity Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'post-traumatic%'
+              OR LOWER(a.AnswerText) LIKE 'ptsd%' THEN 'Post-traumatic Stress Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'stress response%'
+              OR LOWER(a.AnswerText) IN ('burn out', 'burnout') THEN 'Stress Response Syndromes'
+            WHEN LOWER(a.AnswerText) LIKE 'personality disorder%'
+              OR LOWER(a.AnswerText) = 'schizotypal personality disorder' THEN 'Personality Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'addictive disorder%'
+              OR LOWER(a.AnswerText) = 'sexual addiction' THEN 'Addictive Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'dissociative disorder%'
+              OR LOWER(a.AnswerText) LIKE 'depersonali%' THEN 'Dissociative Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'eating disorder%' THEN 'Eating Disorder'
+            ELSE TRIM(a.AnswerText)
+        END AS condicion,
+        MAX(a.QuestionID = 115) AS diag,
+        MAX(a.QuestionID = 116) AS sosp
+    FROM Answer a
+    WHERE a.QuestionID IN (115, 116)
+      AND TRIM(a.AnswerText) <> '-1'
+    GROUP BY a.SurveyID, a.UserID, condicion),
+resumen AS (
+    SELECT
+        p.SurveyID,
+        s.Description AS edicion,
+        p.condicion,
+        SUM(p.diag) AS diagnosticados,
+        SUM(p.sosp) AS solo_sospechados,
+        COUNT(*) AS total,
+        ROUND(1.0 * SUM(p.sosp) / COUNT(*), 3) AS proporcion_sospecha,
+        RANK() OVER (
+            PARTITION BY p.SurveyID
+            ORDER BY 1.0 * SUM(p.sosp) / COUNT(*) DESC
+        ) AS ranking
+    FROM por_encuestado p
+    JOIN Survey s ON p.SurveyID = s.SurveyID
+    GROUP BY p.SurveyID, s.Description, p.condicion
+    HAVING COUNT(*) >= 15)
+SELECT
+    edicion AS "Edición",
+    condicion AS "Condición de Salud Mental",
+    diagnosticados AS "Diagnosticados",
+    solo_sospechados AS "Solo Sospechados",
+    total AS "Total Encuestados",
+    proporcion_sospecha AS "Proporción de Sospecha",
+    ranking AS "Ranking por Proporción de Sospecha",
+    CASE
+        WHEN LAG(r.ranking) OVER (PARTITION BY r.condicion ORDER BY r.SurveyID) IS NULL THEN 'Sin edición anterior'
+        WHEN ranking < LAG(r.ranking) OVER (PARTITION BY r.condicion ORDER BY r.SurveyID) THEN 'Subió'
+        WHEN ranking > LAG(r.ranking) OVER (PARTITION BY r.condicion ORDER BY r.SurveyID) THEN 'Bajó'
+        ELSE 'Mantuvo'
+    END AS "Variación respecto a Edición Anterior"
+FROM resumen r
+ORDER BY SurveyID, ranking, condicion;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Cinco"
     },
     "Pregunta 6": {
