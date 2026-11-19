@@ -144,7 +144,6 @@ with tab2:
     ("Objetivo Específico 04", "Analizar la distribución de frecuencias de la calificación que otorgan los empleados al apoyo general de la industria tecnológica."),
     ("Objetivo Específico 05", "Examinar la evolución temporal del puntaje promedio de importancia otorgada por los empleadores durante el periodo 2017 - 2019."),
     ("Objetivo Específico 06", "Identificar las necesidades actuales y carencias de apoyo mediante minería de textos y análisis de sentimientos en comentarios."),
-    ("Objetivo Específico 07", "Analizar los motivos y el nivel de molestia en conversaciones laborales reportadas por empleados que vivieron una mala respuesta corporativa.")
 ]
 
     #DISTRIBUCIÓN EN COLUMNAS CON BUCLES
@@ -167,15 +166,6 @@ with tab2:
                 <p class="obj-esp-text">{texto}</p>
             </div>
         """, unsafe_allow_html=True)
-
-# Objetivo 7 centrado al fondo
-    num_7, texto_7 = objetivos[6]
-    st.markdown(f"""
-    <div class="obj-esp-card" style="max-width: 650px; margin: 0 auto 20px auto;">
-        <span class="obj-esp-numero" style="text-align: center;">{num_7}</span>
-        <p class="obj-esp-text" style="text-align: center;">{texto_7}</p>
-    </div>
-""", unsafe_allow_html=True)
 
 with tab3:
     st.subheader("Justificación de la Investigación")
@@ -269,3 +259,5 @@ with tab4:
         - **Categorías / Valores posibles:** Descripciones de experiencias
         - **Tabla destino:** Experiencia_Trabajo_Actual.
         """)
+
+st.markdown("💜 La tecnología debe ser un soporte no tu jefa, toma un respiro cuando lo necesites 💕")
