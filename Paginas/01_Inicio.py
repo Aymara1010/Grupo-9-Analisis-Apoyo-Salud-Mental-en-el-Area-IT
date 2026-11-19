@@ -1,4 +1,5 @@
 import os
+import duckdb
 import plotly.express as px
 import streamlit as st
 
@@ -187,5 +188,40 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
-        
+
+with tab2:
+    try:
+        conn = duckdb.connect(
+            "md:?motherduck_token=" + st.secrets["MOTHERDUCK_TOKEN"]
+        )
+
+        total_registros = conn.execute(
+            "SELECT COUNT(*) FROM modelo_dimensional.Fact_Respuesta_Encuestado"
+        ).fetchone()[0]
+
+        pct_tratamiento = conn.execute("""
+            SELECT ROUND((SUM(CASE WHEN LOWER(TRIM(m.Tratamiento)) IN ('yes', 'sí', 'si', 's') THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 1)
+            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
+            JOIN modelo_dimensional.Dim_Estado_Mental m ON f.SaludMentalID = m.SaludMentalID
+        """).fetchone()[0]
+
+        pct_beneficios = conn.execute("""
+            SELECT ROUND((SUM(CASE WHEN LOWER(TRIM(b.Beneficio)) = 'no' THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 1)
+            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
+            JOIN modelo_dimensional.Dim_Beneficio_Trabajo b ON f.BeneficiosID = b.BeneficiosID
+        """).fetchone()[0]
+
+        df_grafico = conn.execute("""
+            SELECT p.Region, m.Tratamiento, COUNT(*) AS conteo
+            FROM modelo_dimensional.Fact_Respuesta_Encuestado f
+            JOIN modelo_dimensional.Dim_Pais p ON f.Pais_Empleo = p.PaisID
+            JOIN modelo_dimensional.Dim_Estado_Mental m ON f.SaludMentalID = m.SaludMentalID
+            GROUP BY p.Region, m.Tratamiento
+        """).df()
+
+        conexion_exitosa = True
+
+    except Exception as e:
+        conexion_exitosa = False
+        st.error(f"❌ Error al consultar tu modelo de datos: {e}")
 st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
