@@ -1,4 +1,5 @@
 import streamlit as st
+import plotly.graph_objects as go
 import pandas as pd
 import duckdb
 import plotly.express as px
@@ -216,38 +217,287 @@ renderizar_bloque(
     fig2, "g_obj2"
 )
 
-# --- OBJETIVO 3 ---
-fig3 = px.bar(
-    df3, x='Categoria_Puesto', y='Promedio_Prioridad', color='Region_Agrupada',
-    barmode='group', error_y='Dispersion_Prioridad', text='Promedio_Prioridad',
-    color_discrete_sequence=['#3C096C', '#7B2CBF'],
-    labels={'Categoria_Puesto': 'Categoría de Puesto', 'Promedio_Prioridad': 'Promedio de Prioridad (Escala)'}
+# OBJETIVO 3
+def preparar_df3(df_raw: pd.DataFrame):
+  df_work = df_raw.copy()
+
+  col_puesto = (
+      "Perfil_Tecnologico"
+      if "Perfil_Tecnologico" in df_work.columns
+      else "Categoria_Puesto"
+  )
+  col_region = "Region" if "Region" in df_work.columns else "Region_Agrupada"
+
+  tiene_microdatos = "Prioridad_Salud_Mental" in df_work.columns
+
+  if tiene_microdatos:
+    df_work["Prioridad_Salud_Mental"] = pd.to_numeric(
+        df_work["Prioridad_Salud_Mental"], errors="coerce"
+    )
+    df_work = df_work.dropna(
+        subset=[col_puesto, col_region, "Prioridad_Salud_Mental"]
+    )
+    df_resumen = df_work.groupby(
+        [col_puesto, col_region], as_index=False
+    ).agg(
+        Promedio_Prioridad=("Prioridad_Salud_Mental", "mean"),
+        Dispersion_Prioridad=("Prioridad_Salud_Mental", "std"),
+        N_Muestra=("Prioridad_Salud_Mental", "count"),
+    )
+    df_resumen["Dispersion_Prioridad"] = df_resumen[
+        "Dispersion_Prioridad"
+    ].fillna(0.0)
+  else:
+    df_resumen = df_work.copy()
+    if "Dispersion_Prioridad" not in df_resumen.columns:
+      df_resumen["Dispersion_Prioridad"] = 0.0
+    if "N_Muestra" not in df_resumen.columns:
+      df_resumen["N_Muestra"] = pd.NA
+
+  return df_work, df_resumen, col_puesto, col_region, tiene_microdatos
+
+
+df3_micro, df3_resumen, col_puesto_3, col_region_3, es_micro_3 = preparar_df3(df3)
+
+titulo_obj3 = (
+    "Promedio y dispersión de la importancia otorgada por categoría de puesto"
+)
+desc_obj3 = (
+    "Calcular y comparar el puntaje promedio y la dispersión de la importancia"
+    " que los empleadores otorgan a la salud mental por categoría de puesto."
+)
+concl_obj3 = (
+    "El análisis estadístico descriptivo muestra que los puntajes promedio de"
+    " prioridad se sitúan en rangos intermedios (oscilando entre 4.93 y 6.09)."
+    " No obstante, la evaluación de la variabilidad debe interpretarse a la"
+    " luz del tamaño muestral (<i>n</i>): mientras que las categorías con"
+    " mayor representación poblacional muestran estimaciones robustas y"
+    " homogéneas entre regiones, los subgrupos con menor frecuencia de"
+    " respuesta (especialmente <i>n</i>=11 en Europa y Oceanía) presentan una"
+    " mayor vulnerabilidad a la dispersión, lo que evidencia que la"
+    " percepción de la prioridad corporativa se consolida con mayor"
+    " estabilidad en los roles con mayor densidad de datos."
 )
 
-# Colocar el texto DENTRO de la barra con color blanco para evitar que la línea de error lo cruce
-fig3.update_traces(
-    texttemplate='%{text:.2f}',
-    textposition='inside',
-    insidetextanchor='start', # Esto coloca el texto en la base (parte baja) de la barra
-    textfont=dict(color='white', size=12, weight='bold')
-)
+with st.expander(f"📌 Objetivo 3: {titulo_obj3}", expanded=False):
+  st.markdown(
+      f"""
+        <div class="tarjeta-objetivo">
+            <h3 class="titulo-obj">Descripción del Objetivo</h3>
+            <p class="texto-obj">{desc_obj3}</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
 
-fig3.update_layout(
-    title=dict(text="<b>Promedio y Dispersión de la Prioridad Otorgada por Categoría de Puesto</b>", font=dict(color="black", size=16)),
-    plot_bgcolor='rgba(0,0,0,0)', 
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(family="sans-serif", color="black", size=12),
-    xaxis=dict(showgrid=False, title_font=dict(color="black"), tickfont=dict(color="black")),
-    yaxis=dict(showgrid=True, gridcolor='rgba(123, 44, 191, 0.1)', title_font=dict(color="black"), tickfont=dict(color="black")),
-    legend=dict(font=dict(color="black"), title=dict(font=dict(color="black")))
-)
+  tab3_1, tab3_2, tab3_3 = st.tabs([
+      "📊 1. Panorama de Promedios",
+      "📦 2. Radiografía de Dispersión",
+      "🔗 3. Brecha Regional",
+  ])
 
-renderizar_bloque(
-    3, "Promedio y dispersión de la importancia otorgada por categoría de puesto",
-    "Calcular y comparar el puntaje promedio y la dispersión de la importancia que los empleadores otorgan a la salud mental por categoría de puesto.",
-    "El análisis estadístico descriptivo muestra que los puntajes promedio de prioridad se sitúan en rangos intermedios (oscilando entre 4.93 y 6.09). No obstante, la evaluación de la variabilidad debe interpretarse a la luz del tamaño muestral (<i>n</i>): mientras que las categorías con mayor representación poblacional muestran estimaciones robustas y homogéneas entre regiones, los subgrupos con menor frecuencia de respuesta (especialmente <i>n</i>=11 en Europa y Oceanía) presentan una mayor vulnerabilidad a la dispersión, lo que evidencia que la percepción de la prioridad corporativa se consolida con mayor estabilidad en los roles con mayor densidad de datos.",
-    fig3, "g_obj3"
-)
+  with tab3_1:
+    with st.container(border=True):
+      fig3_1 = px.bar(
+          df3_resumen,
+          x=col_puesto_3,
+          y="Promedio_Prioridad",
+          color=col_region_3,
+          barmode="group",
+          text="Promedio_Prioridad",
+          color_discrete_sequence=["#3C096C", "#7B2CBF", "#C77DFF"],
+          labels={
+              col_puesto_3: "Categoría de Puesto",
+              "Promedio_Prioridad": "Puntaje Promedio de Prioridad",
+              col_region_3: "Región",
+          },
+      )
+      fig3_1.update_traces(
+          texttemplate="%{text:.2f}",
+          textposition="outside",
+          textfont=dict(color="black", size=11, weight="bold"),
+      )
+      fig3_1.update_layout(
+          title=dict(
+              text=(
+                  "<b>1. Puntaje Promedio de Prioridad por Categoría de"
+                  " Puesto</b>"
+              ),
+              font=dict(color="black", size=15),
+          ),
+          plot_bgcolor="rgba(0,0,0,0)",
+          paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="sans-serif", color="black", size=12),
+          xaxis=dict(
+              showgrid=False,
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          yaxis=dict(
+              showgrid=True,
+              gridcolor="rgba(123, 44, 191, 0.12)",
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          legend=dict(
+              font=dict(color="black"),
+              title=dict(font=dict(color="black")),
+          ),
+      )
+      st.plotly_chart(fig3_1, use_container_width=True, key="g_obj3_1")
+
+  with tab3_2:
+    with st.container(border=True):
+      if es_micro_3:
+        fig3_2 = px.box(
+            df3_micro,
+            x=col_puesto_3,
+            y="Prioridad_Salud_Mental",
+            color=col_region_3,
+            points="outliers",
+            color_discrete_sequence=["#3C096C", "#7B2CBF", "#E0AAFF"],
+            labels={
+                col_puesto_3: "Categoría de Puesto",
+                "Prioridad_Salud_Mental": "Prioridad Salud Mental",
+                col_region_3: "Región",
+            },
+        )
+        titulo_g2 = (
+            "<b>2. Distribución y Dispersión (Caja y Bigotes) por Categoría de"
+            " Puesto</b>"
+        )
+        y_label_g2 = "Prioridad Salud Mental"
+      else:
+        fig3_2 = px.bar(
+            df3_resumen,
+            x=col_puesto_3,
+            y="Dispersion_Prioridad",
+            color=col_region_3,
+            barmode="group",
+            text="Dispersion_Prioridad",
+            color_discrete_sequence=["#5A189A", "#9D4EDD", "#E0AAFF"],
+            labels={
+                col_puesto_3: "Categoría de Puesto",
+                "Dispersion_Prioridad": "Dispersión de Prioridad",
+                col_region_3: "Región",
+            },
+        )
+        fig3_2.update_traces(
+            texttemplate="%{text:.2f}",
+            textposition="outside",
+            textfont=dict(color="black", size=11, weight="bold"),
+        )
+        titulo_g2 = "<b>2. Dispersión de Prioridad por Categoría de Puesto</b>"
+        y_label_g2 = "Dispersión de Prioridad"
+
+      fig3_2.update_layout(
+          title=dict(text=titulo_g2, font=dict(color="black", size=15)),
+          plot_bgcolor="rgba(0,0,0,0)",
+          paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="sans-serif", color="black", size=12),
+          xaxis=dict(
+              showgrid=False,
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          yaxis=dict(
+              title=dict(text=y_label_g2, font=dict(color="black")),
+              showgrid=True,
+              gridcolor="rgba(123, 44, 191, 0.12)",
+              tickfont=dict(color="black"),
+          ),
+          legend=dict(
+              font=dict(color="black"),
+              title=dict(font=dict(color="black")),
+          ),
+      )
+      st.plotly_chart(fig3_2, use_container_width=True, key="g_obj3_2")
+
+  with tab3_3:
+    with st.container(border=True):
+      df3_piv = df3_resumen.pivot_table(
+          index=col_puesto_3,
+          columns=col_region_3,
+          values="Promedio_Prioridad",
+          aggfunc="mean",
+      ).reset_index()
+
+      regiones_3 = [c for c in df3_piv.columns if c != col_puesto_3]
+      fig3_3 = go.Figure()
+
+      if len(regiones_3) >= 2:
+        r1, r2 = regiones_3[0], regiones_3[1]
+        for _, fila in df3_piv.iterrows():
+          if pd.notna(fila[r1]) and pd.notna(fila[r2]):
+            fig3_3.add_trace(
+                go.Scatter(
+                    x=[fila[r1], fila[r2]],
+                    y=[fila[col_puesto_3], fila[col_puesto_3]],
+                    mode="lines",
+                    line=dict(color="#C77DFF", width=3),
+                    showlegend=False,
+                    hoverinfo="skip",
+                )
+            )
+
+      colores_puntos = ["#3C096C", "#7B2CBF", "#9D4EDD"]
+      for idx, reg in enumerate(regiones_3):
+        fig3_3.add_trace(
+            go.Scatter(
+                x=df3_piv[reg],
+                y=df3_piv[col_puesto_3],
+                mode="markers+text",
+                name=str(reg),
+                text=[f"{v:.2f}" if pd.notna(v) else "" for v in df3_piv[reg]],
+                textposition="top center",
+                textfont=dict(color="black", size=11, weight="bold"),
+                marker=dict(
+                    size=13,
+                    color=colores_puntos[idx % len(colores_puntos)],
+                    line=dict(color="white", width=1.5),
+                ),
+            )
+        )
+
+      fig3_3.update_layout(
+          title=dict(
+              text=(
+                  "<b>3. Brecha Regional en el Puntaje Promedio por Categoría de"
+                  " Puesto</b>"
+              ),
+              font=dict(color="black", size=15),
+          ),
+          plot_bgcolor="rgba(0,0,0,0)",
+          paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="sans-serif", color="black", size=12),
+          xaxis=dict(
+              title=dict(text="Puntaje Promedio", font=dict(color="black")),
+              tickfont=dict(color="black"),
+              showgrid=True,
+              gridcolor="rgba(123, 44, 191, 0.12)",
+          ),
+          yaxis=dict(
+              title=dict(text="Categoría de Puesto", font=dict(color="black")),
+              tickfont=dict(color="black"),
+              showgrid=False,
+          ),
+          legend=dict(
+              font=dict(color="black"),
+              title=dict(text="Región", font=dict(color="black")),
+          ),
+          height=420,
+      )
+      st.plotly_chart(fig3_3, use_container_width=True, key="g_obj3_3")
+
+  st.markdown(
+      f"""
+        <div class="tarjeta-kpi">
+            <div class="titulo-kpi">💡 Conclusión Específica</div>
+            <p class="texto-kpi">{concl_obj3}</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
 
 #  OBJETIVO 4 
 
