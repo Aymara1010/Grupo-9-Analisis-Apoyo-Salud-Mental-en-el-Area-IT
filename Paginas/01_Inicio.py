@@ -120,4 +120,25 @@ with tab1:
         """,
         unsafe_allow_html=True,
     )
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(
+            """
+            <div style='
+                background-color: #FFFFFF;
+                padding: 20px;
+                border-radius: 10px;
+                border-left: 6px solid #581C87;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+                height: 100%;
+            '>
+                <h4 style='color: #000000; margin-top: 0; margin-bottom: 10px; font-weight: 700;'>Ingeniería de datos</h4>
+                <p style='margin: 0; color: #000000; font-size: 0.95rem; line-height: 1.5;'>
+                    Uso de Python y SQL para la limpieza, depuración y estructuración de una base de datos cruda.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
