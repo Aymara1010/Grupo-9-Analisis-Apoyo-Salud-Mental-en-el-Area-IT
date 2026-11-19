@@ -77,6 +77,76 @@ df4 = conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cuatro").fetchdf()
 df5 = conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cinco").fetchdf()
 df6 = conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Seis").fetchdf()
 
+# Etiqueta principal y descarga de reporte CSV
+st.title("Resultados y Conclusiones")
+
+resumen_objs = [
+    (
+        "Objetivo 1",
+        "Comparación de frecuencia de beneficios de salud mental por región",
+        (
+            "Comparar la frecuencia relativa de empresas tecnológicas que ofrecen"
+            " beneficios de salud mental entre Estados Unidos, Europa y"
+            " Oceanía."
+        ),
+        (
+            "El análisis de la distribución porcentual indica que Estados"
+            " Unidos concentra el mayor porcentaje de respuestas afirmativas."
+        ),
+    ),
+    (
+        "Objetivo 2",
+        "Proporción de empleados que conocen sus opciones de atención",
+        (
+            "Determinar la proporción de empleados que conocen sus opciones de"
+            " atención de salud mental laboral según su región geográfica."
+        ),
+        (
+            "En Estados Unidos el conocimiento es cercano al 50.71%, mientras"
+            " que en Europa y Oceanía el 73.98% desconoce sus opciones."
+        ),
+    ),
+    (
+        "Objetivo 3",
+        (
+            "Promedio y dispersión de la importancia otorgada por categoría de"
+            " puesto"
+        ),
+        (
+            "Calcular y comparar el puntaje promedio y la dispersión de la"
+            " importancia que los empleadores otorgan a la salud mental por"
+            " categoría de puesto."
+        ),
+        (
+            "Los puntajes promedio oscilan entre 4.93 y 6.09, con mayor"
+            " dispersión en subgrupos de menor tamaño muestral."
+        ),
+    ),
+    (
+        "Objetivo 4",
+        "Distribución de frecuencias de la calificación del apoyo general",
+        (
+            "Evaluar la percepción de los empleados sobre el respaldo de la"
+            " industria tecnológica según su zona geográfica."
+        ),
+        (
+            "Las respuestas se concentran en los niveles intermedios de la"
+            " escala en ambas regiones."
+        ),
+    ),
+]
+
+df_reporte = pd.DataFrame(
+    resumen_objs, columns=["Objetivo", "Titulo", "Descripcion", "Conclusion"]
+)
+
+st.download_button(
+    label="Descargar reporte CSV",
+    data=df_reporte.to_csv(index=False).encode("utf-8"),
+    file_name="reporte_resultados_conclusiones.csv",
+    mime="text/csv",
+)
+
 #renderizado de los objetivos
 def renderizar_bloque(numero, titulo_obj, texto_desc, texto_concl, figura, key_fig):
     with st.expander(f"📌 Objetivo {numero}: {titulo_obj}", expanded=(numero==1)):
