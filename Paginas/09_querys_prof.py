@@ -316,7 +316,57 @@ ORDER BY SurveyID, ranking, condicion;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Cinco"
     },
     "Pregunta 6": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH por_encuestado AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        MAX(CASE WHEN a.QuestionID IN (93, 118) THEN
+                CASE
+                    WHEN LOWER(TRIM(a.AnswerText)) IN ('always', 'yes') THEN 'Remoto'
+                    WHEN LOWER(TRIM(a.AnswerText)) = 'sometimes' THEN 'Híbrido'
+                    WHEN LOWER(TRIM(a.AnswerText)) IN ('never', 'no') THEN 'Presencial'
+                END END) AS modalidad,
+        MAX(CASE WHEN a.QuestionID IN (18, 99) THEN LOWER(TRIM(a.AnswerText)) = 'yes' END) AS fav_companeros,
+        MAX(CASE WHEN a.QuestionID IN (19, 100) THEN LOWER(TRIM(a.AnswerText)) = 'yes' END) AS fav_supervisor
+    FROM Answer a
+    WHERE a.QuestionID IN (93, 118, 18, 99, 19, 100)
+      AND TRIM(a.AnswerText) <> '-1'
+    GROUP BY a.SurveyID, a.UserID
+    HAVING modalidad IS NOT NULL AND fav_companeros IS NOT NULL AND fav_supervisor IS NOT NULL),
+metricas AS (
+    SELECT
+        e.SurveyID,
+        s.Description AS edicion,
+        e.modalidad,
+        COUNT(*) AS n_encuestados,
+        1.0 * SUM(e.fav_companeros) / COUNT(*) AS prop_companeros,
+        1.0 * SUM(e.fav_supervisor) / COUNT(*) AS prop_supervisor,
+        (1.0 * SUM(e.fav_companeros) - SUM(e.fav_supervisor)) / COUNT(*) AS diferencia
+    FROM por_encuestado e
+    INNER JOIN Survey s
+        ON e.SurveyID = s.SurveyID
+    GROUP BY e.SurveyID, s.Description, e.modalidad
+    HAVING COUNT(*) >= 25),
+metricas_con_ventanas AS (
+    SELECT
+        m.*,
+        RANK() OVER (ORDER BY m.diferencia DESC) AS ranking_diferencia,
+        1.0 * SUM(m.n_encuestados) OVER (
+            PARTITION BY m.SurveyID
+            ORDER BY m.prop_supervisor ASC, m.modalidad ASC
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) / SUM(m.n_encuestados) OVER (PARTITION BY m.SurveyID) AS prop_acumulada_encuestados
+    FROM metricas m)
+SELECT
+    sub.edicion AS "Edición",
+    sub.modalidad AS "Modalidad de Trabajo",
+    sub.n_encuestados AS "Cantidad de Encuestados",
+    ROUND(sub.prop_companeros, 4) AS "Proporción Favorable Compañeros",
+    ROUND(sub.prop_supervisor, 4) AS "Proporción Favorable Supervisor",
+    ROUND(sub.diferencia, 4) AS "Diferencia (Compañeros - Supervisor)",
+    sub.ranking_diferencia AS "Ranking por Diferencia",
+    ROUND(sub.prop_acumulada_encuestados, 4) AS "Proporción Acumulada de Encuestados"
+FROM metricas_con_ventanas sub
+ORDER BY sub.SurveyID, sub.prop_supervisor ASC, sub.modalidad ASC;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Seis"
     }
 }
