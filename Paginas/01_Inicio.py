@@ -92,5 +92,7 @@ font-size: 0.95rem;
 unsafe_allow_html=True
 )
 
-
 st.markdown("---")
+
+# Creación de las pestañas
+tab1, tab2 = st.tabs(["📖 Introducción, Componentes y Técnicas", "📈 Gráficos y Visualizaciones"])
