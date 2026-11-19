@@ -279,57 +279,57 @@ with tab2:
     if conexion_exitosa:
         col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.metric(
-            label="Total Registros Analizados",
-            value=f"{total_registros:,}",
-            delta="MotherDuck (Esquema Dimensional)",
+        with col1:
+            st.metric(
+                label="Total Registros Analizados",
+                value=f"{total_registros:,}",
+                delta="MotherDuck (Esquema Dimensional)",
+            )
+
+        with col2:
+            st.metric(
+                label="Búsqueda de Tratamiento",
+                value=f"{pct_tratamiento}%",
+                delta="Tendencia global",
+            )
+
+        with col3:
+            st.metric(
+                label="Sin Beneficios de Salud Mental",
+                value=f"{pct_beneficios}%",
+                delta="Brecha empresarial",
+            )
+
+        st.markdown("---")
+
+        st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
+        fig = construir_grafico_region(df_grafico)
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            key="grafico_busqueda_ayuda_region",
         )
 
-    with col2:
-        st.metric(
-            label="Búsqueda de Tratamiento",
-            value=f"{pct_tratamiento}%",
-            delta="Tendencia global",
-        )
+        st.markdown("---")
 
-    with col3:
-        st.metric(
-            label="Sin Beneficios de Salud Mental",
-            value=f"{pct_beneficios}%",
-            delta="Brecha empresarial",
-        )
+        # Hallazgos Clave
+        st.subheader("💡 Hallazgos Clave del Análisis")
 
-    st.markdown("---")
+        col_a, col_b = st.columns(2)
 
-    st.subheader("🌍 Tendencia de Búsqueda de Ayuda por Región")
-    fig = construir_grafico_region(df_grafico)
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        key="grafico_busqueda_ayuda_region",
-    )
+        with col_a:
+            st.info(
+                "**📌 Confidencialidad y Soporte:**\n\nLos datos del modelo indican que"
+                " aquellos empleados que cuentan con un seguro médico con cobertura"
+                " explícita en salud mental reportan una mayor disposición a hablar de"
+                " sus problemas laborales."
+            )
 
-    st.markdown("---")
-
-    # Hallazgos Clave
-    st.subheader("💡 Hallazgos Clave del Análisis")
-
-    col_a, col_b = st.columns(2)
-
-    with col_a:
-        st.info(
-            "**📌 Confidencialidad y Soporte:**\n\nLos datos del modelo indican que"
-            " aquellos empleados que cuentan con un seguro médico con cobertura"
-            " explícita en salud mental reportan una mayor disposición a hablar de"
-            " sus problemas laborales."
-        )
-
-    with col_b:
-        st.info(
-            "**📌 El Factor Remoto:**\n\nSe identificó una correlación notable entre"
-            " el aislamiento en modalidades de trabajo y los niveles de estrés"
-            " reportados en las dimensiones tecnológicas."
-        )
+        with col_b:
+            st.info(
+                "**📌 El Factor Remoto:**\n\nSe identificó una correlación notable entre"
+                " el aislamiento en modalidades de trabajo y los niveles de estrés"
+                " reportados en las dimensiones tecnológicas."
+            )
 
 st.markdown("💜 Gracias, por tú interés en este proyecto 💕")
