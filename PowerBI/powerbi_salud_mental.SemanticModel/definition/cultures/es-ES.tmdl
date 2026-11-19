@@ -2361,6 +2361,16 @@ cultureInfo es-ES
 			          "privacidad ES": {
 			            "State": "Generated"
 			          }
+			        },
+			        {
+			          "¿Tu empresa protege tu privacidad si buscas tratamiento?": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
