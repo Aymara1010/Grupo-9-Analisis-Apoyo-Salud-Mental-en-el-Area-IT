@@ -521,3 +521,179 @@ renderizar_bloque(
     "El análisis de la distribución de frecuencias revela una concentración de respuestas en los niveles intermedios y favorables de la escala de respaldo. Al contrastar las regiones, se observa que tanto en Estados Unidos como en Europa y Oceanía las modas tienden hacia valoraciones similares, reflejando una percepción compartida sobre el compromiso general de la industria, aunque con sutiles variaciones en la densidad de las calificaciones extremas.",
     fig4, "g_obj4"
 )
+
+# OBJETIVO 5
+titulo_obj5 = "Promedio y dispersión de prioridad por región"
+desc_obj5 = (
+    "Comparar el puntaje promedio de prioridad, su dispersión y el total de"
+    " respuestas entre <b>Europa y Oceanía</b> y <b>USA</b>."
+)
+concl_obj5 = (
+    "El promedio de prioridad es muy cercano entre regiones: <b>5.04</b> en"
+    " <b>Europa y Oceanía</b> y <b>4.99</b> en <b>USA</b>. La dispersión"
+    " también es similar (<b>2.22</b> en <b>Europa y Oceanía</b> frente a"
+    " <b>2.34</b> en <b>USA</b>), con un volumen de <b>346</b> respuestas en"
+    " <b>Europa y Oceanía</b> y <b>1,021</b> respuestas en <b>USA</b>."
+)
+
+with st.expander(f"📌 Objetivo 5: {titulo_obj5}", expanded=False):
+  st.markdown(
+      f"""
+        <div class="tarjeta-objetivo">
+            <h3 class="titulo-obj">Descripción del Objetivo</h3>
+            <p class="texto-obj">{desc_obj5}</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
+
+  tab5_1, tab5_2, tab5_3 = st.tabs([
+      "📊 1. Promedio de Prioridad",
+      "📉 2. Dispersión",
+      "👥 3. Total de Respuestas",
+  ])
+
+  with tab5_1:
+    with st.container(border=True):
+      fig5_prom = px.bar(
+          df5,
+          x="Region_Agrupada",
+          y="Promedio_Prioridad",
+          color="Region_Agrupada",
+          text="Promedio_Prioridad",
+          color_discrete_sequence=["#3C096C", "#7B2CBF"],
+          labels={
+              "Region_Agrupada": "Región",
+              "Promedio_Prioridad": "Promedio de Prioridad",
+          },
+      )
+      fig5_prom.update_traces(
+          texttemplate="%{text:.2f}",
+          textposition="outside",
+          textfont=dict(color="black", size=11, weight="bold"),
+      )
+      fig5_prom.update_layout(
+          title=dict(
+              text="<b>1. Promedio de Prioridad por Región</b>",
+              font=dict(color="black", size=15),
+          ),
+          plot_bgcolor="rgba(0,0,0,0)",
+          paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="sans-serif", color="black", size=12),
+          xaxis=dict(
+              showgrid=False,
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          yaxis=dict(
+              showgrid=True,
+              gridcolor="rgba(123, 44, 191, 0.12)",
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          legend=dict(
+              font=dict(color="black"),
+              title=dict(font=dict(color="black")),
+          ),
+      )
+      st.plotly_chart(fig5_prom, use_container_width=True, key="g_obj5_1")
+
+  with tab5_2:
+    with st.container(border=True):
+      fig5_disp = px.bar(
+          df5,
+          x="Region_Agrupada",
+          y="Dispersion_Prioridad",
+          color="Region_Agrupada",
+          text="Dispersion_Prioridad",
+          color_discrete_sequence=["#7B2CBF", "#C77DFF"],
+          labels={
+              "Region_Agrupada": "Región",
+              "Dispersion_Prioridad": "Dispersión de Prioridad",
+          },
+      )
+      fig5_disp.update_traces(
+          texttemplate="%{text:.2f}",
+          textposition="outside",
+          textfont=dict(color="black", size=11, weight="bold"),
+      )
+      fig5_disp.update_layout(
+          title=dict(
+              text="<b>2. Dispersión de Prioridad por Región</b>",
+              font=dict(color="black", size=15),
+          ),
+          plot_bgcolor="rgba(0,0,0,0)",
+          paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="sans-serif", color="black", size=12),
+          xaxis=dict(
+              showgrid=False,
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          yaxis=dict(
+              showgrid=True,
+              gridcolor="rgba(123, 44, 191, 0.12)",
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          legend=dict(
+              font=dict(color="black"),
+              title=dict(font=dict(color="black")),
+          ),
+      )
+      st.plotly_chart(fig5_disp, use_container_width=True, key="g_obj5_2")
+
+  with tab5_3:
+    with st.container(border=True):
+      fig5_resp = px.bar(
+          df5,
+          x="Region_Agrupada",
+          y="Total_Respuestas",
+          color="Region_Agrupada",
+          text="Total_Respuestas",
+          color_discrete_sequence=["#5A189A", "#E0AAFF"],
+          labels={
+              "Region_Agrupada": "Región",
+              "Total_Respuestas": "Total de Respuestas",
+          },
+      )
+      fig5_resp.update_traces(
+          texttemplate="%{text:,}",
+          textposition="outside",
+          textfont=dict(color="black", size=11, weight="bold"),
+      )
+      fig5_resp.update_layout(
+          title=dict(
+              text="<b>3. Total de Respuestas por Región</b>",
+              font=dict(color="black", size=15),
+          ),
+          plot_bgcolor="rgba(0,0,0,0)",
+          paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="sans-serif", color="black", size=12),
+          xaxis=dict(
+              showgrid=False,
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          yaxis=dict(
+              showgrid=True,
+              gridcolor="rgba(123, 44, 191, 0.12)",
+              title_font=dict(color="black"),
+              tickfont=dict(color="black"),
+          ),
+          legend=dict(
+              font=dict(color="black"),
+              title=dict(font=dict(color="black")),
+          ),
+      )
+      st.plotly_chart(fig5_resp, use_container_width=True, key="g_obj5_3")
+
+  st.markdown(
+      f"""
+        <div class="tarjeta-kpi">
+            <div class="titulo-kpi">💡 Conclusión Específica</div>
+            <p class="texto-kpi">{concl_obj5}</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
