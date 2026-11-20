@@ -1171,3 +1171,58 @@ with tab_campos:
         f"Mostrando **{len(df_filtrado)}** de **{len(df_diccionario)}** campos."
     )
 
+ st.dataframe(
+        df_filtrado,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Tabla": st.column_config.TextColumn("Tabla / Vista", width="medium"),
+            "Campo": st.column_config.TextColumn("Campo", width="medium"),
+            "Tipo": st.column_config.TextColumn("Tipo", width="small"),
+            "Permite NULL": st.column_config.TextColumn("NULL", width="small"),
+            "Clave / Relación": st.column_config.TextColumn(
+                "Clave / Relación", width="large"
+            ),
+            "Ejemplo": st.column_config.TextColumn("Ejemplo", width="small"),
+            "Descripción": st.column_config.TextColumn(
+                "Descripción", width="large"
+            ),
+            "Valores / Reglas": st.column_config.TextColumn(
+                "Valores / Reglas", width="large"
+            ),
+        },
+    )
+
+    if not df_filtrado.empty:
+        st.download_button(
+            label="⬇️ Descargar diccionario filtrado (CSV)",
+            data=df_filtrado.to_csv(index=False, encoding="utf-8-sig").encode(
+                "utf-8-sig"
+            ),
+            file_name="diccionario_datos_modelo_dimensional.csv",
+            mime="text/csv",
+            key="descargar_diccionario_csv",
+        )
+    else:
+        st.info("No hay campos que coincidan con los filtros seleccionados.")
+
+with tab_relaciones:
+    st.caption(
+        "Relaciones entre Fact_Respuesta_Encuestado y las tablas dimensionales del modelo."
+    )
+    st.dataframe(
+        df_relaciones,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+with tab_vistas:
+    st.caption(
+        "Resumen de vistas disponibles en modelo_dimensional.main y sus métricas principales."
+    )
+    st.dataframe(
+        df_vistas,
+        use_container_width=True,
+        hide_index=True,
+    )
+
