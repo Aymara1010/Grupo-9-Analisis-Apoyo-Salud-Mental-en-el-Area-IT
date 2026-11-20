@@ -183,31 +183,35 @@ if not st.session_state.encuesta_enviada:
                 st.error(f"Error al enviar la encuesta: {e}")
 
 else:
-    st.success("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!")
+    st.toast("¡Tus respuestas se han guardado exitosamente en nuestra base de datos!", icon="💜")
     st.balloons()
 
-    st.subheader("💜 Recomendación de tu Consejero Virtual")
-    with st.container(border=True):
-        if st.session_state.consejo_ia is None:
-            try:
-                with st.spinner("Cargando Consejo Perzonalizado..."):
-                  st.session_state.consejo_ia = st.write_stream(
-                    pedir_consejo_ia(st.session_state.datos_prompt)
-                 )
-            except Exception: # as e:
-               st.warning("No se pudo cargar la recomendación en este momento.") #st.error(e)
-        else:
-            st.markdown(st.session_state.consejo_ia)
-
-    st.markdown("""
+    contenedor_tarjeta = st.empty()
+    
+    plantilla_html = """
         <div class="mensaje-motivacional">
-            <h3 style="margin-top: 0; color: #3C096C;">💜 ¡Muchas gracias por tu participación!</h3>
-            <p style="font-size: 1.05rem; color: #2b2b2b;">
-                Tu contribución es fundamental para generar conciencia, visibilizar el bienestar emocional 
-                y promover culturas de trabajo más saludables e inclusivas en el sector tecnológico.
-            </p>
+            <h3 style="margin-top: 0; color: #3C096C;">💜 Recomendación de tu Consejero Virtual: </h3>
+            <div style="font-size: 1.05rem; color: #2b2b2b; white-space: pre-wrap; margin-bottom: 15px;">{texto_ia}</div>
             <blockquote style="border-left: 3px solid #7B2CBF; padding-left: 10px; font-style: italic; color: #5a189a; margin-top: 10px;">
                 "Cuidar de tu salud mental no es un lujo, es una prioridad. Tómate una pausa cuando lo necesites." 🌿✨
             </blockquote>
         </div>
-    """, unsafe_allow_html=True)
+    """
+
+# Actualizar html en tiempo real
+    if st.session_state.consejo_ia is None:
+        texto_acumulado = ""
+        try:
+            for fragmento in pedir_consejo_ia(st.session_state.datos_prompt):
+                texto_acumulado += fragmento.replace("**", "") 
+                contenedor_tarjeta.markdown(plantilla_html.format(texto_ia=texto_acumulado + " ▌"), unsafe_allow_html=True)
+
+            contenedor_tarjeta.markdown(plantilla_html.format(texto_ia=texto_acumulado), unsafe_allow_html=True)
+            st.session_state.consejo_ia = texto_acumulado
+
+        except Exception:
+            contenedor_tarjeta.markdown(plantilla_html.format(texto_ia="<i>No se pudo cargar la recomendación en este momento.</i>"), unsafe_allow_html=True)
+    
+    else:
+        contenedor_tarjeta.markdown(plantilla_html.format(texto_ia=st.session_state.consejo_ia), unsafe_allow_html=True)
+

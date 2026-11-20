@@ -1,9 +1,22 @@
-import streamlit as st
 import os
+from PIL import Image
+import streamlit as st
 
-# ESTILOS Y TARJETA DE BIENVENIDA CON EFECTO 3D
-st.markdown("""
+# cambiar a false para quitar el agradecimiento a los profes
+MOSTRAR_PROFESORES = True  # Cambiar a false para no mostrar más
+
+@st.cache_data(show_spinner=False)
+def cargar_imagen(ruta: str):
+    if os.path.exists(ruta):
+        return Image.open(ruta)
+    return None
+
+
+#tarjetas
+st.markdown(
+    """
     <style>
+    /* Tarjeta de bienvenida principal (Morado oscuro original) */
     .welcome-card {
         background: linear-gradient(135deg, #10002B, #3C096C);
         border: 2px solid #7B2CBF;
@@ -15,8 +28,7 @@ st.markdown("""
         margin: 20px auto;
         text-align: center;
     }
-    
-    /* EFECTO 3D CUANDO PASAS EL MOUSE */
+
     .welcome-card:hover {
         transform: translateY(-8px) scale(1.01);
         box-shadow: 0px 12px 30px rgba(224, 170, 255, 0.35);
@@ -34,7 +46,6 @@ st.markdown("""
         display: block;
     }
 
-    /* Forzamos el color blanco para evitar que Streamlit lo cambie a negro */
     h2.welcome-title {
         color: #FFFFFF !important;
         font-size: 28px;
@@ -49,6 +60,31 @@ st.markdown("""
         margin: 0 auto;
         max-width: 800px;
     }
+
+    /* Etiquetas de profesores y equipo */
+    .custom-card {
+        background: linear-gradient(135deg, #d8b4fe, #c084fc);
+        border: 2px solid #7B2CBF;
+        padding: 20px;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: 0px 4px 15px rgba(123, 44, 191, 0.25);
+        transition: all 0.3s ease-in-out;
+        margin-bottom: 20px;
+    }
+
+    .custom-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0px 10px 25px rgba(123, 44, 191, 0.4);
+        border-color: #10002B;
+    }
+
+    [data-testid="stImage"] img {
+        border-radius: 50% !important;
+        aspect-ratio: 1 / 1 !important;
+        object-fit: cover !important;
+        border: 3px solid #7B2CBF !important;
+    }
     </style>
 
     <div class="welcome-card">
@@ -60,19 +96,202 @@ st.markdown("""
             en evidencia clara y accesible.
         </p>
     </div>
-""", unsafe_allow_html=True)
-
-#video
-ruta_video = "SIN VIDEO AUN"  
-
-if os.path.exists(ruta_video):
-    # Si el archivo existe
-    col_v1, col_v2, col_v3 = st.columns([1, 8, 1])
-    with col_v2:
-        st.video(ruta_video)
-else:
-    # Si no existe
-    st.info("⏳ Esperando video de introducción... (El archivo aún no se ha agregado a la carpeta)")
+    """,
+    unsafe_allow_html=True,
+)
 
 st.markdown("---")
-st.markdown("⚠️🔨 En Construcción... 🚧")
+
+# Sección de equipo de investigación
+st.markdown(
+    "<h3 style='text-align: center; color: #3C096C;'>👥 Equipo de Trabajo</h3>",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    "<p style='text-align: center; color: #03045E; margin-bottom: 25px;'>Desarrolladores"
+    " del proyecto de análisis de Salud Mental en el Sector Information Technology</p>",
+    unsafe_allow_html=True,
+)
+
+# Primera fila de 3 integrantes
+eq1, eq2, eq3 = st.columns(3)
+
+with eq1:
+    img_eq_1 = cargar_imagen("assets/andrea.jpg")
+    if img_eq_1 is not None:
+        st.image(img_eq_1, use_container_width=True)
+    else:
+        st.info("⏳ Esperando imagen ... ⏳")
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Andrea Figuera</b><br>
+            <b style="color: #3C096C;">(figueraandrea25-hub)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Desarrollador visual de la aplicación</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with eq2:
+    img_eq_2 = cargar_imagen("assets/aymara.jpg")
+    if img_eq_2 is not None:
+        st.image(img_eq_2, use_container_width=True)
+    else:
+        st.info("⏳ Esperando imagen ... ⏳")
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Aymara Andersen</b><br>
+            <b style="color: #3C096C;">(Aymara1010)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Modelado y Datos</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with eq3:
+    img_eq_3 = cargar_imagen("assets/randy.jpg")
+    if img_eq_3 is not None:
+        st.image(img_eq_3, use_container_width=True)
+    else:
+        st.info("⏳ Esperando imagen ... ⏳")
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Randy Conde</b><br>
+            <b style="color: #3C096C;">(randyl21)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Visualización e Investigación</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+# Segunda fila de 3 integrantes
+eq4, eq5, eq6 = st.columns(3)
+
+with eq4:
+    img_eq_4 = cargar_imagen("assets/dipablos.jpg")
+    if img_eq_4 is not None:
+        st.image(img_eq_4, use_container_width=True)
+    else:
+        st.info("⏳ Esperando imagen ... ⏳")
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Rehide De Pablos</b><br>
+            <b style="color: #3C096C;">(depablosrehide-cdm)</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Modelado y Datos</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with eq5:
+    img_eq_5 = cargar_imagen("assets/Cristofer.jpg")
+    if img_eq_5 is not None:
+        st.image(img_eq_5, use_container_width=True)
+    else:
+        st.info("⏳ Esperando imagen ... ⏳")
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Christopher Escalande</b><br>
+            <b style="color: #3C096C;">christopherescalanteb-pixel</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Desarrollador visual Power BI</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with eq6:
+    img_eq_6 = cargar_imagen("assets/angelo.jpg")
+    if img_eq_6 is not None:
+        st.image(img_eq_6, use_container_width=True)
+    else:
+        st.info("⏳ Esperando imagen ... ⏳")
+
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 10px;">
+            <b style="color: #3C096C;">Angelo Freda</b><br>
+            <b style="color: #3C096C;">angelofreda4315-code</b><br>
+            <span style="color: #000814; font-size: 0.85rem;">Diseño grafico Power BI</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+st.markdown("---")
+
+if "sorpresa_abierta" not in st.session_state:
+    st.session_state.sorpresa_abierta = False
+
+if MOSTRAR_PROFESORES:
+    col_btn1, col_btn2 = st.columns([1, 1])
+
+    with col_btn1:
+        if st.button("🎁 Abrir regalo"):
+            st.session_state.sorpresa_abierta = True
+            st.toast("¡Regalo abierto! Nieve activada.", icon="❄️")
+            st.snow()
+
+    with col_btn2:
+        if st.session_state.sorpresa_abierta and st.button("🙈 Ocultar"):
+            st.session_state.sorpresa_abierta = False
+            st.rerun()
+
+    if st.session_state.sorpresa_abierta:
+        st.markdown(
+            "<h3 style='text-align: center; color: #3C096C;'>🎓 Agradecimiento Académico</h3>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<p style='text-align: center; color: #14213D; max-width: 700px; margin: 0 auto 20px auto;'>"
+            "Este proyecto es el resultado de la constancia, investigación y rigor estadístico. "
+            "Queremos expresar nuestro más profundo agradecimiento a nuestros profesores por su constante guía "
+            "y apoyo en la Escuela de Estadística de la UCV. Que nunca sientan que toda su dedicación fue en vano. Gracias "
+            "a nuestros compañeros que día a día tomaron de su tiempo para guiarnos. Gracias Vico 💜 Gracias Kleyber 💙 </p>",
+            unsafe_allow_html=True,
+        )
+
+        col_p1, col_p2 = st.columns(2)
+        
+        with col_p1:
+            st.markdown(
+                """
+                <div class="custom-card">
+                    <h4 style="color: #10002B; margin-bottom: 5px; font-weight: bold;">Prof. Oliver Triveño</h4>
+                    <p style="color: #3C096C; font-size: 0.9rem; margin: 0; font-weight: 500;">Gracias por tanta paciencia, por ser nuestro santo salvador</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            ruta_profe_1 = "assets/prof_oliver(1).jpg"
+            if os.path.exists(ruta_profe_1):
+                st.image(ruta_profe_1, use_container_width=True)
+            else:
+                st.info("⏳ Esperando foto del Prof. 1... 🚧")
+
+        with col_p2:
+            ruta_profe_2 = "assets/prof_jesus(1).jpg"
+            if os.path.exists(ruta_profe_2):
+                st.image(ruta_profe_2, use_container_width=True)
+            else:
+                st.info("⏳ Esperando foto del Prof. 2... 🚧")
+
+            st.markdown(
+                """
+                <div class="custom-card">
+                    <h4 style="color: #10002B; margin-bottom: 5px; font-weight: bold;">Prof. Jesús Ochoa</h4>
+                    <p style="color: #3C096C; font-size: 0.9rem; margin: 0; font-weight: 500;">Gracias por querer y hacer todo lo posible porque seamos los mejores profesionales desde siempre</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )

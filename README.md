@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="IMG/bannerapp.png" alt="Análisis de Apoyo a la Salud Mental en el Área IT" width="100%">
+</p>
+
+# Análisis de Apoyo a la Salud Mental en el Área IT
+
 # Análisis Comparativo sobre la Provisión de Apoyo y Prestaciones en Salud Mental dentro del Ámbito Tecnológico entre EE. UU., Europa y Oceanía. 
 
 Este trabajo consiste en un proyecto de análisis de datos aplicado busca realizar un análisis comparativo y estadístico sobre el acceso a beneficios de salud mental, políticas de bienestar y percepción del apoyo organizacional en el sector tecnológico, contrastando los panoramas de Estados Unidos, Europa y Oceanía pre pandemia. Con el objetivo de identificar brechas críticas en la cobertura médica y evaluar las diferencias en la cultura corporativa entre regiones.
@@ -32,6 +38,7 @@ Evaluar y comparar estadísticamente la provisión de apoyo, las políticas de b
 
 6. **Identificar las necesidades actuales sobre el apoyo y los beneficios de salud mental en la industria tecnológica.**
    * *Explicación:* Extraer y priorizar las demandas y carencias principales de los empleados mediante técnicas de minería de textos y análisis de sentimientos aplicados a sus comentarios y propuestas de mejora, comparando los hallazgos de EE. UU. frente a Europa y Oceanía.
+
 ### Técnicas Usadas:
 
 Cálculo de frecuencias absolutas y relativas para categorizar la oferta de beneficios por región.
@@ -39,18 +46,33 @@ Elaboración de gráficos de barras apiladas para comparar el nivel de conocimie
 Análisis de proporciones para evaluar la percepción de la seriedad en el tratamiento de la salud mental.
 Tabulación de datos para resumir la frecuencia de campañas de bienestar organizacional según el país.
 
-## Enfoque Técnico
-⚠️🔨 En Construcción...
+### Enfoque Técnico
 
-### Stack Tecnológico:
-⚠️🔨 En Construcción...
-### Técnicas de Procesamiento de Datos:
-⚠️🔨 En Construcción...
+## 🛠️ Stack Tecnológico
+
+El proyecto está construido en una arquitectura modular que integra análisis de datos, persistencia en la nube e inteligencia artificial:
+
+* **Python (SQLite):** Lenguaje principal utilizado para la extracción, limpieza y procesamiento de datos, así como para la lógica de integración entre las bases de datos.
+
+* **MotherDuck:** La utilizamos para guardar los conjuntos de datos del proyecto y ejecutar las consultas SQL
+
+* **Supabase:** Aloja nuestros datos de la base de datos normalizada como proyecto 
+
+* **Google AI Studio:** Integramos el modelo generativo configurado como **agente consejero**, encargado de interpretar el contexto del usuario y ofrecer recomendaciones personalizadas dentro de la plataforma.
+
+## Técnicas de Procesamiento de Datos:
+
+* **Modelado de Datos:** Estructuramos la información con dos enfoques que se complementan: un modelo relacional (normalizado) para garantizar la integridad referencial en operaciones transaccionales, y un modelo dimensional (tablas de hechos y dimensiones) optimizado para consultas analíticas rápidas.
+
+* **Análisis de Sentimientos (Nubes de Palabras):** Aplicación de técnicas de procesamiento de texto para evaluar la polaridad de los registros e identificar los conceptos y palabras clave más frecuentes mediante nubes de palabras.
+
+* **Imputación de Datos:** Tratamiento de valores nulos, evitando la pérdida de muestra y preservando la consistencia del conjunto de datos para el análisis posterior.
+
 ### Despliegue Analítico:
-⚠️🔨 En Construcción...
 
-## Visualización del Proyecto
-⚠️🔨 En Construcción...
+* **Streamlit:** utilizado para desplegar la app, permitiendo explorar los datos de forma dinámica y aplicar filtros en tiempo real
+
+* **Power BI:** empleada para construir el dashboard con las tendencias y métricas clave del proyecto.
 
 ### 📚 Base de Datos:
 La base de datos utilizada para este proyecto es de Kaggle y proviene de Open Source Mental Illness (OSMI), la fuente original tiene datos desde 2014, el proyecto se acota al período 2017–2019 por consistencia en las variables.                                                                                       
@@ -58,18 +80,36 @@ La base de datos utilizada para este proyecto es de Kaggle y proviene de Open So
 [👉 Ver Base de Datos](https://www.kaggle.com/datasets/anth7310/mental-health-in-the-tech-industry)
 
 ### Informe Dinámico en Streamlit:
-⚠️🔨 En Construcción...
+[🧠 Visita Nuestra App de Streamlit](https://encuesta-salud-mental-osmi.streamlit.app/)
+
 ### Dashboard en PowerBI:
-⚠️🔨 En Construcción...
+[📊 Explora Nuestro Dashboard en PowerBI](https://app.powerbi.com/view?r=eyJrIjoiYmE3MjdjM2YtZjJhNC00MTM1LWE3YWQtN2ZhMjAxZGNhY2I0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9)
 
 ## ¿Cómo Ejecutar el Proyeto?
-⚠️🔨 En Construcción...
+
+## 1. Clona el Repositorio
+```bash
+git clone [https://github.com/Aymara1010/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT.git](https://github.com/Aymara1010/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT.git)
+cd Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT
+```
+## 2. Instala las dependencias
+```bash
+pip install -r requirements.txt
+```
+
+## 3. Configura credenciales y ejecuta la App
+
+```bash
+streamlit run app.py
+```
 
 ## 📂 Estrucura del Repositorio
 El repositorio de este proyecto está estructurado de la siguiente manera:
 ```bash
-├── components/               # Elementos visuales aislados (gráficos, tablas, filtros).
+├── Base de Datos/            # Limpieza de la Base de Datos.
 ├── Paginas/                  # Páginas de la App de Streamlit
+├── PowerBI/                  # Páginas de la App de Streamlit
+├── assets/                   # Elementos visuales.
 ├── app.py                    # Código principal de la App de Streamlit
 ├── requirements.txt          # Listado de librerías de Python
 ├── .gitignore

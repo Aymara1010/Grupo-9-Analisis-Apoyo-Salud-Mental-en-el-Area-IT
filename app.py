@@ -18,6 +18,8 @@ def preload_data():
     conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cuatro").fetchdf()
     conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Cinco").fetchdf()
     conn.execute("SELECT * FROM modelo_dimensional.Objetivo_Seis").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Pregunta_Uno").fetchdf()
+    conn.execute("SELECT * FROM modelo_dimensional.Pregunta_Cuatro").fetchdf()
    
 with st.spinner("Conectando la Base de Datos..."):   
     preload_data()
@@ -57,7 +59,6 @@ st.markdown(''
 #Definición de las paginas
 p_welcom = st.Page("Paginas/08_Welcome.py", title="Bienvenida")
 p_vista = st.Page("Paginas/01_Inicio.py", title="Vista General")
-p_intro = st.Page("Paginas/06_introduccion.py", title="Introducción")
 
 p_plant = st.Page("Paginas/02_Planteamiento.py", title="Lectura General ")
 p_teorico = st.Page("Paginas/03_Marco_Teorico.py", title="Metodología")
@@ -68,7 +69,7 @@ p_querys_prof = st.Page("Paginas/09_querys_prof.py", title="Querys Generales")
 p_bibli = st.Page("Paginas/10_Bibliografia.py", title="Bibliografía")
 p_encuesta = st.Page("Paginas/12_Encuesta.py", title="📝 Llenar Encuesta")
 
-todas_las_paginas = [p_welcom, p_vista, p_intro, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_bibli, p_encuesta]
+todas_las_paginas = [p_welcom, p_vista, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_bibli, p_encuesta]
 pg = st.navigation(todas_las_paginas, position="hidden")
 
 #Texto y Orden del menú
@@ -82,7 +83,6 @@ with st.sidebar: #avisos y notas
     with st.expander("🚀 **inicio**", expanded=True):
         st.page_link(p_welcom)
         st.page_link(p_vista)
-        st.page_link(p_intro)
 
     #Presentación Académica
     with st.expander("📖 **Presentación Académica**", expanded=True):
