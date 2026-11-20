@@ -42,6 +42,98 @@ FRASES_PATO = [
     "🔥 Constancia mata prisa. ¡Tú puedes con esto!",
 ]
 
+def _gif_a_base64(ruta_gif: str) -> str | None:
+  archivo = Path(ruta_gif)
+  if not archivo.exists():
+    return None
+  return base64.b64encode(archivo.read_bytes()).decode("utf-8")
+
+
+def mostrar_pato_sidebar(ruta_gif: str = "assets/pato_muneco.gif"):
+  if "indice_frase_pato" not in st.session_state:
+    st.session_state["indice_frase_pato"] = 0
+  if "burbuja_pato_abierta" not in st.session_state:
+    st.session_state["burbuja_pato_abierta"] = False
+
+  gif_b64 = _gif_a_base64(ruta_gif)
+
+  st.markdown("---")
+  st.markdown(
+      """
+        <style>
+        .pato-sidebar-card {
+            background: linear-gradient(145deg, #F8F4FF 0%, #EDE2FF 100%);
+            border-left: 5px solid #7B2CBF;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            text-align: center;
+            box-shadow: 0 6px 14px rgba(60, 9, 108, 0.14);
+            color: #1a1025;
+        }
+        .pato-sidebar-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 8px auto;
+            border: 2px solid #7B2CBF;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        .pato-sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .pato-sidebar-frase {
+            font-size: 0.85rem;
+            line-height: 1.35;
+            margin-top: 6px;
+        }
+        </style>
+        """,
+      unsafe_allow_html=True,
+  )
+
+  if gif_b64:
+    avatar_html = f'<div class="pato-sidebar-avatar"><img src="data:image/gif;base64,{gif_b64}" alt="Pato motivador"></div>'
+  else:
+    avatar_html = '<div class="pato-sidebar-avatar">🦆</div>'
+
+  frase_html = ""
+  if st.session_state["burbuja_pato_abierta"]:
+    frase_actual = FRASES_PATO[st.session_state["indice_frase_pato"]]
+    frase_html = f'<div class="pato-sidebar-frase">{frase_actual}</div>'
+
+  st.markdown(
+      f"""
+        <div class="pato-sidebar-card">
+            {avatar_html}
+            <b>Pato TechWell</b>
+            {frase_html}
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
+
+  etiqueta_btn = (
+      "🦆 Otra frase"
+      if st.session_state["burbuja_pato_abierta"]
+      else "🦆 ¡Apriétame!"
+  )
+  if st.button(etiqueta_btn, key="btn_pato_sidebar", use_container_width=True):
+    if st.session_state["burbuja_pato_abierta"]:
+      st.session_state["indice_frase_pato"] = (
+          st.session_state["indice_frase_pato"] + 1
+      ) % len(FRASES_PATO)
+    else:
+      st.session_state["burbuja_pato_abierta"] = True
+    st.rerun()
+
 st.markdown( 
   ""
     """
@@ -92,8 +184,8 @@ pg = st.navigation(todas_las_paginas, position="hidden")
 # Texto y Orden del menú
 with st.sidebar:  #avisos y notas
     st.markdown("# TechWell Analítica 💻 ")
-  mostrar_pato_sidebar()
-  st.markdown("---")
+    mostrar_pato_sidebar()
+    st.markdown("---")
     #cuadros para seleccionar 
     #inicio
     with st.expander("🚀 **inicio**", expanded=True):
