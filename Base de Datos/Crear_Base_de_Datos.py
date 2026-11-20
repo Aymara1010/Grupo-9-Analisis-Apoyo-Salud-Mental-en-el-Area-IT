@@ -29,5 +29,6 @@ if __name__ == "__main__":
    arreglos = mo.limpiar_regiones_y_textos()
    arreglos2 = mo.imputar_prioridades()
    analisis = s.categorizar_base_datos()
+   analisis2 = s.actualizar_emociones_bd()
    limpieza_texto = mo.limpieza_despues_del_texto()
    

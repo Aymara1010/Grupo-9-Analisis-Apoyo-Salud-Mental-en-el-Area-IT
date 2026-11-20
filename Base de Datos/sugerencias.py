@@ -4,6 +4,94 @@ import numpy as np
 import pandas as pd
 from rank_bm25 import BM25Okapi
 
+DICCIONARIOS = {
+    'negativa': [
+        'fired', 'dismissed', 'toxic', 'burnout', 'anxiety', 'panic', 'depression',
+        'depressed', 'hostile', 'punished', 'ridiculed', 'mocked', 'ignored',
+        'isolated', 'stress', 'stigma', 'afraid', 'fear', 'worst', 'harassment',
+        'unsupportive', 'bad', 'crying', 'terrible', 'discriminated', 'overtime',
+        'pressure', 'retaliation', 'shame', 'guilt', 'burden'
+    ],
+    'positiva': [
+        'supportive', 'understanding', 'support', 'helpful', 'empathy', 'caring',
+        'great', 'good', 'accepted', 'comforting', 'encouraging', 'welcomed',
+        'listened', 'listening', 'compassion', 'open', 'accommodating', 'safe',
+        'appreciate', 'helped', 'improved', 'kind', 'positive', 'receptive'
+    ],
+    'neutra': [
+        'talked', 'discussed', 'mentioned', 'standard', 'conversation', 'normal',
+        'policy', 'process', 'procedure', 'meeting', 'noted', 'matter-of-fact',
+        'casual', 'formal', 'routine', 'told', 'sharing', 'neither'
+    ]
+}
+
+def clasificar_con_bm25(textos):
+    corpus = [
+        re.findall(r'\b[a-zA-Z]{3,}\b', str(t).lower())
+        if pd.notna(t) and str(t).strip() else []
+        for t in textos
+    ]
+    validos = [i for i, tokens in enumerate(corpus) if len(tokens) > 0]
+    sub_corpus = [corpus[i] for i in validos]
+
+    ids = [None] * len(textos)
+    if not sub_corpus:
+        return ids
+
+    bm25 = BM25Okapi(sub_corpus)
+    scores_neg = bm25.get_scores(DICCIONARIOS['negativa'])
+    scores_pos = bm25.get_scores(DICCIONARIOS['positiva'])
+    scores_neu = bm25.get_scores(DICCIONARIOS['neutra'])
+
+    for local_idx, orig_idx in enumerate(validos):
+        s_neg = scores_neg[local_idx]
+        s_pos = scores_pos[local_idx]
+        s_neu = scores_neu[local_idx]
+        max_score = max(s_neg, s_pos, s_neu)
+
+        if max_score == 0:
+            ids[orig_idx] = 3  # Neutra
+        elif s_neg >= s_pos and s_neg >= s_neu:
+            ids[orig_idx] = 1 if s_neg >= 3.5 else 2  # Muy Alta vs Alta
+        elif s_pos > s_neg and s_pos >= s_neu:
+            ids[orig_idx] = 5 if s_pos >= 3.5 else 4  # Muy Alta vs Alta
+        else:
+            ids[orig_idx] = 3  # Neutra
+
+    return ids
+
+
+def actualizar_emociones_bd(duckdb_path="mental_health_dimensional.duckdb"):
+    con = duckdb.connect(duckdb_path)
+    try:
+
+        df = con.execute("""
+            SELECT 
+                RespuestaID,
+                Descripcion_Conversacion_Companeros_Sobre_SM AS t1,
+                Descripcion_Conversacion_Sobre_Companero_SM AS t2
+            FROM Fact_Respuesta_Encuestado;
+        """).fetchdf()
+
+        df['id_1'] = clasificar_con_bm25(df['t1'])
+        df['id_2'] = clasificar_con_bm25(df['t2'])
+
+        actualizar_df = df[['RespuestaID', 'id_1', 'id_2']]
+        con.register('actualizar_df', actualizar_df)
+
+        con.execute("""
+            UPDATE Fact_Respuesta_Encuestado
+            SET 
+                Emocion_Conversacion_Companeros = actualizar_df.id_1,
+                Emocion_Conversacion_Sobre_Companero = actualizar_df.id_2
+            FROM actualizar_df
+            WHERE Fact_Respuesta_Encuestado.RespuestaID = actualizar_df.RespuestaID;
+        """)
+        print("Emociones insertadas correctamente en Fact_Respuesta_Encuestado.")
+    finally:
+        con.close()
+
+# Diccionarios temáticos derivados del vocabulario real de las sugerencias
 DICCIONARIOS_SUGERENCIAS = {
     1: [  # Jornada, Carga Laboral y Burnout
         'burnout', 'overwork', 'hours', 'overtime', 'crunch', 'deadlines', 'workload',
