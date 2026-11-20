@@ -83,6 +83,20 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 st.write("")
 
+#mini resumen
+st.markdown(
+    """
+<div class="resumen-3d-wrapper">
+    <div class="resumen-3d-card">
+        <span class="etiqueta-resumen">🏷️ Mini Resumen</span>
+        <p class="texto-resumen-interno">
+            Este marco reúne la base conceptual para entender la salud mental en tecnología a partir de los datos: cómo el tecnoestrés y la modalidad de trabajo inciden en el bienestar y la seguridad psicológica del equipo, y por qué la comparación regional depende en gran medida de si el acceso a salud está ligado al empleo (EE. UU.) o respaldado por sistemas públicos y protecciones laborales más amplias (Europa y Oceanía).
+        </p>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 #texto de info
 with st.container():
   st.markdown('<span class="marcador-marco-fijo"></span>', unsafe_allow_html=True)
