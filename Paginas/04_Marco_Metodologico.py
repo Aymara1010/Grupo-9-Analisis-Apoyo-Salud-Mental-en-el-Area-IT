@@ -30,3 +30,48 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
+
+# 2. Diccionario de datos sincronizado con modelo_dimensional.main
+DICCIONARIO_DATOS = [
+    # --- Dim_Beneficio_Trabajo ---
+    {
+        "Tabla": "Dim_Beneficio_Trabajo",
+        "Campo": "BeneficiosID",
+        "Tipo": "INTEGER",
+        "Permite NULL": "No",
+        "Clave / Relación": "PK",
+        "Ejemplo": "1",
+        "Descripción": "Identificador único de la configuración de beneficios laborales de salud mental.",
+        "Valores / Reglas": "Clave primaria entera no nula.",
+    },
+    {
+        "Tabla": "Dim_Beneficio_Trabajo",
+        "Campo": "Beneficio",
+        "Tipo": "VARCHAR",
+        "Permite NULL": "Sí",
+        "Clave / Relación": "Atributo descriptivo",
+        "Ejemplo": "Yes",
+        "Descripción": "Indica si el empleador incluye cobertura o beneficios de salud mental.",
+        "Valores / Reglas": "Utilizado en análisis de cobertura y ausencia de beneficios.",
+    },
+    {
+        "Tabla": "Dim_Beneficio_Trabajo",
+        "Campo": "Privacidad_Tratamiento",
+        "Tipo": "VARCHAR",
+        "Permite NULL": "Sí",
+        "Clave / Relación": "Atributo descriptivo",
+        "Ejemplo": "Yes",
+        "Descripción": "Indica si la privacidad o anonimato de quien busca tratamiento está protegida.",
+        "Valores / Reglas": "Categoría descriptiva de política laboral.",
+    },
+    {
+        "Tabla": "Dim_Beneficio_Trabajo",
+        "Campo": "Conocimiento_Cobertura",
+        "Tipo": "VARCHAR",
+        "Permite NULL": "Sí",
+        "Clave / Relación": "Atributo descriptivo",
+        "Ejemplo": "Yes",
+        "Descripción": "Indica si la persona conoce las opciones de cobertura o recursos de salud mental.",
+        "Valores / Reglas": "Evaluado en métricas de conocimiento de beneficios.",
+    },
+   
