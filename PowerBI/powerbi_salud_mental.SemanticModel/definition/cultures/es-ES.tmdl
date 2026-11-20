@@ -2345,6 +2345,16 @@ cultureInfo es-ES
 			          "conocimiento ES": {
 			            "State": "Generated"
 			          }
+			        },
+			        {
+			          "¿Sabes qué apoyo mental te ofrece tu empresa?": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },

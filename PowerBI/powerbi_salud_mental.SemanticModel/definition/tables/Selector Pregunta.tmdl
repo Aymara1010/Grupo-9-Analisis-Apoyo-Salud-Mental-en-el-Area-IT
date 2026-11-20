@@ -3,10 +3,15 @@ table 'Selector Pregunta'
 
 	measure 'Titulo Dinamico' =
 			
-			CONCATENATEX(
-			    VALUES('Selector Pregunta'),
-			    'Selector Pregunta'[Selector Pregunta],
-			    " / "
+			IF(
+			    ISFILTERED('Selector Pregunta'),
+			    SWITCH(
+			        SELECTEDVALUE('Selector Pregunta'[Selector Pregunta Orden]),
+			        0, "¿Sabes qué apoyo mental te ofrece tu empresa?",
+			        1, "¿Tu empresa ofrece beneficios de salud mental?",
+			        2, "¿Tu empresa protege tu privacidad si buscas tratamiento?"
+			    ),
+			    ""
 			)
 		lineageTag: ca7530e6-28aa-40fc-89cc-f95c28c7df60
 
@@ -49,9 +54,9 @@ table 'Selector Pregunta'
 		mode: import
 		source =
 				{
-				    ("¿Tu empresa protege tu privacidad si buscas tratamiento?", NAMEOF('main Dim_Beneficio_Trabajo'[privacidad ES]), 0),
-				    ("¿Tu empresa ofrece beneficios de salud mental?", NAMEOF('main Dim_Beneficio_Trabajo'[beneficio ES]), 1),
-				    ("¿Sabes qué apoyo mental te ofrece tu empresa?", NAMEOF('main Dim_Beneficio_Trabajo'[conocimiento Es]), 2)
+				    ("Apoyo mental", NAMEOF('main Dim_Beneficio_Trabajo'[Conocimiento ES]), 0),
+				    ("Beneficio empresarial", NAMEOF('main Dim_Beneficio_Trabajo'[Beneficio ES]), 1),
+				    ("Privacidad de tratamiento", NAMEOF('main Dim_Beneficio_Trabajo'[Privacidad ES]), 2)
 				}
 
 	annotation PBI_Id = b11068b4393c41dd9ba7dea01939db8b
