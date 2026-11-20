@@ -349,3 +349,65 @@ def migrar_hechos(duckdb_path="mental_health_dimensional.duckdb"):
         print(f"Error al migrar hechos: {e}")
     finally:
         conn.close()
+        
+def limpiar_regiones_y_textos(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_limpieza = """
+    -- 1. Asegurar la columna Region en Dim_Pais con la clasificación
+    UPDATE Dim_Pais
+    SET Region = CASE
+        WHEN LOWER(TRIM(Pais)) IN ('united states', 'usa', 'us', 'united states of america')
+            THEN 'USA'
+        WHEN LOWER(TRIM(Pais)) IN (
+            'united kingdom', 'germany', 'france', 'netherlands', 'ireland',
+            'spain', 'italy', 'switzerland', 'poland', 'belgium', 'sweden',
+            'denmark', 'finland', 'norway', 'austria', 'portugal', 'czech republic',
+            'romania', 'bulgaria', 'greece', 'hungary', 'slovakia', 'estonia',
+            'lithuania', 'latvia', 'croatia', 'slovenia', 'russia', 'ukraine',
+            'belarus', 'serbia', 'iceland', 'luxembourg'
+        ) THEN 'Europa'
+        WHEN LOWER(TRIM(Pais)) IN ('australia', 'new zealand')
+            THEN 'Oceania'
+        ELSE 'Otro'
+    END;
+
+    -- 2. Eliminar de la tabla de hechos a quienes NO trabajan en USA, Europa u Oceanía
+    DELETE FROM Fact_Respuesta_Encuestado
+    WHERE Pais_Empleo NOT IN (
+        SELECT PaisID
+        FROM Dim_Pais
+        WHERE Region IN ('USA', 'Europa', 'Oceania')
+    )
+    OR Pais_Empleo IS NULL;
+
+    -- LIMPIAR TEXTO COMPLEJO
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Sugerencias_Mejora_SM_Industria = CASE
+        WHEN LENGTH(TRIM(Sugerencias_Mejora_SM_Industria)) < 5
+        OR (LENGTH(TRIM(Sugerencias_Mejora_SM_Industria)) - LENGTH(REPLACE(TRIM(Sugerencias_Mejora_SM_Industria), ' ', '')) + 1) < 4
+        THEN NULL ELSE Sugerencias_Mejora_SM_Industria END;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Descripcion_Conversacion_Companeros_Sobre_SM = CASE
+        WHEN LENGTH(TRIM(Descripcion_Conversacion_Companeros_Sobre_SM)) < 5
+        OR (LENGTH(TRIM(Descripcion_Conversacion_Companeros_Sobre_SM)) - LENGTH(REPLACE(TRIM(Descripcion_Conversacion_Companeros_Sobre_SM), ' ', '')) + 1) < 4
+        THEN NULL ELSE Descripcion_Conversacion_Companeros_Sobre_SM END;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Descripcion_Conversacion_Sobre_Companero_SM = CASE
+        WHEN LENGTH(TRIM(Descripcion_Conversacion_Sobre_Companero_SM)) < 5
+        OR (LENGTH(TRIM(Descripcion_Conversacion_Sobre_Companero_SM)) - LENGTH(REPLACE(TRIM(Descripcion_Conversacion_Sobre_Companero_SM), ' ', '')) + 1) < 4
+        THEN NULL ELSE Descripcion_Conversacion_Sobre_Companero_SM END;
+    """
+
+    try:
+        conn.execute(sql_limpieza)
+        print("Regiones filtradas y textos limpios.")
+    except Exception as e:
+        print(f"Error en limpieza de regiones y textos: {e}")
+    finally:
+        conn.close()
