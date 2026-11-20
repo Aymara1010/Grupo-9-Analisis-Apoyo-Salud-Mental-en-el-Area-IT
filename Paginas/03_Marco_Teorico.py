@@ -133,3 +133,26 @@ with tab_marco:
     - **Europa y Oceanía:** La mayoría de los países en estas regiones cuentan con sistemas de salud pública universal financiados por el Estado y leyes laborales con fuertes protecciones obligatorias para el bienestar del trabajador.
 
     """)
+
+    with st.container():
+    st.markdown(
+        '<span class="marcador-modelado-fijo"></span>', unsafe_allow_html=True
+    )
+    st.markdown("""
+        Garantizar la calidad e integridad de la información es un paso fundamental antes de realizar cualquier análisis estadístico. Por esta razón, en esta sección se detalla el proceso técnico de estructuración, depuración y saneamiento de la base de datos utilizada.
+
+        ### Estructura Original de la Base de Datos OSMI
+        Como se indicó en el planteamiento del problema, la información de origen proviene de la encuesta OSMI. Su esquema inicial se compone de tres tablas principales que almacenan las respuestas, el catálogo de preguntas y las ediciones del estudio:
+        - **Answer:** Contiene los registros de respuesta (`AnswerText`, `SurveyID`, `UserID`, `QuestionID`).
+        - **Question:** Define las preguntas formuladas (`questionid`, `questiontext`).
+        - **Survey:** Registra las distintas ediciones de la encuesta (`SurveyID`, `Description`).
+
+        Dado que el modelo original de la base de datos dificulta el procesamiento analítico eficiente, fue indispensable transformar su estructura. A continuación, se examinan las características de la arquitectura de origen.
+
+        ### Modelo EAV (Entidad-Atributo-Valor)
+        La base de datos original utiliza el modelo Entidad-Atributo-Valor (EAV). Este esquema ofrece una elevada flexibilidad para incorporar nuevos atributos sin alterar la estructura base, siendo común en herramientas de recolección de encuestas dinámicas como OSMI. No obstante, la flexibilidad del modelo EAV conlleva limitaciones severas para el análisis de datos y la inferencia estadística:
+        - Almacenamiento apilado verticalmente en texto plano (`AnswerText`) para variables de distinta naturaleza.
+        - Necesidad de realizar múltiples combinaciones (*joins*) complejas y costosas para construir consultas analíticas.
+        - Ausencia de validación y control estricto sobre los tipos de datos.
+
+        Para superar estos inconvenientes, se diseñó un canal de ingeniería de datos (ETL) estructurado en etapas: auditoría y delimitación de datos crudos, normalización en un modelo relacional, depuración/imputación, construcción de un esquema dimensional y análisis de sentimientos con nubes de palabras.
