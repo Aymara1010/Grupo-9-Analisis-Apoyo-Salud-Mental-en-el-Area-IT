@@ -1,5 +1,8 @@
-import streamlit as st
+import base64
+from pathlib import Path
 import duckdb
+import streamlit as st
+
 # Configuración de la App
 st.set_page_config(page_title="Análisis Salud Mental", page_icon="🧠", layout="wide")
 
@@ -26,7 +29,21 @@ with st.spinner("Conectando la Base de Datos..."):
 
 
 #Detalles del menú y degradado de fondos
-st.markdown('' 
+
+# --- Pato motivador en el índice lateral ---
+FRASES_PATO = [
+    "🦆 Vas súper bien, sigue avanzando paso a paso.",
+    "✨ No tienes que resolver tu vida hoy, solo llegar a mañana",
+    "💧 Pausa para agua: los buenos datos también necesitan mente fresca.",
+    "🚀 Lo difícil ya lo estás resolviendo; ya vas en buen camino.",
+    "💜 Cada ajuste te acerca a la meta.",
+    "🧠 Si algo no cuadra a la primera, se revisa y se acomoda.",
+    "🌟 ¡Ánimo! Ya casi tienes todo listo para lucir el proyecto.",
+    "🔥 Constancia mata prisa. ¡Tú puedes con esto!",
+]
+
+st.markdown( 
+  ""
     """
     <style>
     /* Degradado de fondo */
@@ -72,11 +89,11 @@ p_encuesta = st.Page("Paginas/12_Encuesta.py", title="📝 Llenar Encuesta")
 todas_las_paginas = [p_welcom, p_vista, p_plant, p_teorico, p_metodo, p_resultados, p_querys_prof, p_bibli, p_encuesta]
 pg = st.navigation(todas_las_paginas, position="hidden")
 
-#Texto y Orden del menú
-with st.sidebar: #avisos y notas
+# Texto y Orden del menú
+with st.sidebar:  #avisos y notas
     st.markdown("# TechWell Analítica 💻 ")
-    st.markdown("---")
-    
+  mostrar_pato_sidebar()
+  st.markdown("---")
     #cuadros para seleccionar 
     #inicio
     with st.expander("🚀 **inicio**", expanded=True):
