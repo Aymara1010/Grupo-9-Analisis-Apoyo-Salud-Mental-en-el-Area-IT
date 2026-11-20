@@ -1078,3 +1078,22 @@ m2.metric("Campos Registrados", len(df_diccionario))
 m3.metric("Relaciones (FK)", len(df_relaciones))
 m4.metric("Vistas Mapeadas", len(df_vistas))
 
+with st.expander("💡 Mini tutorial: cómo usar el diccionario", expanded=False):
+  st.markdown(
+      """
+        <div class="tarjeta-diccionario">
+            <p class="titulo-diccionario">Guía rápida de navegación</p>
+            <p class="texto-diccionario">
+                <b>1. Filtra por tabla o vista:</b> selecciona una dimensión (<code>Dim_</code>), la tabla de hechos
+                (<code>Fact_Respuesta_Encuestado</code>) o una vista analítica (<code>Objetivo_Uno</code> a <code>Objetivo_Seis</code>).<br>
+                <b>2. Combina tipo de dato y búsqueda:</b> filtra por <code>INTEGER</code>, <code>VARCHAR</code>, <code>DOUBLE</code> o <code>BIGINT</code>,
+                y escribe palabras clave como <code>FK</code>, <code>Region</code>, <code>Prioridad</code> o <code>Beneficio</code>.<br>
+                <b>3. Revisa relaciones y vistas:</b> usa las pestañas <b>Relaciones (Fact / Dim)</b> y <b>Vistas Analíticas</b> para ver
+                cómo conectan las llaves foráneas y qué métricas alimenta cada vista.<br>
+                <b>4. Exporta o reinicia:</b> descarga el resultado filtrado en <b>CSV</b> o pulsa <b>Limpiar filtros</b> para volver al catálogo completo.
+            </p>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
+
