@@ -186,7 +186,7 @@ with tab_modelado:
     """)
     with st.expander("💜 **MODELO RELACIONAL**"):
       st.markdown('<div class="img-marco-fija">', unsafe_allow_html=True)
-      st.image("assets\Modelo Relacional.jpg", use_container_width=True)
+      st.image("assets/Modelo Relacional.jpg", use_container_width=True)
       st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("""
         ### Etapa 3: Limpieza, Depuración e Imputación de Datos
@@ -206,7 +206,7 @@ with tab_modelado:
     """)
     with st.expander("💜 **MODELO DIMENSIONAL**"):
       st.markdown('<div class="img-marco-fija">', unsafe_allow_html=True)
-      st.image("assets\Modelo Dimensional.jpg", use_container_width=True)
+      st.image("assets/Modelo Dimensional.jpg", use_container_width=True)
       st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("""
         ### Etapa 5: Análisis de Sentimientos y Nubes de Palabras
