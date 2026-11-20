@@ -411,3 +411,87 @@ def limpiar_regiones_y_textos(duckdb_path="mental_health_dimensional.duckdb"):
         print(f"Error en limpieza de regiones y textos: {e}")
     finally:
         conn.close()
+        
+def imputar_prioridades(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_prioridades = """
+    -- Prioridades
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Prioridad_Salud_Mental = COALESCE(
+        Fact_Respuesta_Encuestado.Prioridad_Salud_Mental,
+        med.Media_Mental),
+      Prioridad_Salud_Fisica = COALESCE(
+        Fact_Respuesta_Encuestado.Prioridad_Salud_Fisica,
+        med.Media_Fisica)
+    FROM Dim_Pais p
+    JOIN (SELECT
+            dp.Region,
+            ROUND(AVG(fre.Prioridad_Salud_Mental))::INT AS Media_Mental,
+            ROUND(AVG(fre.Prioridad_Salud_Fisica))::INT  AS Media_Fisica
+        FROM Fact_Respuesta_Encuestado fre
+        JOIN Dim_Pais dp ON dp.PaisID = fre.Pais_Empleo
+        GROUP BY dp.Region) med ON med.Region = p.Region
+    WHERE Fact_Respuesta_Encuestado.Pais_Empleo = p.PaisID
+      AND (Fact_Respuesta_Encuestado.Prioridad_Salud_Mental IS NULL
+        OR Fact_Respuesta_Encuestado.Prioridad_Salud_Fisica IS NULL);
+    """
+
+    try:
+        conn.execute(sql_prioridades)
+        print("Prioridades imputadas.")
+    except Exception as e:
+        print(f"Error al imputar prioridades: {e}")
+    finally:
+        conn.close()
+
+
+def limpieza_despues_del_texto(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_post_texto = """
+    -- Despues del Texto:
+    UPDATE Fact_Respuesta_Encuestado
+    SET Emocion_Conversacion_Sobre_Companero = 6
+    WHERE Emocion_Conversacion_Sobre_Companero IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Emocion_Conversacion_Companeros = 6
+    WHERE Emocion_Conversacion_Companeros IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Categoria_Sugerencia_ID = 8
+    WHERE Categoria_Sugerencia_ID IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Descripcion_Conversacion_Companeros_Sobre_SM = 'Sin Respuesta'
+    WHERE Descripcion_Conversacion_Companeros_Sobre_SM IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Descripcion_Conversacion_Sobre_Companero_SM = 'Sin Respuesta'
+    WHERE Descripcion_Conversacion_Sobre_Companero_SM IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Sugerencias_Mejora_SM_Industria = 'Sin Respuesta'
+    WHERE Sugerencias_Mejora_SM_Industria IS NULL;
+
+    INSERT INTO Dim_Estado_USA (EstadoID, Estado) VALUES
+    (0, 'Extranjero');
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Estado_USA_Vivienda = 0
+    WHERE Estado_USA_Vivienda IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Estado_USA_Empleo = 0
+    WHERE Estado_USA_Empleo IS NULL;
+    """
+
+    try:
+        conn.execute(sql_post_texto)
+        print("Limpieza final completada.")
+    except Exception as e:
+        print(f"Error en limpieza final: {e}")
+    finally:
+        conn.close()
