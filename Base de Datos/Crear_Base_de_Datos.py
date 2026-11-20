@@ -1,6 +1,7 @@
 import Modelo_Relacional as mr
 import Insertar_Datos_Modelo_Relacional as id
 import Creación_Modelo_Dimensional as mo
+import sugerencias as s
 
 bd_original = "mental_health.sqlite"
 bd_relacional = "modelo_relacional.sqlite"
@@ -27,4 +28,6 @@ if __name__ == "__main__":
    migrar_fact = mo.migrar_hechos()
    arreglos = mo.limpiar_regiones_y_textos()
    arreglos2 = mo.imputar_prioridades()
+   analisis = s.categorizar_base_datos()
    limpieza_texto = mo.limpieza_despues_del_texto()
+   
