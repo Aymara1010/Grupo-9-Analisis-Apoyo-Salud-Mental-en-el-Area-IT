@@ -90,3 +90,57 @@ def crear_tablas(duckdb_path="mental_health_dimensional.duckdb"):
         print(f"Error al inicializar dimensiones: {e}")
     finally:
         conn.close()
+        
+def crear_tabla_hechos(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    ddl_hechos = """
+    -- Tabla de Hechos Principal
+    CREATE TABLE IF NOT EXISTS Fact_Respuesta_Encuestado (
+        RespuestaID INTEGER PRIMARY KEY DEFAULT nextval('seq_fact_respuesta'),
+
+        EncuestadoID INTEGER,
+        EncuestaID INTEGER,
+        InfoID INTEGER,
+        SaludMentalID INTEGER,
+        TrabajoID INTEGER,
+        BeneficiosID INTEGER,
+        Pais_Vivienda INTEGER,
+        Estado_USA_Vivienda INTEGER,
+        Pais_Empleo INTEGER,
+        Estado_USA_Empleo INTEGER,
+
+        Edad FLOAT,
+        Prioridad_Salud_Fisica INTEGER,
+        Prioridad_Salud_Mental INTEGER,
+        Percepcion_Apoyo_SM_Industria INTEGER,
+        Experiencia_Respuesta_Negativa_SM VARCHAR,
+        Sugerencias_Mejora_SM_Industria VARCHAR,
+        Categoria_Sugerencia_ID INTEGER,
+        Descripcion_Conversacion_Companeros_Sobre_SM VARCHAR,
+        Emocion_Conversacion_Companeros INTEGER,
+        Descripcion_Conversacion_Sobre_Companero_SM VARCHAR,
+        Emocion_Conversacion_Sobre_Companero INTEGER,
+
+        FOREIGN KEY (EncuestaID) REFERENCES Dim_Encuesta(EncuestaID),
+        FOREIGN KEY (InfoID) REFERENCES Dim_Info_Encuestado(InfoID),
+        FOREIGN KEY (SaludMentalID) REFERENCES Dim_Estado_Mental(SaludMentalID),
+        FOREIGN KEY (TrabajoID) REFERENCES Dim_Trabajo_Encuestado(TrabajoID),
+        FOREIGN KEY (BeneficiosID) REFERENCES Dim_Beneficio_Trabajo(BeneficiosID),
+        FOREIGN KEY (Pais_Vivienda) REFERENCES Dim_Pais(PaisID),
+        FOREIGN KEY (Estado_USA_Vivienda) REFERENCES Dim_Estado_USA(EstadoID),
+        FOREIGN KEY (Pais_Empleo) REFERENCES Dim_Pais(PaisID),
+        FOREIGN KEY (Estado_USA_Empleo) REFERENCES Dim_Estado_USA(EstadoID),
+        FOREIGN KEY (Emocion_Conversacion_Companeros) REFERENCES Dim_Emociones(EmocionID),
+        FOREIGN KEY (Emocion_Conversacion_Sobre_Companero) REFERENCES Dim_Emociones(EmocionID),
+        FOREIGN KEY (Categoria_Sugerencia_ID) REFERENCES Dim_Categorias_Sugerencia(CategoriaID)
+    );
+    """
+
+    try:
+        conn.execute(ddl_hechos)
+        print("Tabla de hechos creada.")
+    except Exception as e:
+        print(f"Error al crear tabla de hechos: {e}")
+    finally:
+        conn.close()
