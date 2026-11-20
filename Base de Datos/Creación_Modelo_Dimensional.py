@@ -1,11 +1,11 @@
 import duckdb
-from matplotlib.pylab import cond
+
 
 def crear_tablas(duckdb_path="mental_health_dimensional.duckdb"):
     print(f"Conectando a DuckDB en: {duckdb_path}")
     conn = duckdb.connect(duckdb_path)
 
-    print("Creando secuencias y dimensiones base...")
+    print("Creando secuencias y dimensiones...")
 
     ddl_base = """
     CREATE SEQUENCE IF NOT EXISTS seq_info START 1;
@@ -17,32 +17,25 @@ def crear_tablas(duckdb_path="mental_health_dimensional.duckdb"):
 
     -- Dimensión Encuesta
     CREATE TABLE IF NOT EXISTS Dim_Encuesta (
-        SurveyID INTEGER PRIMARY KEY,
-        Descripción VARCHAR
+        EncuestaID INTEGER PRIMARY KEY,
+        Descripcion VARCHAR
     );
 
     -- Dimensión País
     CREATE TABLE IF NOT EXISTS Dim_Pais (
         PaisID INTEGER PRIMARY KEY,
-        Pais VARCHAR NOT NULL UNIQUE,
+        Pais VARCHAR,
         Region VARCHAR
     );
 
     -- Dimensión Estado USA
     CREATE TABLE IF NOT EXISTS Dim_Estado_USA (
         EstadoID INTEGER PRIMARY KEY,
-        Estado VARCHAR NOT NULL UNIQUE
+        Estado VARCHAR
     );
     """
-    try:
-        conn.execute(ddl_base)
-        print("Tablas base creadas.")
-    except Exception as e:
-        print(f"Error al inicializar tablas base: {e}")
-    finally:
-        conn.close()
 
-ddl_perfil_y_beneficios = """
+    ddl_perfil_y_beneficios = """
     -- Dimensión Info Encuestado
     CREATE TABLE IF NOT EXISTS Dim_Info_Encuestado (
         InfoID INTEGER PRIMARY KEY DEFAULT nextval('seq_info'),
@@ -65,11 +58,35 @@ ddl_perfil_y_beneficios = """
         Privacidad_Tratamiento VARCHAR,
         Conocimiento_Cobertura VARCHAR
     );
+
+    -- Dimensión Estado Mental
+    CREATE TABLE IF NOT EXISTS Dim_Estado_Mental (
+        SaludMentalID INTEGER PRIMARY KEY DEFAULT nextval('seq_estado_mental'),
+        Historial VARCHAR,
+        Tratamiento VARCHAR,
+        Condicion_Actual VARCHAR
+    );
+
+    -- Dimensión Emociones
+    CREATE TABLE IF NOT EXISTS Dim_Emociones (
+        EmocionID INTEGER PRIMARY KEY DEFAULT nextval('seq_emociones'),
+        Emocion VARCHAR,
+        Nivel_Emocion VARCHAR
+    );
+
+    -- Sugerencias
+    CREATE TABLE IF NOT EXISTS Dim_Categorias_Sugerencia (
+        CategoriaID INTEGER PRIMARY KEY,
+        Categoria VARCHAR,
+        Descripcion VARCHAR
+    );
     """
-try:
-    cond.execute(ddl_perfil_y_beneficios)
 
-    print("Dimensiones de perfil y beneficios creadas.")
-
-except Exception as e:
-        print(f"Error al inicializar perfil y beneficios: {e}")
+    try:
+        conn.execute(ddl_base)
+        conn.execute(ddl_perfil_y_beneficios)
+        print("Dimensiones creadas.")
+    except Exception as e:
+        print(f"Error al inicializar dimensiones: {e}")
+    finally:
+        conn.close()
