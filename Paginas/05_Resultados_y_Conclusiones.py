@@ -141,6 +141,10 @@ df_reporte = pd.DataFrame(
     resumen_objs, columns=["Objetivo", "Titulo", "Descripcion", "Conclusion"]
 )
 
+st.markdown("""
+Esta sección presenta la síntesis de los principales hallazgos obtenidos a lo largo de nuestro estudio, dando respuesta directa a los objetivos planteados en la investigación.
+""")
+
 st.download_button(
     label="Descargar reporte CSV",
     data=df_reporte.to_csv(index=False).encode("utf-8"),
@@ -799,3 +803,13 @@ with st.expander(f"📌 Objetivo 6: {titulo_obj6}", expanded=False):
         """,
       unsafe_allow_html=True,
   )
+
+st.markdown(
+        '<div style="background-color: #FFFFFF; padding: 24px 28px; border-radius: 10px; border-left: 6px solid #581C87; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); margin-top: 14px; margin-bottom: 20px;">'
+        '<h3 style="color: #000000; font-weight: 700; margin-top: 0; margin-bottom: 14px;">Conclusión General de la Investigación</h3>'
+        '<p style="color: #000000; font-size: 1rem; line-height: 1.6; margin-top: 0; margin-bottom: 14px;">A partir del análisis estadístico comparativo y las técnicas de limpieza aplicada a los datos del sector tecnológico, se da respuesta a la interrogante central de investigación concluyendo que el modelo corporativo de Estados Unidos ofrece una mayor provisión formal y visibilidad de beneficios de salud mental por parte del empleador en comparación con Europa y Oceanía; sin embargo, esto no se traduce en una mejor percepción del apoyo general ni en una mayor prioridad real otorgada por la industria.</p>'
+        '<p style="color: #000000; font-size: 1rem; line-height: 1.6; margin-top: 0; margin-bottom: 14px;">En ambos bloques geográficos persisten brechas críticas de comunicación y una deuda cultural profunda frente al bienestar psicológico. En definitiva, esta investigación demuestra con evidencia empírica que la salud mental en el área IT no se resuelve únicamente mediante pólizas de seguro o sistemas públicos aislados. El verdadero reto para los departamentos de Recursos Humanos y líderes tecnológicos consiste en transformar la cultura organizacional, erradicar el estigma, regular las cargas de trabajo y comunicar de manera transparente los recursos existentes para garantizar entornos laboralmente sostenibles.</p>'
+        '<p style="color: #000000; font-size: 1rem; line-height: 1.6; margin: 0;">En definitiva, los resultados de esta investigación demuestran que la salud mental en el área IT no se resuelve únicamente ofreciendo beneficios médicos en el papel o dependiendo del sistema de salud de cada país. El verdadero reto para las empresas y los líderes tecnológicos está en cambiar la cultura de trabajo: hablar del tema sin tabúes, controlar las cargas laborales y comunicar con claridad las ayudas que ya existen, para así construir espacios de trabajo realmente sanos y sostenibles.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
