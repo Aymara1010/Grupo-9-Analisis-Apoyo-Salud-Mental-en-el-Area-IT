@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6605a03980aa12d2d806",
   "position": {
-    "x": 199.56521739130434,
-    "y": 270,
-    "z": 7000,
-    "height": 135.65217391304347,
-    "width": 1563.9130434782608,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 808.695652173913,
+    "width": 435.65217391304344,
     "tabOrder": 8000
   },
   "visual": {
@@ -87,7 +87,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -111,9 +111,51 @@
             }
           }
         }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shadowSpread": {
+              "expr": {
+                "Literal": {
+                  "Value": "7D"
+                }
+              }
+            },
+            "shadowBlur": {
+              "expr": {
+                "Literal": {
+                  "Value": "21D"
+                }
+              }
+            },
+            "shadowDistance": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            },
+            "angle": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
   },
+  "parentGroupName": "c7ab98fa098064971ba6",
   "howCreated": "InsertVisualButton"
 }
