@@ -1008,3 +1008,48 @@ RELACIONES_MODELO = [
         "Uso Principal": "Emoción en conversaciones sobre un compañero",
     },
 ]
+# Mapeo con vistas 
+MAPEO_VISTAS = [
+    {
+        "Sección / Vista": "Objetivo_Uno",
+        "Tipo": "VIEW",
+        "Campos Clave": "region_agrupada, Ofrece_Beneficios",
+        "Métricas": "Total_Empresas, Frecuencia_Relativa_Porcentaje",
+    },
+    {
+        "Sección / Vista": "Objetivo_Dos",
+        "Tipo": "VIEW",
+        "Campos Clave": "Region_Agrupada",
+        "Métricas": "Total_Respuestas_Definitivas, Conocen_SI, Conocen_NO, Proporcion_SI_PCT, Proporcion_NO_PCT",
+    },
+    {
+        "Sección / Vista": "Objetivo_Tres",
+        "Tipo": "VIEW",
+        "Campos Clave": "Categoria_Puesto, Region_Agrupada",
+        "Métricas": "Total_Respuestas, Promedio_Prioridad, Dispersion_Prioridad",
+    },
+    {
+        "Sección / Vista": "Objetivo_Cuatro",
+        "Tipo": "VIEW",
+        "Campos Clave": "Region_Agrupada, Calificacion_Apoyo",
+        "Métricas": "Frecuencia_Absoluta, Porcentaje_Concentracion",
+    },
+    {
+        "Sección / Vista": "Objetivo_Cinco",
+        "Tipo": "VIEW",
+        "Campos Clave": "Region_Agrupada",
+        "Métricas": "Total_Respuestas, Promedio_Prioridad, Dispersion_Prioridad",
+    },
+    {
+        "Sección / Vista": "Objetivo_Seis",
+        "Tipo": "VIEW",
+        "Campos Clave": "Region, Categoria_Sugerencia, Detalle_Categoria",
+        "Métricas": "Total_Menciones, Porcentaje_Region",
+    },
+    {
+        "Sección / Vista": "Pregunta_Uno a Pregunta_Seis",
+        "Tipo": "VIEW",
+        "Campos Clave": "Edición / Edicion, dimensiones y rankings por vista",
+        "Métricas": "Porcentajes, proporciones, brechas, rankings y acumulados",
+    },
+]
