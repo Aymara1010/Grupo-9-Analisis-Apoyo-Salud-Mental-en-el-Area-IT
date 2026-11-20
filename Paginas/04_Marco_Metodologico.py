@@ -1097,3 +1097,77 @@ with st.expander("💡 Mini tutorial: cómo usar el diccionario", expanded=False
       unsafe_allow_html=True,
   )
 
+  # Pestañas principales
+tab_campos, tab_relaciones, tab_vistas = st.tabs([
+    "📋 Diccionario de Campos",
+    "🔗 Relaciones (Fact / Dim)",
+    "📊 Vistas Analíticas",
+])
+
+with tab_campos:
+    reset_id = st.session_state.get("dic_reset_id", 0)
+
+    if st.button("🔄 Limpiar filtros", key="limpiar_filtros_dic"):
+        st.session_state["dic_reset_id"] = reset_id + 1
+        st.rerun()
+
+    col_f1, col_f2, col_f3 = st.columns([1.3, 1, 1.7])
+
+    with col_f1:
+        tablas_disponibles = ["Todas"] + sorted(
+            df_diccionario["Tabla"].unique().tolist()
+        )
+        tabla_seleccionada = st.selectbox(
+            "Filtrar por tabla o vista:",
+            tablas_disponibles,
+            key=f"filtro_tabla_diccionario_{reset_id}",
+        )
+
+    with col_f2:
+        tipos_disponibles = ["Todos"] + sorted(
+            df_diccionario["Tipo"].unique().tolist()
+        )
+        tipo_seleccionado = st.selectbox(
+            "Tipo de dato:",
+            tipos_disponibles,
+            key=f"filtro_tipo_diccionario_{reset_id}",
+        )
+
+    with col_f3:
+        busqueda = st.text_input(
+            "Buscar campo, relación o regla:",
+            placeholder="Ej. BeneficiosID, Region, FK, DOUBLE...",
+            key=f"busqueda_diccionario_{reset_id}",
+        )
+
+    df_filtrado = df_diccionario.copy()
+
+    if tabla_seleccionada != "Todas":
+        df_filtrado = df_filtrado[df_filtrado["Tabla"] == tabla_seleccionada]
+
+    if tipo_seleccionado != "Todos":
+        df_filtrado = df_filtrado[df_filtrado["Tipo"] == tipo_seleccionado]
+
+    if busqueda.strip():
+        termino = busqueda.strip().lower()
+        cols_texto = [
+            "Tabla",
+            "Campo",
+            "Tipo",
+            "Permite NULL",
+            "Clave / Relación",
+            "Ejemplo",
+            "Descripción",
+            "Valores / Reglas",
+        ]
+        mascara = pd.Series(False, index=df_filtrado.index)
+        for col in cols_texto:
+            mascara = mascara | df_filtrado[col].str.lower().str.contains(
+                termino, na=False
+            )
+        df_filtrado = df_filtrado[mascara]
+
+    st.caption(
+        f"Mostrando **{len(df_filtrado)}** de **{len(df_diccionario)}** campos."
+    )
+
