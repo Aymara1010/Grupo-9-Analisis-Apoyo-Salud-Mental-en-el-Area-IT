@@ -232,3 +232,35 @@ def migrar_dimensiones(duckdb_path="mental_health_dimensional.duckdb"):
         print(f"Error al migrar dimensiones: {e}")
     finally:
         conn.close()
+        
+def cargar_dimensiones_texto(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_texto = """
+    -- texto:
+    INSERT INTO Dim_Emociones (EmocionID, Emocion, Nivel_Emocion) VALUES
+    (1, 'Negativa', 'Muy Alta'),
+    (2, 'Negativa', 'Alta'),
+    (3, 'Neutra',   'Neutro'),
+    (4, 'Positiva', 'Alta'),
+    (5, 'Positiva', 'Muy Alta'),
+    (6, 'Sin Respuesta', 'Sin Respuesta');
+
+    INSERT INTO Dim_Categorias_Sugerencia (CategoriaID, Categoria, Descripcion) VALUES
+    (1, 'Jornada, Carga Laboral y Burnout',   'Control de horas, 40h semanales, freno a crunch time y flexibilidad'),
+    (2, 'Desestigmatización y Cultura Abierta', 'Normalizar hablar del tema, empatía, menos bro culture y alcohol'),
+    (3, 'Seguros, Beneficios y Cobertura',     'Acceso a terapia, cobertura médica, HSA/FSA y reducir copagos'),
+    (4, 'Días de Salud Mental y Licencias',     'Mental health days, bajas médicas equiparadas a salud física y PTO'),
+    (5, 'Capacitación a Líderes y RRHH',       'Entrenamiento a managers en habilidades blandas, apoyo y no represalias'),
+    (6, 'Educación, Difusión y Espacio Físico','Campañas de concientización, guías y alternativas a open floor plans'),
+    (7, 'No Válida / Sin Propuesta', 'Respuestas evasivas, dudas, falta de experiencia o textos sin una recomendación concreta'),
+    (8, 'Sin Respuesta', 'El encuestado decidió no responder a la pregunta');
+    """
+
+    try:
+        conn.execute(sql_texto)
+        print("Dimensiones de texto cargadas.")
+    except Exception as e:
+        print(f"Error al cargar dimensiones de texto: {e}")
+    finally:
+        conn.close()
