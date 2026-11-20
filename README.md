@@ -1,17 +1,16 @@
 <p align="center">
-  <img src="IMG/bannerapp.png" alt="Análisis de Apoyo a la Salud Mental en el Área IT" width="100%">
+  <img src="assets/bannerapp.png" alt="Análisis de Apoyo a la Salud Mental en el Área IT" width="100%">
 </p>
 
-# Análisis de Apoyo a la Salud Mental en el Área IT
+# 🧠 Análisis de Apoyo a la Salud Mental en el Área IT
 
-# Análisis Comparativo sobre la Provisión de Apoyo y Prestaciones en Salud Mental dentro del Ámbito Tecnológico entre EE. UU., Europa y Oceanía. 
 
 Este trabajo consiste en un proyecto de análisis de datos aplicado busca realizar un análisis comparativo y estadístico sobre el acceso a beneficios de salud mental, políticas de bienestar y percepción del apoyo organizacional en el sector tecnológico, contrastando los panoramas de Estados Unidos, Europa y Oceanía pre pandemia. Con el objetivo de identificar brechas críticas en la cobertura médica y evaluar las diferencias en la cultura corporativa entre regiones.
 
 
 Para lograr esto, la investigación de este proyecto se fundamenta en el procesamiento y análisis de datos históricos provenientes de las encuestas globales de Open Source Mental Illness (OSMI) de los periodos 2017-2019. 
 
-##  Metodología Estadística
+## 📝 Metodología Estadística
 
 Este trabajo adopta un diseño de investigación descriptivo. En consecuencia, los hallazgos presentados se limitan a caracterizar y resumir las propiedades del fenómeno estudiado, sin pretensiones de generalización estadística o inferencial.
 
@@ -46,7 +45,6 @@ Elaboración de gráficos de barras apiladas para comparar el nivel de conocimie
 Análisis de proporciones para evaluar la percepción de la seriedad en el tratamiento de la salud mental.
 Tabulación de datos para resumir la frecuencia de campañas de bienestar organizacional según el país.
 
-### Enfoque Técnico
 
 ## 🛠️ Stack Tecnológico
 
@@ -60,7 +58,7 @@ El proyecto está construido en una arquitectura modular que integra análisis d
 
 * **Google AI Studio:** Integramos el modelo generativo configurado como **agente consejero**, encargado de interpretar el contexto del usuario y ofrecer recomendaciones personalizadas dentro de la plataforma.
 
-## Técnicas de Procesamiento de Datos:
+## 💻 Modelado y Limpieza de Datos:
 
 * **Modelado de Datos:** Estructuramos la información con dos enfoques que se complementan: un modelo relacional (normalizado) para garantizar la integridad referencial en operaciones transaccionales, y un modelo dimensional (tablas de hechos y dimensiones) optimizado para consultas analíticas rápidas.
 
@@ -68,24 +66,29 @@ El proyecto está construido en una arquitectura modular que integra análisis d
 
 * **Imputación de Datos:** Tratamiento de valores nulos, evitando la pérdida de muestra y preservando la consistencia del conjunto de datos para el análisis posterior.
 
-### Despliegue Analítico:
+## 📚 Base de Datos
 
-* **Streamlit:** utilizado para desplegar la app, permitiendo explorar los datos de forma dinámica y aplicar filtros en tiempo real
-
-* **Power BI:** empleada para construir el dashboard con las tendencias y métricas clave del proyecto.
-
-### 📚 Base de Datos:
+### Fuente:
 La base de datos utilizada para este proyecto es de Kaggle y proviene de Open Source Mental Illness (OSMI), la fuente original tiene datos desde 2014, el proyecto se acota al período 2017–2019 por consistencia en las variables.                                                                                       
 
 [👉 Ver Base de Datos](https://www.kaggle.com/datasets/anth7310/mental-health-in-the-tech-industry)
+
+### Modelo Dimensional:
+Moodelo Dimensional derivado de la base de datos original, utilizado en la tanto el la app como en el dashboard.
+
+<p align="center">
+  <img src="assets\Modelo Dimensional.jpg" alt="Modelo Dimensional" width="100%">
+</p>
+
+## 📊 Despliegue Analítico:
 
 ### Informe Dinámico en Streamlit:
 [🧠 Visita Nuestra App de Streamlit](https://encuesta-salud-mental-osmi.streamlit.app/)
 
 ### Dashboard en PowerBI:
-[📊 Explora Nuestro Dashboard en PowerBI](https://app.powerbi.com/view?r=eyJrIjoiYmE3MjdjM2YtZjJhNC00MTM1LWE3YWQtN2ZhMjAxZGNhY2I0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9)
+[📊 Explora Nuestro Dashboard en PowerBI](https://app.powerbi.com/view?r=eyJrIjoiNTU0YmU5YmMtYTdhYi00ZjA0LWIwYjQtNzNhNzE0M2QwZTQwIiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9)
 
-## ¿Cómo Ejecutar el Proyeto?
+## ⚙️ ¿Cómo Ejecutar el Proyeto?
 
 ## 1. Clona el Repositorio
 ```bash
