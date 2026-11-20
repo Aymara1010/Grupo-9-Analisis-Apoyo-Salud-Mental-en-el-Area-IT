@@ -77,6 +77,16 @@ div[data-testid="stVerticalBlock"]:has(.marcador-marco-fijo) {
 """,
     unsafe_allow_html=True,
 )
+st.markdown('<div class="img-marco-fija">', unsafe_allow_html=True)
+st.image("assets/puntos.png", use_container_width=True)
+st.markdown("</div>", unsafe_allow_html=True)
+
+st.write("")
+
+#texto de info
+with st.container():
+  st.markdown('<span class="marcador-marco-fijo"></span>', unsafe_allow_html=True)
+  st.markdown("""
 
  1. Antecedentes de la Investigación
 El estudio de la salud mental en el entorno laboral ha cobrado especial relevancia en la última década.
