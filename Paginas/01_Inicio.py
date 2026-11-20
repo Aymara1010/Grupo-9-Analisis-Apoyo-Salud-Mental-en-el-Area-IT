@@ -155,7 +155,7 @@ align-items: center;
 justify-content: space-between;
 '>
 <span style='color: #000000; font-weight: 600; font-size: 1rem;'>📊 ¿Quieres explorar el reporte interactivo completo?</span>
-<a href="https://app.powerbi.com/view?r=eyJrIjoiYmE3MjdjM2YtZjJhNC00MTM1LWE3YWQtN2ZhMjAxZGNhY2I0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9" target="_blank" style='
+<a href="https://app.powerbi.com/view?r=eyJrIjoiNTU0YmU5YmMtYTdhYi00ZjA0LWIwYjQtNzNhNzE0M2QwZTQwIiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9" target="_blank" style='
 background-color: #581C87;
 color: #FFFFFF;
 padding: 8px 16px;
