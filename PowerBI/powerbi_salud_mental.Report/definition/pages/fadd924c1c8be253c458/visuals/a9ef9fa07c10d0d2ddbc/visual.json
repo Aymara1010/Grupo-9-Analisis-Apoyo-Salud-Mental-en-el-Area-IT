@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "a9ef9fa07c10d0d2ddbc",
   "position": {
-    "x": 592.17391304347825,
-    "y": 736.95652173913038,
-    "z": 3000,
-    "height": 297.39130434782606,
-    "width": 573.91304347826087,
+    "x": 203.81801962533453,
+    "y": 664.54950936663693,
+    "z": 0,
+    "height": 371.66815343443352,
+    "width": 757.03835860838535,
     "tabOrder": 2000
   },
   "visual": {
@@ -27,9 +27,9 @@
                 }
               },
               "queryRef": "main Dim_Beneficio_Trabajo.Conocimiento ES",
-              "nativeQueryRef": "¿Sabes qué apoyo mental te ofrece tu empresa?",
+              "nativeQueryRef": "Apoyo mental",
               "active": true,
-              "displayName": "¿Sabes qué apoyo mental te ofrece tu empresa?"
+              "displayName": "Apoyo mental"
             }
           ],
           "fieldParameters": [
@@ -190,8 +190,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#3C096C'"
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
                     }
                   }
                 }

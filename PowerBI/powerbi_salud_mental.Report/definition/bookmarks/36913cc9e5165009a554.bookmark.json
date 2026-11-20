@@ -1,0 +1,993 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Menu Cerrado 3",
+  "name": "36913cc9e5165009a554",
+  "options": {
+    "targetVisualNames": [
+      "4c55a629080261075342"
+    ],
+    "suppressData": true,
+    "preserveNewVisualVisibility": true
+  },
+  "explorationState": {
+    "version": "1.11",
+    "activeSection": "eb151d14abadbb200674",
+    "sections": {
+      "eb151d14abadbb200674": {
+        "filters": {
+          "byExpr": [
+            {
+              "name": "1769dd3b2040b596e9c6",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "m",
+                    "Entity": "main Dim_Pais",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "m"
+                                }
+                              },
+                              "Property": "Region"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Europa'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Oceania'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'USA'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "main Dim_Pais"
+                    }
+                  },
+                  "Property": "Region"
+                }
+              },
+              "howCreated": 1
+            }
+          ]
+        },
+        "visualContainers": {
+          "1181ef191d8ccb2882a8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ed5d1c380b96c865ae90",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Encuesta"
+                        }
+                      },
+                      "Property": "EncuestaID"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "edef18281434810a34b3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "Total Respuestas"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "ribbonChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "Total Respuestas"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Encuesta"
+                        }
+                      },
+                      "Property": "EncuestaID"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "4c55a629080261075342": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "08371b500c879b8b5890",
+                  "type": "TopN",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "subquery",
+                        "Expression": {
+                          "Subquery": {
+                            "Query": {
+                              "Version": 2,
+                              "From": [
+                                {
+                                  "Name": "m",
+                                  "Entity": "main Dim_Pais",
+                                  "Type": 0
+                                },
+                                {
+                                  "Name": "m1",
+                                  "Entity": "main Fact_Respuesta_Encuestado",
+                                  "Type": 0
+                                }
+                              ],
+                              "Select": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "m"
+                                      }
+                                    },
+                                    "Property": "Pais"
+                                  },
+                                  "Name": "field"
+                                }
+                              ],
+                              "OrderBy": [
+                                {
+                                  "Direction": 2,
+                                  "Expression": {
+                                    "Measure": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "m1"
+                                        }
+                                      },
+                                      "Property": "Total Respuestas"
+                                    }
+                                  }
+                                }
+                              ],
+                              "Top": 9
+                            }
+                          }
+                        },
+                        "Type": 2
+                      },
+                      {
+                        "Name": "m",
+                        "Entity": "main Dim_Pais",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "m"
+                                    }
+                                  },
+                                  "Property": "Pais"
+                                }
+                              }
+                            ],
+                            "Table": {
+                              "SourceRef": {
+                                "Source": "subquery"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Pais"
+                        }
+                      },
+                      "Property": "Pais"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "a148650b932ae4094d31",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Pais"
+                        }
+                      },
+                      "Property": "País"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1b5a7c9a07decd2d1020",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "Total Respuestas"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "barChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "Total Respuestas"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Pais"
+                        }
+                      },
+                      "Property": "País"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "5d3bb31c09995b12d553": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "095e3940de5a9903b707",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "Encuestados"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {}
+            }
+          },
+          "996eaff069b2b9281d3c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "705a4f9b497600b25581",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "Edad texto"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {}
+            }
+          },
+          "d56a9db0631c439ee0de": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "13d993d059724187092c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "Empresas que ofrecen apoyo en salud mental"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {}
+            }
+          },
+          "ee39c6eadca53b7eeb30": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c2074e570500e3cbea78",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Info_Encuestado"
+                        }
+                      },
+                      "Property": "Genero"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f1d0b1c3da85080ce02a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "Total Respuestas"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "funnel",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "Total Respuestas"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Info_Encuestado"
+                        }
+                      },
+                      "Property": "Genero"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "ffa4503fd3285dcc340c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "51e7b7f2d077b0a4012a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Pais"
+                        }
+                      },
+                      "Property": "Grupo"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b1d3706e0826a92d692b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "% Respuestas"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "88c5bb0269c551004771",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "Conocimiento ES"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "% Respuestas"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "Conocimiento ES"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "Conocimiento ES"
+                    }
+                  }
+                ],
+                "Series": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Pais"
+                        }
+                      },
+                      "Property": "Grupo"
+                    }
+                  }
+                ],
+                "Y": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Beneficio_Trabajo"
+                        }
+                      },
+                      "Property": "% Respuestas"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Category": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Selector Pregunta"
+                          }
+                        },
+                        "Property": "Selector Pregunta"
+                      }
+                    },
+                    "index": 0,
+                    "length": 1
+                  }
+                ]
+              }
+            }
+          },
+          "a44254aa8d1a45042002": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "cd485e2e1747ab8d8174": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "981115bb46b1600682d2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "e471230b5ce213dea715",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Selector Pregunta"
+                        }
+                      },
+                      "Property": "Selector Pregunta"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "Selector Pregunta",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "Selector Pregunta Campos"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''main Dim_Beneficio_Trabajo''[Conocimiento ES]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Selector Pregunta"
+                        }
+                      },
+                      "Property": "Selector Pregunta"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "Selector Pregunta"
+                              }
+                            },
+                            "Property": "Selector Pregunta Campos"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''main Dim_Beneficio_Trabajo''[Conocimiento ES]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Apoyo mental"
+                }
+              ]
+            }
+          },
+          "ab6d3f8e3c6274965429": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "a30f8eec03c70db8cd63",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Info_Encuestado"
+                        }
+                      },
+                      "Property": "Genero"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "m",
+                                "Entity": "main Dim_Info_Encuestado",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "m"
+                                            }
+                                          },
+                                          "Property": "Genero"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'Femenino'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Dim_Info_Encuestado"
+                        }
+                      },
+                      "Property": "Genero"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "ea020b82120b226047e2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "841b53aa4047130c8b0e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "EncuestaID"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Between'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "main Fact_Respuesta_Encuestado"
+                        }
+                      },
+                      "Property": "EncuestaID"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "3f400a19665750c50e1c": {
+            "singleVisual": {
+              "visualType": "pageNavigator",
+              "objects": {}
+            }
+          },
+          "625dd710250dd0678dd7": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "5e4f01206350ae4c4633": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "80500cf66e0391b63011": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "91023f999bce85410496": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "ffe54cf4d90d76846a08": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "5662a506cd86d2ba8310": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "51b19719908b59e6e932": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
