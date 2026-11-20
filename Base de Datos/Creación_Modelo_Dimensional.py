@@ -264,3 +264,88 @@ def cargar_dimensiones_texto(duckdb_path="mental_health_dimensional.duckdb"):
         print(f"Error al cargar dimensiones de texto: {e}")
     finally:
         conn.close()
+        
+def migrar_hechos(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_hechos = """
+    INSTALL sqlite;
+    LOAD sqlite;
+    ATTACH 'C:/Users/aymar/OneDrive/Documentos/TF - COMPU II/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT/modelo_relacional.sqlite' AS sqlite_origen (TYPE SQLITE, READ_ONLY TRUE);
+
+    INSERT INTO Fact_Respuesta_Encuestado (
+        RespuestaID,
+        EncuestadoID,
+        EncuestaID,
+        InfoID,
+        SaludMentalID,
+        TrabajoID,
+        BeneficiosID,
+        Pais_Vivienda,
+        Estado_USA_Vivienda,
+        Pais_Empleo,
+        Estado_USA_Empleo,
+        Edad,
+        Prioridad_Salud_Fisica,
+        Prioridad_Salud_Mental,
+        Percepcion_Apoyo_SM_Industria,
+        Experiencia_Respuesta_Negativa_SM,
+        Sugerencias_Mejora_SM_Industria,
+        Descripcion_Conversacion_Companeros_Sobre_SM,
+        Descripcion_Conversacion_Sobre_Companero_SM
+    )
+    SELECT
+        r.RespuestaID,
+        r.EncuestadoID,
+        r.EncuestaID,
+        d_info.InfoID,
+        d_ment.SaludMentalID,
+        d_trab.TrabajoID,
+        d_bene.BeneficiosID,
+        ie.Pais_Vivienda,
+        evu.Estado_USA_Vivienda,
+        ie.Pais_Empleo,
+        etu.Estado_USA_Empleo,
+        ie.Edad,
+        b.Prioridad_Salud_Fisica,
+        b.Prioridad_Salud_Mental,
+        op.Percepcion_Apoyo_SM_Industria,
+        exp.Experiencia_Respuesta_Negativa_SM,
+        op.Sugerencias_Mejora_SM_Industria,
+        exp.Descripcion_Conversacion_Companeros_SM,
+        exp.Descripcion_Conversacion_Companero_SM
+    FROM sqlite_origen.Respuesta r
+    LEFT JOIN sqlite_origen.Info_Encuestado ie                  ON r.RespuestaID = ie.RespuestaID
+    LEFT JOIN sqlite_origen.Trabajo_Encuestado te               ON r.RespuestaID = te.RespuestaID
+    LEFT JOIN sqlite_origen.Beneficios_Trabajo_Actual b         ON r.RespuestaID = b.RespuestaID
+    LEFT JOIN sqlite_origen.Estado_Mental em                    ON r.RespuestaID = em.RespuestaID
+    LEFT JOIN sqlite_origen.Encuestados_Vive_USA evu            ON r.RespuestaID = evu.RespuestaID
+    LEFT JOIN sqlite_origen.Encuestados_Trabaja_USA etu         ON r.RespuestaID = etu.RespuestaID
+    LEFT JOIN sqlite_origen.Opinion_Industria op                ON r.RespuestaID = op.RespuestaID
+    LEFT JOIN sqlite_origen.Experiencia_Trabajo_Actual exp      ON r.RespuestaID = exp.RespuestaID
+    LEFT JOIN Dim_Info_Encuestado d_info
+        ON  ie.Genero IS NOT DISTINCT FROM d_info.Genero
+        AND ie.Raza_Etnia IS NOT DISTINCT FROM d_info.Raza_Etnia
+    LEFT JOIN Dim_Trabajo_Encuestado d_trab
+        ON  (CASE WHEN te.Freelance = 1 THEN 'Sí' WHEN te.Freelance = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_trab.Freelance
+        AND (CASE WHEN te.Perfil_Tecnologico = 1 THEN 'Sí' WHEN te.Perfil_Tecnologico = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_trab.Perfil_Tecnologico
+        AND (CASE WHEN te.Empresa_Tec = 1 THEN 'Sí' WHEN te.Empresa_Tec = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_trab.Empresa_Tec
+    LEFT JOIN Dim_Beneficio_Trabajo d_bene
+        ON  b.Beneficio IS NOT DISTINCT FROM d_bene.Beneficio
+        AND b.Privacidad_Tratamiento IS NOT DISTINCT FROM d_bene.Privacidad_Tratamiento
+        AND b.Conocimiento_Cobertura IS NOT DISTINCT FROM d_bene.Conocimiento_Cobertura
+    LEFT JOIN Dim_Estado_Mental d_ment
+        ON  em.Historial IS NOT DISTINCT FROM d_ment.Historial
+        AND (CASE WHEN em.Tratamiento = 1 THEN 'Sí' WHEN em.Tratamiento = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_ment.Tratamiento
+        AND em.Condicion_Actual IS NOT DISTINCT FROM d_ment.Condicion_Actual;
+
+    DETACH sqlite_origen;
+    """
+
+    try:
+        conn.execute(sql_hechos)
+        print("Tabla de hechos migrada.")
+    except Exception as e:
+        print(f"Error al migrar hechos: {e}")
+    finally:
+        conn.close()
