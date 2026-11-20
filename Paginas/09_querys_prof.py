@@ -38,11 +38,152 @@ WHERE (Pct_Centinelas - Pct_Centinela_Anterior) > 15""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Uno"
     },
     "Pregunta 2": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH por_encuestado AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        MAX(CASE WHEN a.QuestionID = 64 THEN CAST(TRIM(a.AnswerText) AS REAL) END) AS val_fisica,
+        MAX(CASE WHEN a.QuestionID = 65 THEN CAST(TRIM(a.AnswerText) AS REAL) END) AS val_mental,
+        MAX(CASE WHEN a.QuestionID = 8 THEN TRIM(a.AnswerText) END) AS tramo_empresa
+    FROM Answer a
+    WHERE a.QuestionID IN (64, 65, 8) AND TRIM(a.AnswerText) <> '-1'
+    GROUP BY a.SurveyID, a.UserID
+    HAVING val_fisica IS NOT NULL AND val_mental IS NOT NULL AND tramo_empresa IS NOT NULL
+),
+brechas_ordenadas AS (
+    SELECT SurveyID, tramo_empresa, val_fisica, val_mental,
+        (val_fisica - val_mental) AS brecha,
+        ROW_NUMBER() OVER (PARTITION BY SurveyID, tramo_empresa ORDER BY (val_fisica - val_mental)) AS rn_tramo,
+        COUNT(*) OVER (PARTITION BY SurveyID, tramo_empresa) AS cnt_tramo,
+        ROW_NUMBER() OVER (PARTITION BY SurveyID ORDER BY (val_fisica - val_mental)) AS rn_edicion,
+        COUNT(*) OVER (PARTITION BY SurveyID) AS cnt_edicion
+    FROM por_encuestado
+),
+mediana_por_edicion AS (
+    SELECT SurveyID, AVG(brecha) AS brecha_mediana_edicion
+    FROM brechas_ordenadas
+    WHERE rn_edicion BETWEEN cnt_edicion / 2.0 AND (cnt_edicion / 2.0) + 1
+    GROUP BY SurveyID
+),
+metricas_por_tramo AS (
+    SELECT b.SurveyID, b.tramo_empresa,
+        CASE b.tramo_empresa
+            WHEN '1-5' THEN 1
+            WHEN '6-25' THEN 2
+            WHEN '26-100' THEN 3
+            WHEN '100-500' THEN 4
+            WHEN '500-1000' THEN 5
+            WHEN 'More than 1000' THEN 6
+            ELSE 99
+        END AS orden_tamano,
+        COUNT(*) AS n_encuestados,
+        AVG(CASE WHEN b.rn_tramo BETWEEN b.cnt_tramo / 2.0 AND (b.cnt_tramo / 2.0) + 1 THEN b.brecha END) AS brecha_mediana_tramo,
+        1.0 * SUM(b.val_mental >= b.val_fisica) / COUNT(*) AS prop_mental_ge_fisica
+    FROM brechas_ordenadas b
+    GROUP BY b.SurveyID, b.tramo_empresa
+)
+SELECT
+    s.Description AS "Edición",
+    m.tramo_empresa AS "Tamaño de Empresa",
+    m.n_encuestados AS "Cantidad de Encuestados",
+    ROUND(m.brecha_mediana_tramo, 2) AS "Brecha Mediana (Física - Mental)",
+    ROUND(m.prop_mental_ge_fisica, 4) AS "Proporción Salud Mental >= Física",
+    RANK() OVER (PARTITION BY m.SurveyID ORDER BY m.brecha_mediana_tramo DESC) AS "Ranking de Brecha en la Edición",
+    ROUND(e.brecha_mediana_edicion, 2) AS "Brecha Mediana de la Edición",
+    ROUND(m.brecha_mediana_tramo - e.brecha_mediana_edicion, 2) AS "Diferencia vs. Mediana de la Edición"
+FROM metricas_por_tramo m
+INNER JOIN mediana_por_edicion e ON m.SurveyID = e.SurveyID
+INNER JOIN Survey s ON m.SurveyID = s.SurveyID
+ORDER BY m.SurveyID, m.orden_tamano;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Dos"
     },
     "Pregunta 3": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH respuestas_codificadas AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        CASE
+            WHEN a.QuestionID IN (10, 23) THEN 'Existencia de beneficios'
+            WHEN a.QuestionID IN (14, 24) THEN 'Conocimiento de la cobertura'
+            WHEN a.QuestionID IN (15, 25) THEN 'Comunicación formal'
+            WHEN a.QuestionID IN (16, 26) THEN 'Disponibilidad de recursos'
+            WHEN a.QuestionID IN (17, 27) THEN 'Protección del anonimato'
+        END AS dimension,
+        CASE WHEN a.QuestionID IN (10, 14, 15, 16, 17) THEN 'actual'
+            ELSE 'anterior'
+        END AS bloque,
+        CASE
+            WHEN LOWER(TRIM(a.AnswerText)) IN (
+                'yes',
+                'yes, they all did',
+                'yes, i was aware of all of them',
+                'yes, always',
+                'very easy',
+                'somewhat easy'
+            ) THEN 2
+            WHEN LOWER(TRIM(a.AnswerText)) IN (
+                'some did',
+                'i was aware of some',
+                'sometimes',
+                'neither easy nor difficult'
+            ) THEN 1
+            WHEN LOWER(TRIM(a.AnswerText)) IN (
+                'no',
+                'no, none did',
+                'none did',
+                'no, i only became aware later',
+                'somewhat difficult',
+                'difficult',
+                'very difficult'
+            ) THEN 0
+        END AS puntaje
+    FROM Answer a
+    WHERE a.QuestionID IN (10, 23, 14, 24, 15, 25, 16, 26, 17, 27)
+      AND TRIM(a.AnswerText) <> '-1'),
+pares_por_usuario AS (
+    SELECT
+        SurveyID,
+        UserID,
+        dimension,
+        MAX(CASE WHEN bloque = 'actual' THEN puntaje END) AS puntaje_actual,
+        MAX(CASE WHEN bloque = 'anterior' THEN puntaje END) AS puntaje_anterior
+    FROM respuestas_codificadas
+    WHERE puntaje IS NOT NULL
+    GROUP BY SurveyID, UserID, dimension
+    HAVING puntaje_actual IS NOT NULL AND puntaje_anterior IS NOT NULL),
+metricas_por_dimension AS (
+    SELECT
+        p.SurveyID,
+        s.Description AS edicion,
+        p.dimension,
+        COUNT(*) AS n_encuestados,
+        1.0 * SUM(p.puntaje_actual > p.puntaje_anterior) / COUNT(*) AS prop_mejoro,
+        1.0 * SUM(p.puntaje_actual < p.puntaje_anterior) / COUNT(*) AS prop_empeoro,
+        1.0 * SUM(p.puntaje_actual = p.puntaje_anterior) / COUNT(*) AS prop_mantuvo
+    FROM pares_por_usuario p
+    INNER JOIN Survey s
+        ON p.SurveyID = s.SurveyID
+    GROUP BY p.SurveyID, s.Description, p.dimension),
+metricas_con_ranking AS (
+    SELECT
+        m.*,
+        RANK() OVER (PARTITION BY m.SurveyID ORDER BY m.prop_mejoro DESC ) AS ranking_mejora,
+        SUM(m.n_encuestados) OVER (
+            PARTITION BY m.SurveyID
+            ORDER BY m.prop_mejoro DESC, m.dimension ASC
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS acumulado_encuestados
+    FROM metricas_por_dimension m )
+SELECT
+    edicion AS "Edición",
+    dimension AS "Dimensión",
+    n_encuestados AS "Encuestados Considerados",
+    ROUND(prop_mejoro, 4) AS "Proporción que Mejoró",
+    ROUND(prop_empeoro, 4) AS "Proporción que Empeoró",
+    ROUND(prop_mantuvo, 4) AS "Proporción que se Mantuvo",
+    ranking_mejora AS "Ranking por Mejora en la Edición",
+    acumulado_encuestados AS "Total Acumulado de Encuestados"
+FROM metricas_con_ranking
+ORDER BY SurveyID, ranking_mejora, dimension;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Tres"
     },
     "Pregunta 4": {
@@ -108,11 +249,124 @@ ORDER BY g.SurveyID, g.proporcion_tratamiento_grupo DESC;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Cuatro"
     },
     "Pregunta 5": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH por_encuestado AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        CASE
+            WHEN LOWER(a.AnswerText) LIKE 'mood disorder%'
+              OR LOWER(a.AnswerText) IN ('depression', 'seasonal affective disorder') THEN 'Mood Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'anxiety disorder%'
+              OR LOWER(a.AnswerText) = 'post-partum / anxiety' THEN 'Anxiety Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'attention deficit%'
+              OR LOWER(a.AnswerText) LIKE 'add (%'
+              OR LOWER(a.AnswerText) LIKE '%adhd%' THEN 'Attention Deficit Hyperactivity Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'post-traumatic%'
+              OR LOWER(a.AnswerText) LIKE 'ptsd%' THEN 'Post-traumatic Stress Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'stress response%'
+              OR LOWER(a.AnswerText) IN ('burn out', 'burnout') THEN 'Stress Response Syndromes'
+            WHEN LOWER(a.AnswerText) LIKE 'personality disorder%'
+              OR LOWER(a.AnswerText) = 'schizotypal personality disorder' THEN 'Personality Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'addictive disorder%'
+              OR LOWER(a.AnswerText) = 'sexual addiction' THEN 'Addictive Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'dissociative disorder%'
+              OR LOWER(a.AnswerText) LIKE 'depersonali%' THEN 'Dissociative Disorder'
+            WHEN LOWER(a.AnswerText) LIKE 'eating disorder%' THEN 'Eating Disorder'
+            ELSE TRIM(a.AnswerText)
+        END AS condicion,
+        MAX(a.QuestionID = 115) AS diag,
+        MAX(a.QuestionID = 116) AS sosp
+    FROM Answer a
+    WHERE a.QuestionID IN (115, 116)
+      AND TRIM(a.AnswerText) <> '-1'
+    GROUP BY a.SurveyID, a.UserID, condicion),
+resumen AS (
+    SELECT
+        p.SurveyID,
+        s.Description AS edicion,
+        p.condicion,
+        SUM(p.diag) AS diagnosticados,
+        SUM(p.sosp) AS solo_sospechados,
+        COUNT(*) AS total,
+        ROUND(1.0 * SUM(p.sosp) / COUNT(*), 3) AS proporcion_sospecha,
+        RANK() OVER (
+            PARTITION BY p.SurveyID
+            ORDER BY 1.0 * SUM(p.sosp) / COUNT(*) DESC
+        ) AS ranking
+    FROM por_encuestado p
+    JOIN Survey s ON p.SurveyID = s.SurveyID
+    GROUP BY p.SurveyID, s.Description, p.condicion
+    HAVING COUNT(*) >= 15)
+SELECT
+    edicion AS "Edición",
+    condicion AS "Condición de Salud Mental",
+    diagnosticados AS "Diagnosticados",
+    solo_sospechados AS "Solo Sospechados",
+    total AS "Total Encuestados",
+    proporcion_sospecha AS "Proporción de Sospecha",
+    ranking AS "Ranking por Proporción de Sospecha",
+    CASE
+        WHEN LAG(r.ranking) OVER (PARTITION BY r.condicion ORDER BY r.SurveyID) IS NULL THEN 'Sin edición anterior'
+        WHEN ranking < LAG(r.ranking) OVER (PARTITION BY r.condicion ORDER BY r.SurveyID) THEN 'Subió'
+        WHEN ranking > LAG(r.ranking) OVER (PARTITION BY r.condicion ORDER BY r.SurveyID) THEN 'Bajó'
+        ELSE 'Mantuvo'
+    END AS "Variación respecto a Edición Anterior"
+FROM resumen r
+ORDER BY SurveyID, ranking, condicion;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Cinco"
     },
     "Pregunta 6": {
-        "mostrar": """SELECT ...""",
+        "mostrar": """WITH por_encuestado AS (
+    SELECT
+        a.SurveyID,
+        a.UserID,
+        MAX(CASE WHEN a.QuestionID IN (93, 118) THEN
+                CASE
+                    WHEN LOWER(TRIM(a.AnswerText)) IN ('always', 'yes') THEN 'Remoto'
+                    WHEN LOWER(TRIM(a.AnswerText)) = 'sometimes' THEN 'Híbrido'
+                    WHEN LOWER(TRIM(a.AnswerText)) IN ('never', 'no') THEN 'Presencial'
+                END END) AS modalidad,
+        MAX(CASE WHEN a.QuestionID IN (18, 99) THEN LOWER(TRIM(a.AnswerText)) = 'yes' END) AS fav_companeros,
+        MAX(CASE WHEN a.QuestionID IN (19, 100) THEN LOWER(TRIM(a.AnswerText)) = 'yes' END) AS fav_supervisor
+    FROM Answer a
+    WHERE a.QuestionID IN (93, 118, 18, 99, 19, 100)
+      AND TRIM(a.AnswerText) <> '-1'
+    GROUP BY a.SurveyID, a.UserID
+    HAVING modalidad IS NOT NULL AND fav_companeros IS NOT NULL AND fav_supervisor IS NOT NULL),
+metricas AS (
+    SELECT
+        e.SurveyID,
+        s.Description AS edicion,
+        e.modalidad,
+        COUNT(*) AS n_encuestados,
+        1.0 * SUM(e.fav_companeros) / COUNT(*) AS prop_companeros,
+        1.0 * SUM(e.fav_supervisor) / COUNT(*) AS prop_supervisor,
+        (1.0 * SUM(e.fav_companeros) - SUM(e.fav_supervisor)) / COUNT(*) AS diferencia
+    FROM por_encuestado e
+    INNER JOIN Survey s
+        ON e.SurveyID = s.SurveyID
+    GROUP BY e.SurveyID, s.Description, e.modalidad
+    HAVING COUNT(*) >= 25),
+metricas_con_ventanas AS (
+    SELECT
+        m.*,
+        RANK() OVER (ORDER BY m.diferencia DESC) AS ranking_diferencia,
+        1.0 * SUM(m.n_encuestados) OVER (
+            PARTITION BY m.SurveyID
+            ORDER BY m.prop_supervisor ASC, m.modalidad ASC
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) / SUM(m.n_encuestados) OVER (PARTITION BY m.SurveyID) AS prop_acumulada_encuestados
+    FROM metricas m)
+SELECT
+    sub.edicion AS "Edición",
+    sub.modalidad AS "Modalidad de Trabajo",
+    sub.n_encuestados AS "Cantidad de Encuestados",
+    ROUND(sub.prop_companeros, 4) AS "Proporción Favorable Compañeros",
+    ROUND(sub.prop_supervisor, 4) AS "Proporción Favorable Supervisor",
+    ROUND(sub.diferencia, 4) AS "Diferencia (Compañeros - Supervisor)",
+    sub.ranking_diferencia AS "Ranking por Diferencia",
+    ROUND(sub.prop_acumulada_encuestados, 4) AS "Proporción Acumulada de Encuestados"
+FROM metricas_con_ventanas sub
+ORDER BY sub.SurveyID, sub.prop_supervisor ASC, sub.modalidad ASC;""",
         "ejecutar": "SELECT * FROM modelo_dimensional.Pregunta_Seis"
     }
 }
@@ -137,28 +391,24 @@ for i, (nombre_boton, datos_consulta) in enumerate(consultas_sugeridas.items()):
             st.session_state["texto_mostrar"] = datos_consulta["mostrar"]
             st.session_state["comando_ejecutar"] = datos_consulta["ejecutar"]
 
+consulta = st.session_state["texto_mostrar"]
+comando = st.session_state["comando_ejecutar"]
+
 st.markdown("**SQL Terminal:**")
-consulta_editada = st.text_area(
-    "Terminal", 
-    value=st.session_state["texto_mostrar"], 
-    height=300, 
-    label_visibility="collapsed"
-)
+st.code(consulta, height=400, language="sql") 
 
 # Ejecutar Consulta
-if st.button("🚀 Ejecutar Query"):
-    if consulta_editada.strip():
+if st.button("🚀 Ejecutar Query", type="primary"):
+    query_a_validar = (comando or consulta or "").strip()
+    if query_a_validar and query_a_validar != "-- Selecciona una pregunta":
         try:
-            if consulta_editada == st.session_state["texto_mostrar"]:
-                query_final = st.session_state["comando_ejecutar"]
-            else:
-                query_final = consulta_editada
+            query_final = comando.strip() if (comando and comando.strip()) else consulta.strip()
 
             df_resultado = conn.execute(query_final).fetchdf()
-            
+
             st.success("Consulta ejecutada correctamente.")
-            st.dataframe(df_resultado, use_container_width=True)
-       
+            st.dataframe(df_resultado, hide_index=True, use_container_width=True)
+
         except Exception as e:
             st.session_state["texto_mostrar"] = "-- Selecciona una pregunta"
             st.session_state["comando_ejecutar"] = ""
