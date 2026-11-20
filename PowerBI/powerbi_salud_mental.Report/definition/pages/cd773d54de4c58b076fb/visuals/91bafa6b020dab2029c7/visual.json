@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "91bafa6b020dab2029c7",
   "position": {
-    "x": 234.78260869565216,
-    "y": 281.73913043478257,
-    "z": 9000,
-    "height": 112.17391304347825,
-    "width": 1485.6521739130433,
+    "x": 35.217391304347814,
+    "y": 19.565217391304316,
+    "z": 1000,
+    "height": 99.130434782608688,
+    "width": 327.39130434782606,
     "tabOrder": 9000
   },
   "visual": {
-    "visualType": "advancedSlicerVisual",
+    "visualType": "slicer",
     "query": {
       "queryState": {
         "Values": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Selector Pregunta.Selector Pregunta",
-              "nativeQueryRef": "Selector Pregunta"
+              "nativeQueryRef": "Selector Pregunta",
+              "active": true
             }
           ]
         }
@@ -37,6 +38,25 @@
       "general": [
         {
           "properties": {
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 3,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "orientation": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
             "filter": {
               "filter": {
                 "Version": 2,
@@ -119,7 +139,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "¿Sabes qué apoyo mental te ofrece tu empresa?"
+                            "0": "Apoyo mental"
                           }
                         ]
                       }
@@ -144,59 +164,152 @@
           }
         }
       ],
-      "layout": [
+      "data": [
         {
           "properties": {
-            "style": {
+            "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cards'"
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropdown": [
+        {
+          "properties": {
+            "borderColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             },
-            "orientation": {
+            "accentBarColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "iconColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "19D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "items": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            },
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 3,
+                      "Percent": 0.2
+                    }
+                  }
+                }
+              }
+            },
+            "outlineStyle": {
               "expr": {
                 "Literal": {
                   "Value": "0D"
                 }
               }
             },
-            "cellPadding": {
+            "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "20L"
+                  "Value": "false"
                 }
               }
             }
           }
         }
       ],
-      "overFlow": [
+      "selectionIcon": [
         {
           "properties": {
-            "overFlowDirection": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": -0.25
+                    }
+                  }
                 }
               }
             }
-          }
-        }
-      ],
-      "shapeCustomRectangle": [
-        {
-          "properties": {
-            "rectangleRoundedCurve": {
-              "expr": {
-                "Literal": {
-                  "Value": "30L"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
           }
         }
       ]
@@ -216,6 +329,20 @@
                   }
                 }
               }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
             }
           }
         }
@@ -226,7 +353,26 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 6,
+                      "Percent": -0.25
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "57D"
                 }
               }
             }
@@ -239,7 +385,20 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -253,5 +412,6 @@
       "filterChanges": true
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "parentGroupName": "c7ab98fa098064971ba6"
 }
