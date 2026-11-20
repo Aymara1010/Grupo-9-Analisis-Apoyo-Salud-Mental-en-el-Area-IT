@@ -1053,3 +1053,6 @@ MAPEO_VISTAS = [
         "Métricas": "Porcentajes, proporciones, brechas, rankings y acumulados",
     },
 ]
+df_diccionario = pd.DataFrame(DICCIONARIO_DATOS)
+df_relaciones = pd.DataFrame(RELACIONES_MODELO)
+df_vistas = pd.DataFrame(MAPEO_VISTAS)
