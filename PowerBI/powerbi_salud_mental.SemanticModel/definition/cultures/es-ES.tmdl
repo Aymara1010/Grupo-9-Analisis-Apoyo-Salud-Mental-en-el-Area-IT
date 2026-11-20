@@ -2347,7 +2347,7 @@ cultureInfo es-ES
 			          }
 			        },
 			        {
-			          "¿Sabes qué apoyo mental te ofrece tu empresa?": {
+			          "Apoyo mental": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -2370,16 +2370,6 @@ cultureInfo es-ES
 			        {
 			          "privacidad ES": {
 			            "State": "Generated"
-			          }
-			        },
-			        {
-			          "¿Tu empresa protege tu privacidad si buscas tratamiento?": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
 			          }
 			        }
 			      ]
