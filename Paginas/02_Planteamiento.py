@@ -24,7 +24,7 @@ st.image("assets/planteamiento_banner.jpg", use_container_width=True)
 tab1, tab2, tab3, tab4 = st.tabs (["Planteamiento del problema 🌍","Objetivos 🎯 ", "Justificación de la Investigación 📚", "Variables Seleccionadas ✅"])
 
 with tab1:
-    
+
     st.markdown(
         '<div style="background-color: #FFFFFF; padding: 24px 28px; border-radius: 10px; border-left: 6px solid #581C87; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); margin-top: 10px; margin-bottom: 20px;">'
         '<h3 style="color: #000000; font-weight: 700; margin-top: 0; margin-bottom: 14px;">Planteamiento del problema</h3>'
@@ -170,13 +170,15 @@ with tab2:
         """, unsafe_allow_html=True)
 
 with tab3:
-    st.subheader("Justificación de la Investigación")
-    with st.container(border=True):
-        st.markdown("""La salud mental en el ámbito laboral del área IT ha dejado de ser un tema secundario para convertirse en un factor crítico que impacta no solo la calidad de vida del empleado, sino también la productividad y retención de talento en las organizaciones. Por lo tanto, visibilizar y entender cómo se aborda esta problemática es fundamental para el desarrollo sostenible del sector. El presente análisis se justifica al proporcionar una evaluación comparativa e identificar las brechas existentes entre las políticas de bienestar de las empresas tecnológicas en Estados Unidos frente a las de Europa y Oceanía. Al contrastar un modelo donde el acceso a la salud mental depende fuertemente de los beneficios otorgados por el empleador (EE. UU.) contra modelos con marcos regulatorios o sistemas de salud pública diferentes, el estudio permite determinar qué enfoques generan una mayor percepción de apoyo, equidad y conocimiento de cobertura por parte de los trabajadores. 
-        """)
-        st.write("")
-        st.markdown("""Finalmente, desde una perspectiva analítica y metodológica, esta investigación transforma datos categóricos y cualitativos provenientes de encuestas aplicadas entre 2014 y 2019 en métricas cuantitativas claras. A través de la limpieza estructurada en SQL y la visualización de datos en plataformas como Power BI y Python, se busca entregar una herramienta interactiva (dashboard) que facilite a los departamentos de Recursos Humanos y líderes organizacionales la toma de decisiones basadas en evidencia, impulsando así mejoras reales en la cultura organizacional de la industria tecnológica
-        """)
+    st.markdown(
+        '<div style="background-color: #FFFFFF; padding: 24px 28px; border-radius: 10px; border-left: 6px solid #581C87; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); margin-top: 10px; margin-bottom: 20px;">'
+        '<h3 style="color: #000000; font-weight: 700; margin-top: 0; margin-bottom: 14px;">Justificación de la Investigación</h3>'
+        '<p style="color: #000000; font-size: 1rem; line-height: 1.6; margin-top: 0; margin-bottom: 14px;">La salud mental en el ámbito laboral del área IT ha dejado de ser un tema secundario para convertirse en un factor crítico que impacta no solo la calidad de vida del empleado, sino también la productividad y retención de talento en las organizaciones. Por lo tanto, visibilizar y entender cómo se aborda esta problemática es fundamental para el desarrollo sostenible del sector. El presente análisis se justifica al proporcionar una evaluación comparativa e identificar las brechas existentes entre las políticas de bienestar de las empresas tecnológicas en Estados Unidos frente a las de Europa y Oceanía. Al contrastar un modelo donde el acceso a la salud mental depende fuertemente de los beneficios otorgados por el empleador (EE. UU.) contra modelos con marcos regulatorios o sistemas de salud pública diferentes, el estudio permite determinar qué enfoques generan una mayor percepción de apoyo, equidad y conocimiento de cobertura por parte de los trabajadores.</p>'
+        '<p style="color: #000000; font-size: 1rem; line-height: 1.6; margin: 0;">Finalmente, desde una perspectiva analítica y metodológica, esta investigación transforma datos categóricos y cualitativos provenientes de encuestas aplicadas entre 2014 y 2019 en métricas cuantitativas claras. A través de la limpieza estructurada en SQL y la visualización de datos en plataformas como Power BI y Python, se busca entregar una herramienta interactiva (dashboard) que facilite a los departamentos de Recursos Humanos y líderes organizacionales la toma de decisiones basadas en evidencia, impulsando así mejoras reales en la cultura organizacional de la industria tecnológica.</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    
 with tab4:
     st.subheader("Variables Seleccionadas")
     st.markdown("Cada posible variable está asociada a una pregunta y a su respectiva id, las mayoría de las respuestas a estas preguntas suelen ser categóricas (Sí o No). Para cumplir con los objetivos de este análisis comparativo entre Estados Unidos, Europa y Oceania, hemos seleccionado las siguientes **10 variables clave** de la base de datos:")
