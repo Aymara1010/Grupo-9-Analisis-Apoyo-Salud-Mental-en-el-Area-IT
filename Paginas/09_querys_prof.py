@@ -2,6 +2,85 @@ import streamlit as st
 import duckdb
 # Aquí va página de pregunta profesores 
 
+st.markdown(
+    """
+<style>
+.resumen-3d-wrapper {
+    perspective: 1100px;
+    margin-bottom: 22px;
+}
+
+.resumen-3d-card {
+    background: linear-gradient(145deg, #F8F4FF 0%, #EDE2FF 100%);
+    border-left: 7px solid #3C096C;
+    border-top: 1px solid rgba(123, 44, 191, 0.25);
+    border-right: 1px solid rgba(123, 44, 191, 0.25);
+    border-bottom: 5px solid #3C096C;
+    border-radius: 16px;
+    padding: 18px 22px;
+    color: #1a1025;
+    box-shadow:
+        0 14px 26px rgba(60, 9, 108, 0.16),
+        0 5px 0 #240046;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.etiqueta-resumen {
+    display: inline-block;
+    background: linear-gradient(135deg, #7B2CBF 0%, #3C096C 100%);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 0 #240046;
+}
+
+.texto-resumen-interno {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #1a1025;
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
+st.title("CONSULTAS SQL")
+st.caption("Salud Mental en la Industria Tecnológica — OSMI Database | Formulario B")
+
+with st.expander("🗄️ Esquema de la base de datos", expanded=False):
+    st.markdown("""
+    **Tablas disponibles:**
+    * `Answer (AnswerText, SurveyID, UserID, QuestionID)`
+    * `Question (questionid, questiontext)`
+    * `Survey (SurveyID, Description)`
+
+    Cada fila de `Answer` es la respuesta de un usuario a una pregunta dentro de una edición de la encuesta. Un mismo `UserID` pertenece a una sola edición. Las preguntas de opción múltiple generan varias filas para el mismo usuario y la misma pregunta.
+    """)
+
+st.divider()
+
+st.markdown(
+      """
+        <div class="resumen-3d-wrapper">
+            <div class="resumen-3d-card">
+                <span class="etiqueta-resumen">🏷️ Mini Resumen</span>
+                <p class="texto-resumen-interno">
+                    Este marco reúne la base conceptual para entender la salud mental en tecnología a partir de OSMI: cómo el <i>burnout</i>, el tecnoestrés y la modalidad de trabajo inciden en el bienestar y la seguridad psicológica del equipo, y por qué la comparación regional depende en gran medida de si el acceso a salud está ligado al empleo (EE. UU.) o respaldado por sistemas públicos y protecciones laborales más amplias (Europa y Oceanía).
+                </p>
+            </div>
+        </div>
+        """,
+      unsafe_allow_html=True,
+  )
+
+
 # Conexion y Tokens
 md_token = st.secrets["MOTHERDUCK_TOKEN"]
 conn = duckdb.connect(f"md:?motherduck_token={md_token}")
