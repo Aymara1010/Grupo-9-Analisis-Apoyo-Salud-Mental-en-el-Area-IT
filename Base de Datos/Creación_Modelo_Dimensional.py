@@ -1,0 +1,497 @@
+import duckdb
+
+
+def crear_tablas(duckdb_path="mental_health_dimensional.duckdb"):
+    print(f"Conectando a DuckDB en: {duckdb_path}")
+    conn = duckdb.connect(duckdb_path)
+
+    print("Creando secuencias y dimensiones...")
+
+    ddl_base = """
+    CREATE SEQUENCE IF NOT EXISTS seq_info START 1;
+    CREATE SEQUENCE IF NOT EXISTS seq_trabajo START 1;
+    CREATE SEQUENCE IF NOT EXISTS seq_emociones START 1;
+    CREATE SEQUENCE IF NOT EXISTS seq_beneficio START 1;
+    CREATE SEQUENCE IF NOT EXISTS seq_estado_mental START 1;
+    CREATE SEQUENCE IF NOT EXISTS seq_fact_respuesta START 1;
+
+    -- Dimensión Encuesta
+    CREATE TABLE IF NOT EXISTS Dim_Encuesta (
+        EncuestaID INTEGER PRIMARY KEY,
+        Descripcion VARCHAR
+    );
+
+    -- Dimensión País
+    CREATE TABLE IF NOT EXISTS Dim_Pais (
+        PaisID INTEGER PRIMARY KEY,
+        Pais VARCHAR,
+        Region VARCHAR
+    );
+
+    -- Dimensión Estado USA
+    CREATE TABLE IF NOT EXISTS Dim_Estado_USA (
+        EstadoID INTEGER PRIMARY KEY,
+        Estado VARCHAR
+    );
+    """
+
+    ddl_perfil_y_beneficios = """
+    -- Dimensión Info Encuestado
+    CREATE TABLE IF NOT EXISTS Dim_Info_Encuestado (
+        InfoID INTEGER PRIMARY KEY DEFAULT nextval('seq_info'),
+        Genero VARCHAR,
+        Raza_Etnia VARCHAR
+    );
+
+    -- Dimensión Trabajo Encuestado
+    CREATE TABLE IF NOT EXISTS Dim_Trabajo_Encuestado (
+        TrabajoID INTEGER PRIMARY KEY DEFAULT nextval('seq_trabajo'),
+        Freelance VARCHAR,
+        Perfil_Tecnologico VARCHAR,
+        Empresa_Tec VARCHAR
+    );
+
+    -- Dimensión Beneficio Trabajo
+    CREATE TABLE IF NOT EXISTS Dim_Beneficio_Trabajo (
+        BeneficiosID INTEGER PRIMARY KEY DEFAULT nextval('seq_beneficio'),
+        Beneficio VARCHAR,
+        Privacidad_Tratamiento VARCHAR,
+        Conocimiento_Cobertura VARCHAR
+    );
+
+    -- Dimensión Estado Mental
+    CREATE TABLE IF NOT EXISTS Dim_Estado_Mental (
+        SaludMentalID INTEGER PRIMARY KEY DEFAULT nextval('seq_estado_mental'),
+        Historial VARCHAR,
+        Tratamiento VARCHAR,
+        Condicion_Actual VARCHAR
+    );
+
+    -- Dimensión Emociones
+    CREATE TABLE IF NOT EXISTS Dim_Emociones (
+        EmocionID INTEGER PRIMARY KEY DEFAULT nextval('seq_emociones'),
+        Emocion VARCHAR,
+        Nivel_Emocion VARCHAR
+    );
+
+    -- Sugerencias
+    CREATE TABLE IF NOT EXISTS Dim_Categorias_Sugerencia (
+        CategoriaID INTEGER PRIMARY KEY,
+        Categoria VARCHAR,
+        Descripcion VARCHAR
+    );
+    """
+
+    try:
+        conn.execute(ddl_base)
+        conn.execute(ddl_perfil_y_beneficios)
+        print("Dimensiones creadas.")
+    except Exception as e:
+        print(f"Error al inicializar dimensiones: {e}")
+    finally:
+        conn.close()
+        
+def crear_tabla_hechos(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    ddl_hechos = """
+    -- Tabla de Hechos Principal
+    CREATE TABLE IF NOT EXISTS Fact_Respuesta_Encuestado (
+        RespuestaID INTEGER PRIMARY KEY DEFAULT nextval('seq_fact_respuesta'),
+
+        EncuestadoID INTEGER,
+        EncuestaID INTEGER,
+        InfoID INTEGER,
+        SaludMentalID INTEGER,
+        TrabajoID INTEGER,
+        BeneficiosID INTEGER,
+        Pais_Vivienda INTEGER,
+        Estado_USA_Vivienda INTEGER,
+        Pais_Empleo INTEGER,
+        Estado_USA_Empleo INTEGER,
+
+        Edad FLOAT,
+        Prioridad_Salud_Fisica INTEGER,
+        Prioridad_Salud_Mental INTEGER,
+        Percepcion_Apoyo_SM_Industria INTEGER,
+        Experiencia_Respuesta_Negativa_SM VARCHAR,
+        Sugerencias_Mejora_SM_Industria VARCHAR,
+        Categoria_Sugerencia_ID INTEGER,
+        Descripcion_Conversacion_Companeros_Sobre_SM VARCHAR,
+        Emocion_Conversacion_Companeros INTEGER,
+        Descripcion_Conversacion_Sobre_Companero_SM VARCHAR,
+        Emocion_Conversacion_Sobre_Companero INTEGER,
+
+        FOREIGN KEY (EncuestaID) REFERENCES Dim_Encuesta(EncuestaID),
+        FOREIGN KEY (InfoID) REFERENCES Dim_Info_Encuestado(InfoID),
+        FOREIGN KEY (SaludMentalID) REFERENCES Dim_Estado_Mental(SaludMentalID),
+        FOREIGN KEY (TrabajoID) REFERENCES Dim_Trabajo_Encuestado(TrabajoID),
+        FOREIGN KEY (BeneficiosID) REFERENCES Dim_Beneficio_Trabajo(BeneficiosID),
+        FOREIGN KEY (Pais_Vivienda) REFERENCES Dim_Pais(PaisID),
+        FOREIGN KEY (Estado_USA_Vivienda) REFERENCES Dim_Estado_USA(EstadoID),
+        FOREIGN KEY (Pais_Empleo) REFERENCES Dim_Pais(PaisID),
+        FOREIGN KEY (Estado_USA_Empleo) REFERENCES Dim_Estado_USA(EstadoID),
+        FOREIGN KEY (Emocion_Conversacion_Companeros) REFERENCES Dim_Emociones(EmocionID),
+        FOREIGN KEY (Emocion_Conversacion_Sobre_Companero) REFERENCES Dim_Emociones(EmocionID),
+        FOREIGN KEY (Categoria_Sugerencia_ID) REFERENCES Dim_Categorias_Sugerencia(CategoriaID)
+    );
+    """
+
+    try:
+        conn.execute(ddl_hechos)
+        print("Tabla de hechos creada.")
+    except Exception as e:
+        print(f"Error al crear tabla de hechos: {e}")
+    finally:
+        conn.close()
+        
+def migrar_dimensiones(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_dimensiones = """
+    -- 1. Instalar y cargar la extensión de SQLite en DuckDB/MotherDuck
+    INSTALL sqlite;
+    LOAD sqlite;
+
+    -- 2. Adjuntar la base de datos relacional SQLite de origen (rutas con /)
+    ATTACH 'C:/Users/aymar/OneDrive/Documentos/TF - COMPU II/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT/modelo_relacional.sqlite' AS sqlite_origen (TYPE SQLITE, READ_ONLY TRUE);
+
+    -- 2. Dimensiones independientes
+    INSERT INTO Dim_Encuesta (EncuestaID, Descripcion)
+    SELECT EncuestaID, Descripcion FROM sqlite_origen.Encuesta
+    ON CONFLICT (EncuestaID) DO NOTHING;
+
+    INSERT INTO Dim_Pais (PaisID, Pais)
+    SELECT PaisID, Pais FROM sqlite_origen.Pais
+    ON CONFLICT (PaisID) DO NOTHING;
+
+    INSERT INTO Dim_Estado_USA (EstadoID, Estado)
+    SELECT EstadoID, Estado FROM sqlite_origen.Estados_USA
+    ON CONFLICT (EstadoID) DO NOTHING;
+
+    -- A. Dim_Info_Encuestado (Perfiles demográficos únicos)
+    INSERT INTO Dim_Info_Encuestado (InfoID, Genero, Raza_Etnia)
+    SELECT
+        nextval('seq_info') AS InfoID,
+        Genero,
+        Raza_Etnia
+    FROM (
+        SELECT DISTINCT Genero, Raza_Etnia
+        FROM sqlite_origen.Info_Encuestado
+    );
+
+    -- B. Dim_Trabajo_Encuestado (Perfiles laborales únicos)
+    INSERT INTO Dim_Trabajo_Encuestado (TrabajoID, Freelance, Perfil_Tecnologico, Empresa_Tec)
+    SELECT
+        nextval('seq_trabajo') AS TrabajoID,
+        Freelance,
+        Perfil_Tecnologico,
+        Empresa_Tec
+    FROM (
+        SELECT DISTINCT
+            CASE WHEN Freelance = 1 THEN 'Sí' WHEN Freelance = 0 THEN 'No' ELSE NULL END AS Freelance,
+            CASE WHEN Perfil_Tecnologico = 1 THEN 'Sí' WHEN Perfil_Tecnologico = 0 THEN 'No' ELSE NULL END AS Perfil_Tecnologico,
+            CASE WHEN Empresa_Tec = 1 THEN 'Sí' WHEN Empresa_Tec = 0 THEN 'No' ELSE NULL END AS Empresa_Tec
+        FROM sqlite_origen.Trabajo_Encuestado
+    );
+
+    -- C. Dim_Beneficio_Trabajo (Combinaciones únicas de beneficios)
+    INSERT INTO Dim_Beneficio_Trabajo (BeneficiosID, Beneficio, Privacidad_Tratamiento, Conocimiento_Cobertura)
+    SELECT
+        nextval('seq_beneficio') AS BeneficiosID,
+        Beneficio,
+        Privacidad_Tratamiento,
+        Conocimiento_Cobertura
+    FROM (
+        SELECT DISTINCT Beneficio, Privacidad_Tratamiento, Conocimiento_Cobertura
+        FROM sqlite_origen.Beneficios_Trabajo_Actual
+    );
+
+    -- D. Dim_Estado_Mental (Perfiles de condición clínica únicos)
+    INSERT INTO Dim_Estado_Mental (SaludMentalID, Historial, Tratamiento, Condicion_Actual)
+    SELECT
+        nextval('seq_estado_mental') AS SaludMentalID,
+        Historial,
+        Tratamiento,
+        Condicion_Actual
+    FROM (
+        SELECT DISTINCT
+            Historial,
+            CASE WHEN Tratamiento = 1 THEN 'Sí' WHEN Tratamiento = 0 THEN 'No' ELSE NULL END AS Tratamiento,
+            Condicion_Actual
+        FROM sqlite_origen.Estado_Mental
+    );
+
+    DETACH sqlite_origen;
+    """
+
+    try:
+        conn.execute(sql_dimensiones)
+        print("Dimensiones migradas.")
+    except Exception as e:
+        print(f"Error al migrar dimensiones: {e}")
+    finally:
+        conn.close()
+        
+def cargar_dimensiones_texto(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_texto = """
+    -- texto:
+    INSERT INTO Dim_Emociones (EmocionID, Emocion, Nivel_Emocion) VALUES
+    (1, 'Negativa', 'Muy Alta'),
+    (2, 'Negativa', 'Alta'),
+    (3, 'Neutra',   'Neutro'),
+    (4, 'Positiva', 'Alta'),
+    (5, 'Positiva', 'Muy Alta'),
+    (6, 'Sin Respuesta', 'Sin Respuesta');
+
+    INSERT INTO Dim_Categorias_Sugerencia (CategoriaID, Categoria, Descripcion) VALUES
+    (1, 'Jornada, Carga Laboral y Burnout',   'Control de horas, 40h semanales, freno a crunch time y flexibilidad'),
+    (2, 'Desestigmatización y Cultura Abierta', 'Normalizar hablar del tema, empatía, menos bro culture y alcohol'),
+    (3, 'Seguros, Beneficios y Cobertura',     'Acceso a terapia, cobertura médica, HSA/FSA y reducir copagos'),
+    (4, 'Días de Salud Mental y Licencias',     'Mental health days, bajas médicas equiparadas a salud física y PTO'),
+    (5, 'Capacitación a Líderes y RRHH',       'Entrenamiento a managers en habilidades blandas, apoyo y no represalias'),
+    (6, 'Educación, Difusión y Espacio Físico','Campañas de concientización, guías y alternativas a open floor plans'),
+    (7, 'No Válida / Sin Propuesta', 'Respuestas evasivas, dudas, falta de experiencia o textos sin una recomendación concreta'),
+    (8, 'Sin Respuesta', 'El encuestado decidió no responder a la pregunta');
+    """
+
+    try:
+        conn.execute(sql_texto)
+        print("Dimensiones de texto cargadas.")
+    except Exception as e:
+        print(f"Error al cargar dimensiones de texto: {e}")
+    finally:
+        conn.close()
+        
+def migrar_hechos(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_hechos = """
+    INSTALL sqlite;
+    LOAD sqlite;
+    ATTACH 'C:/Users/aymar/OneDrive/Documentos/TF - COMPU II/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT/modelo_relacional.sqlite' AS sqlite_origen (TYPE SQLITE, READ_ONLY TRUE);
+
+    INSERT INTO Fact_Respuesta_Encuestado (
+        RespuestaID,
+        EncuestadoID,
+        EncuestaID,
+        InfoID,
+        SaludMentalID,
+        TrabajoID,
+        BeneficiosID,
+        Pais_Vivienda,
+        Estado_USA_Vivienda,
+        Pais_Empleo,
+        Estado_USA_Empleo,
+        Edad,
+        Prioridad_Salud_Fisica,
+        Prioridad_Salud_Mental,
+        Percepcion_Apoyo_SM_Industria,
+        Experiencia_Respuesta_Negativa_SM,
+        Sugerencias_Mejora_SM_Industria,
+        Descripcion_Conversacion_Companeros_Sobre_SM,
+        Descripcion_Conversacion_Sobre_Companero_SM
+    )
+    SELECT
+        r.RespuestaID,
+        r.EncuestadoID,
+        r.EncuestaID,
+        d_info.InfoID,
+        d_ment.SaludMentalID,
+        d_trab.TrabajoID,
+        d_bene.BeneficiosID,
+        ie.Pais_Vivienda,
+        evu.Estado_USA_Vivienda,
+        ie.Pais_Empleo,
+        etu.Estado_USA_Empleo,
+        ie.Edad,
+        b.Prioridad_Salud_Fisica,
+        b.Prioridad_Salud_Mental,
+        op.Percepcion_Apoyo_SM_Industria,
+        exp.Experiencia_Respuesta_Negativa_SM,
+        op.Sugerencias_Mejora_SM_Industria,
+        exp.Descripcion_Conversacion_Companeros_SM,
+        exp.Descripcion_Conversacion_Companero_SM
+    FROM sqlite_origen.Respuesta r
+    LEFT JOIN sqlite_origen.Info_Encuestado ie                  ON r.RespuestaID = ie.RespuestaID
+    LEFT JOIN sqlite_origen.Trabajo_Encuestado te               ON r.RespuestaID = te.RespuestaID
+    LEFT JOIN sqlite_origen.Beneficios_Trabajo_Actual b         ON r.RespuestaID = b.RespuestaID
+    LEFT JOIN sqlite_origen.Estado_Mental em                    ON r.RespuestaID = em.RespuestaID
+    LEFT JOIN sqlite_origen.Encuestados_Vive_USA evu            ON r.RespuestaID = evu.RespuestaID
+    LEFT JOIN sqlite_origen.Encuestados_Trabaja_USA etu         ON r.RespuestaID = etu.RespuestaID
+    LEFT JOIN sqlite_origen.Opinion_Industria op                ON r.RespuestaID = op.RespuestaID
+    LEFT JOIN sqlite_origen.Experiencia_Trabajo_Actual exp      ON r.RespuestaID = exp.RespuestaID
+    LEFT JOIN Dim_Info_Encuestado d_info
+        ON  ie.Genero IS NOT DISTINCT FROM d_info.Genero
+        AND ie.Raza_Etnia IS NOT DISTINCT FROM d_info.Raza_Etnia
+    LEFT JOIN Dim_Trabajo_Encuestado d_trab
+        ON  (CASE WHEN te.Freelance = 1 THEN 'Sí' WHEN te.Freelance = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_trab.Freelance
+        AND (CASE WHEN te.Perfil_Tecnologico = 1 THEN 'Sí' WHEN te.Perfil_Tecnologico = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_trab.Perfil_Tecnologico
+        AND (CASE WHEN te.Empresa_Tec = 1 THEN 'Sí' WHEN te.Empresa_Tec = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_trab.Empresa_Tec
+    LEFT JOIN Dim_Beneficio_Trabajo d_bene
+        ON  b.Beneficio IS NOT DISTINCT FROM d_bene.Beneficio
+        AND b.Privacidad_Tratamiento IS NOT DISTINCT FROM d_bene.Privacidad_Tratamiento
+        AND b.Conocimiento_Cobertura IS NOT DISTINCT FROM d_bene.Conocimiento_Cobertura
+    LEFT JOIN Dim_Estado_Mental d_ment
+        ON  em.Historial IS NOT DISTINCT FROM d_ment.Historial
+        AND (CASE WHEN em.Tratamiento = 1 THEN 'Sí' WHEN em.Tratamiento = 0 THEN 'No' ELSE NULL END) IS NOT DISTINCT FROM d_ment.Tratamiento
+        AND em.Condicion_Actual IS NOT DISTINCT FROM d_ment.Condicion_Actual;
+
+    DETACH sqlite_origen;
+    """
+
+    try:
+        conn.execute(sql_hechos)
+        print("Tabla de hechos migrada.")
+    except Exception as e:
+        print(f"Error al migrar hechos: {e}")
+    finally:
+        conn.close()
+        
+def limpiar_regiones_y_textos(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_limpieza = """
+    -- 1. Asegurar la columna Region en Dim_Pais con la clasificación
+    UPDATE Dim_Pais
+    SET Region = CASE
+        WHEN LOWER(TRIM(Pais)) IN ('united states', 'usa', 'us', 'united states of america')
+            THEN 'USA'
+        WHEN LOWER(TRIM(Pais)) IN (
+            'united kingdom', 'germany', 'france', 'netherlands', 'ireland',
+            'spain', 'italy', 'switzerland', 'poland', 'belgium', 'sweden',
+            'denmark', 'finland', 'norway', 'austria', 'portugal', 'czech republic',
+            'romania', 'bulgaria', 'greece', 'hungary', 'slovakia', 'estonia',
+            'lithuania', 'latvia', 'croatia', 'slovenia', 'russia', 'ukraine',
+            'belarus', 'serbia', 'iceland', 'luxembourg'
+        ) THEN 'Europa'
+        WHEN LOWER(TRIM(Pais)) IN ('australia', 'new zealand')
+            THEN 'Oceania'
+        ELSE 'Otro'
+    END;
+
+    -- 2. Eliminar de la tabla de hechos a quienes NO trabajan en USA, Europa u Oceanía
+    DELETE FROM Fact_Respuesta_Encuestado
+    WHERE Pais_Empleo NOT IN (
+        SELECT PaisID
+        FROM Dim_Pais
+        WHERE Region IN ('USA', 'Europa', 'Oceania')
+    )
+    OR Pais_Empleo IS NULL;
+
+    -- LIMPIAR TEXTO COMPLEJO
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Sugerencias_Mejora_SM_Industria = CASE
+        WHEN LENGTH(TRIM(Sugerencias_Mejora_SM_Industria)) < 5
+        OR (LENGTH(TRIM(Sugerencias_Mejora_SM_Industria)) - LENGTH(REPLACE(TRIM(Sugerencias_Mejora_SM_Industria), ' ', '')) + 1) < 4
+        THEN NULL ELSE Sugerencias_Mejora_SM_Industria END;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Descripcion_Conversacion_Companeros_Sobre_SM = CASE
+        WHEN LENGTH(TRIM(Descripcion_Conversacion_Companeros_Sobre_SM)) < 5
+        OR (LENGTH(TRIM(Descripcion_Conversacion_Companeros_Sobre_SM)) - LENGTH(REPLACE(TRIM(Descripcion_Conversacion_Companeros_Sobre_SM), ' ', '')) + 1) < 4
+        THEN NULL ELSE Descripcion_Conversacion_Companeros_Sobre_SM END;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Descripcion_Conversacion_Sobre_Companero_SM = CASE
+        WHEN LENGTH(TRIM(Descripcion_Conversacion_Sobre_Companero_SM)) < 5
+        OR (LENGTH(TRIM(Descripcion_Conversacion_Sobre_Companero_SM)) - LENGTH(REPLACE(TRIM(Descripcion_Conversacion_Sobre_Companero_SM), ' ', '')) + 1) < 4
+        THEN NULL ELSE Descripcion_Conversacion_Sobre_Companero_SM END;
+    """
+
+    try:
+        conn.execute(sql_limpieza)
+        print("Regiones filtradas y textos limpios.")
+    except Exception as e:
+        print(f"Error en limpieza de regiones y textos: {e}")
+    finally:
+        conn.close()
+        
+def imputar_prioridades(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_prioridades = """
+    -- Prioridades
+    UPDATE Fact_Respuesta_Encuestado
+    SET
+      Prioridad_Salud_Mental = COALESCE(
+        Fact_Respuesta_Encuestado.Prioridad_Salud_Mental,
+        med.Media_Mental),
+      Prioridad_Salud_Fisica = COALESCE(
+        Fact_Respuesta_Encuestado.Prioridad_Salud_Fisica,
+        med.Media_Fisica)
+    FROM Dim_Pais p
+    JOIN (SELECT
+            dp.Region,
+            ROUND(AVG(fre.Prioridad_Salud_Mental))::INT AS Media_Mental,
+            ROUND(AVG(fre.Prioridad_Salud_Fisica))::INT  AS Media_Fisica
+        FROM Fact_Respuesta_Encuestado fre
+        JOIN Dim_Pais dp ON dp.PaisID = fre.Pais_Empleo
+        GROUP BY dp.Region) med ON med.Region = p.Region
+    WHERE Fact_Respuesta_Encuestado.Pais_Empleo = p.PaisID
+      AND (Fact_Respuesta_Encuestado.Prioridad_Salud_Mental IS NULL
+        OR Fact_Respuesta_Encuestado.Prioridad_Salud_Fisica IS NULL);
+    """
+
+    try:
+        conn.execute(sql_prioridades)
+        print("Prioridades imputadas.")
+    except Exception as e:
+        print(f"Error al imputar prioridades: {e}")
+    finally:
+        conn.close()
+
+
+def limpieza_despues_del_texto(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_post_texto = """
+    -- Despues del Texto:
+    UPDATE Fact_Respuesta_Encuestado
+    SET Emocion_Conversacion_Sobre_Companero = 6
+    WHERE Emocion_Conversacion_Sobre_Companero IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Emocion_Conversacion_Companeros = 6
+    WHERE Emocion_Conversacion_Companeros IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Categoria_Sugerencia_ID = 8
+    WHERE Categoria_Sugerencia_ID IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Descripcion_Conversacion_Companeros_Sobre_SM = 'Sin Respuesta'
+    WHERE Descripcion_Conversacion_Companeros_Sobre_SM IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Descripcion_Conversacion_Sobre_Companero_SM = 'Sin Respuesta'
+    WHERE Descripcion_Conversacion_Sobre_Companero_SM IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Sugerencias_Mejora_SM_Industria = 'Sin Respuesta'
+    WHERE Sugerencias_Mejora_SM_Industria IS NULL;
+
+    INSERT INTO Dim_Estado_USA (EstadoID, Estado) VALUES
+    (0, 'Extranjero');
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Estado_USA_Vivienda = 0
+    WHERE Estado_USA_Vivienda IS NULL;
+
+    UPDATE Fact_Respuesta_Encuestado
+    SET Estado_USA_Empleo = 0
+    WHERE Estado_USA_Empleo IS NULL;
+    """
+
+    try:
+        conn.execute(sql_post_texto)
+        print("Limpieza final completada.")
+    except Exception as e:
+        print(f"Error en limpieza final: {e}")
+    finally:
+        conn.close()
