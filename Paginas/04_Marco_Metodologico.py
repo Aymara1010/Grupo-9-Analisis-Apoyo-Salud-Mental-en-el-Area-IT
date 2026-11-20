@@ -1216,7 +1216,7 @@ with tab_relaciones:
         hide_index=True,
     )
     with st.expander("**💫 ESQUEMA ESTRELLA**"):
-      st.image("assets\Modelo Dimensional.jpg")
+      st.image("assets/Modelo Dimensional.jpg")
 
 with tab_vistas:
     st.caption(
