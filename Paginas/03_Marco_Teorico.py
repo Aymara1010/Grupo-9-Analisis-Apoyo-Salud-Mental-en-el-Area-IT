@@ -183,7 +183,12 @@ with tab_modelado:
         - Creación de la entidad transaccional.
         - Pivoteo a tablas temáticas (1:1).
         - Manejo de selecciones múltiples (N:M).
-
+    """)
+    with st.expander("💜 **MODELO RELACIONAL**"):
+      st.markdown('<div class="img-marco-fija">', unsafe_allow_html=True)
+      st.image("assets\Modelo Relacional.jpg", use_container_width=True)
+      st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("""
         ### Etapa 3: Limpieza, Depuración e Imputación de Datos
         Con la base de datos relacional establecida, se aplicaron directrices de saneamiento para prevenir sesgos en los posteriores análisis descriptivos y textuales:
         - **Estandarización de nulos y conversión de tipos:** Los valores centinela (`-1`), cadenas vacías y puntos (`.`) se reemplazaron por valores `NULL` explícitos. Se ejecutaron conversiones explícitas para adecuar escalas numéricas.
@@ -198,7 +203,12 @@ with tab_modelado:
         - **Paso 2 — Granularidad:** Una fila por cada respuesta individual emitida por un encuestado en una edición anual delimitada estrictamente al período 2017–2019 y a trabajadores cuyo país de empleo pertenezca a EE. UU., Europa u Oceanía.
         - **Paso 3 — Dimensiones:** Construidas con claves subrogadas y combinaciones únicas como *Tiempo y territorio* o *Perfil del encuestado y empresa*.
         - **Paso 4 — Hechos:** Guarda las métricas como la prioridad o preguntas de respuesta abierta.
-
+    """)
+    with st.expander("💜 **MODELO DIMENSIONAL**"):
+      st.markdown('<div class="img-marco-fija">', unsafe_allow_html=True)
+      st.image("assets\Modelo Dimensional.jpg", use_container_width=True)
+      st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("""
         ### Etapa 5: Análisis de Sentimientos y Nubes de Palabras
         Para aprovechar las respuestas abiertas sobre conversaciones laborales (`Descripcion_Conversacion_Companeros_Sobre_SM` y `Descripcion_Conversacion_Sobre_Companero_SM`) dentro del análisis descriptivo, fue necesario transformar estos relatos cualitativos no estructurados en indicadores cuantificables e integrarlos al modelo dimensional. Para lograrlo, se implementó un flujo de procesamiento de lenguaje natural basado en diccionarios contextuales y el algoritmo **BM25** (*Best Matching 25*), que permite medir la polaridad e intensidad emocional de cada testimonio y extraer visualmente los términos más representativos:
         - **Depuración y tokenización:** Sobre los relatos filtrados en la etapa de limpieza, se normalizaron los textos a minúsculas y se extrajeron sus palabras clave (*tokens*) para evitar sesgos en la clasificación.

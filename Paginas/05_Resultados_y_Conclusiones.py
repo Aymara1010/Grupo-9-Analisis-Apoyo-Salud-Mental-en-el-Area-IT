@@ -141,10 +141,11 @@ df_reporte = pd.DataFrame(
     resumen_objs, columns=["Objetivo", "Titulo", "Descripcion", "Conclusion"]
 )
 
-tab_objetivos, tab_conclusion = st.tabs(["📌 Objetivos", "📝 Conclusión General"])
+st.markdown("""
+Esta sección presenta la síntesis de los principales hallazgos obtenidos a lo largo de nuestro estudio, dando respuesta directa a los objetivos planteados en la investigación.
+""")
 
-with tab_objetivos:
- st.download_button(
+st.download_button(
     label="Descargar reporte CSV",
     data=df_reporte.to_csv(index=False).encode("utf-8"),
     file_name="reporte_resultados_conclusiones.csv",
@@ -803,8 +804,7 @@ with st.expander(f"📌 Objetivo 6: {titulo_obj6}", expanded=False):
       unsafe_allow_html=True,
   )
 
-  with tab_conclusion:
-    st.markdown(
+st.markdown(
         '<div style="background-color: #FFFFFF; padding: 24px 28px; border-radius: 10px; border-left: 6px solid #581C87; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); margin-top: 14px; margin-bottom: 20px;">'
         '<h3 style="color: #000000; font-weight: 700; margin-top: 0; margin-bottom: 14px;">Conclusión General de la Investigación</h3>'
         '<p style="color: #000000; font-size: 1rem; line-height: 1.6; margin-top: 0; margin-bottom: 14px;">A partir del análisis estadístico comparativo y las técnicas de limpieza aplicada a los datos del sector tecnológico, se da respuesta a la interrogante central de investigación concluyendo que el modelo corporativo de Estados Unidos ofrece una mayor provisión formal y visibilidad de beneficios de salud mental por parte del empleador en comparación con Europa y Oceanía; sin embargo, esto no se traduce en una mejor percepción del apoyo general ni en una mayor prioridad real otorgada por la industria.</p>'
