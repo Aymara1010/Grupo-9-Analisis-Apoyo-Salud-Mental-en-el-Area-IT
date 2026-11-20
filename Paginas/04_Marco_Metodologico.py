@@ -1056,3 +1056,25 @@ MAPEO_VISTAS = [
 df_diccionario = pd.DataFrame(DICCIONARIO_DATOS)
 df_relaciones = pd.DataFrame(RELACIONES_MODELO)
 df_vistas = pd.DataFrame(MAPEO_VISTAS)
+
+# Encabezado 
+st.title("📚 Diccionario de Datos")
+st.markdown(
+    """
+<div class="tarjeta-diccionario">
+    <p class="titulo-diccionario">Catálogo De Datos</p>
+    <p class="texto-diccionario">
+        Documentación sincronizada de tablas dimensionales, tabla de hechos, tablas base y vistas
+        analíticas registradas en MotherDuck.
+    </p>
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+m1, m2, m3, m4 = st.columns(4)
+m1.metric("Objetos Documentados", df_diccionario["Tabla"].nunique())
+m2.metric("Campos Registrados", len(df_diccionario))
+m3.metric("Relaciones (FK)", len(df_relaciones))
+m4.metric("Vistas Mapeadas", len(df_vistas))
+
