@@ -1171,7 +1171,7 @@ with tab_campos:
         f"Mostrando **{len(df_filtrado)}** de **{len(df_diccionario)}** campos."
     )
 
- st.dataframe(
+    st.dataframe(
         df_filtrado,
         use_container_width=True,
         hide_index=True,
