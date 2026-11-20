@@ -144,3 +144,91 @@ def crear_tabla_hechos(duckdb_path="mental_health_dimensional.duckdb"):
         print(f"Error al crear tabla de hechos: {e}")
     finally:
         conn.close()
+        
+def migrar_dimensiones(duckdb_path="mental_health_dimensional.duckdb"):
+    conn = duckdb.connect(duckdb_path)
+
+    sql_dimensiones = """
+    -- 1. Instalar y cargar la extensión de SQLite en DuckDB/MotherDuck
+    INSTALL sqlite;
+    LOAD sqlite;
+
+    -- 2. Adjuntar la base de datos relacional SQLite de origen (rutas con /)
+    ATTACH 'C:/Users/aymar/OneDrive/Documentos/TF - COMPU II/Grupo-9-Analisis-Apoyo-Salud-Mental-en-el-Area-IT/modelo_relacional.sqlite' AS sqlite_origen (TYPE SQLITE, READ_ONLY TRUE);
+
+    -- 2. Dimensiones independientes
+    INSERT INTO Dim_Encuesta (EncuestaID, Descripcion)
+    SELECT EncuestaID, Descripcion FROM sqlite_origen.Encuesta
+    ON CONFLICT (EncuestaID) DO NOTHING;
+
+    INSERT INTO Dim_Pais (PaisID, Pais)
+    SELECT PaisID, Pais FROM sqlite_origen.Pais
+    ON CONFLICT (PaisID) DO NOTHING;
+
+    INSERT INTO Dim_Estado_USA (EstadoID, Estado)
+    SELECT EstadoID, Estado FROM sqlite_origen.Estados_USA
+    ON CONFLICT (EstadoID) DO NOTHING;
+
+    -- A. Dim_Info_Encuestado (Perfiles demográficos únicos)
+    INSERT INTO Dim_Info_Encuestado (InfoID, Genero, Raza_Etnia)
+    SELECT
+        nextval('seq_info') AS InfoID,
+        Genero,
+        Raza_Etnia
+    FROM (
+        SELECT DISTINCT Genero, Raza_Etnia
+        FROM sqlite_origen.Info_Encuestado
+    );
+
+    -- B. Dim_Trabajo_Encuestado (Perfiles laborales únicos)
+    INSERT INTO Dim_Trabajo_Encuestado (TrabajoID, Freelance, Perfil_Tecnologico, Empresa_Tec)
+    SELECT
+        nextval('seq_trabajo') AS TrabajoID,
+        Freelance,
+        Perfil_Tecnologico,
+        Empresa_Tec
+    FROM (
+        SELECT DISTINCT
+            CASE WHEN Freelance = 1 THEN 'Sí' WHEN Freelance = 0 THEN 'No' ELSE NULL END AS Freelance,
+            CASE WHEN Perfil_Tecnologico = 1 THEN 'Sí' WHEN Perfil_Tecnologico = 0 THEN 'No' ELSE NULL END AS Perfil_Tecnologico,
+            CASE WHEN Empresa_Tec = 1 THEN 'Sí' WHEN Empresa_Tec = 0 THEN 'No' ELSE NULL END AS Empresa_Tec
+        FROM sqlite_origen.Trabajo_Encuestado
+    );
+
+    -- C. Dim_Beneficio_Trabajo (Combinaciones únicas de beneficios)
+    INSERT INTO Dim_Beneficio_Trabajo (BeneficiosID, Beneficio, Privacidad_Tratamiento, Conocimiento_Cobertura)
+    SELECT
+        nextval('seq_beneficio') AS BeneficiosID,
+        Beneficio,
+        Privacidad_Tratamiento,
+        Conocimiento_Cobertura
+    FROM (
+        SELECT DISTINCT Beneficio, Privacidad_Tratamiento, Conocimiento_Cobertura
+        FROM sqlite_origen.Beneficios_Trabajo_Actual
+    );
+
+    -- D. Dim_Estado_Mental (Perfiles de condición clínica únicos)
+    INSERT INTO Dim_Estado_Mental (SaludMentalID, Historial, Tratamiento, Condicion_Actual)
+    SELECT
+        nextval('seq_estado_mental') AS SaludMentalID,
+        Historial,
+        Tratamiento,
+        Condicion_Actual
+    FROM (
+        SELECT DISTINCT
+            Historial,
+            CASE WHEN Tratamiento = 1 THEN 'Sí' WHEN Tratamiento = 0 THEN 'No' ELSE NULL END AS Tratamiento,
+            Condicion_Actual
+        FROM sqlite_origen.Estado_Mental
+    );
+
+    DETACH sqlite_origen;
+    """
+
+    try:
+        conn.execute(sql_dimensiones)
+        print("Dimensiones migradas.")
+    except Exception as e:
+        print(f"Error al migrar dimensiones: {e}")
+    finally:
+        conn.close()
