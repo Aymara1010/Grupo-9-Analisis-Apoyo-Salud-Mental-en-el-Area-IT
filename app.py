@@ -75,7 +75,6 @@ pg = st.navigation(todas_las_paginas, position="hidden")
 #Texto y Orden del menú
 with st.sidebar: #avisos y notas
     st.markdown("# TechWell Analítica 💻 ")
-    st.markdown("🚧 Dashboard en desarrollo 🚧")
     st.markdown("---")
     
     #cuadros para seleccionar 

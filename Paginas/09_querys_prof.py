@@ -2,6 +2,180 @@ import streamlit as st
 import duckdb
 # Aquí va página de pregunta profesores 
 
+st.markdown(
+    """
+<style>
+.resumen-3d-wrapper {
+    perspective: 1100px;
+    margin-bottom: 22px;
+}
+
+.resumen-3d-card {
+    background: linear-gradient(145deg, #F8F4FF 0%, #EDE2FF 100%);
+    border-left: 7px solid #3C096C;
+    border-top: 1px solid rgba(123, 44, 191, 0.25);
+    border-right: 1px solid rgba(123, 44, 191, 0.25);
+    border-bottom: 5px solid #3C096C;
+    border-radius: 16px;
+    padding: 18px 22px;
+    color: #1a1025;
+    box-shadow:
+        0 14px 26px rgba(60, 9, 108, 0.16),
+        0 5px 0 #240046;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.etiqueta-resumen {
+    display: inline-block;
+    background: linear-gradient(135deg, #7B2CBF 0%, #3C096C 100%);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 0 #240046;
+}
+
+.texto-resumen-interno {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #1a1025;
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
+st.title("CONSULTAS SQL")
+st.caption("Salud Mental en la Industria Tecnológica — OSMI Database | Formulario B")
+
+with st.expander("🗄️ Esquema de la base de datos", expanded=False):
+    st.markdown("""
+    **Tablas disponibles:**
+    * `Answer (AnswerText, SurveyID, UserID, QuestionID)`
+    * `Question (questionid, questiontext)`
+    * `Survey (SurveyID, Description)`
+
+    Cada fila de `Answer` es la respuesta de un usuario a una pregunta dentro de una edición de la encuesta. Un mismo `UserID` pertenece a una sola edición. Las preguntas de opción múltiple generan varias filas para el mismo usuario y la misma pregunta.
+    """)
+
+st.divider()
+
+st.markdown("""
+Selecciona cualquiera de las **6 preguntas de la evaluación** para inspeccionar su enunciado y el código SQL correspondiente. Al presionar **🚀 Ejecutar Query**, la aplicación consulta los resultados procesados directamente desde **MotherDuck** y los despliega en una tabla interactiva.
+""")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    with st.expander("🏷️ Pregunta 1: Diagnóstico del deterioro en la calidad del registro"):
+        st.markdown(
+            """
+            <div class="resumen-3d-wrapper">
+                <div class="resumen-3d-card">
+                    <span class="etiqueta-resumen">🏷️ Pregunta 1: Diagnóstico del deterioro en la calidad del registro</span>
+                    <p class="texto-resumen-interno">
+                        El valor centinela que marca la ausencia de respuesta afecta a la mayoría de las variables, pero no de manera uniforme ni estable entre ediciones.
+                        Para cada pregunta y cada edición en que fue formulada, calculá la proporción de respuestas centinela y clasificala en tres bandas: por debajo del diez por ciento, entre el diez y el cincuenta, y por encima del cincuenta.
+                        Identificá las preguntas cuya proporción de centinelas aumentó más de quince puntos porcentuales respecto de la edición anterior en que fueron formuladas. Mostrá la pregunta, ambas ediciones, las dos proporciones, la diferencia en puntos y la banda en que cae cada una. Excluí las preguntas formuladas en una sola edición.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with st.expander("🏷️ Pregunta 2: Prioridad declarada del empleador y su sesgo hacia la salud física"):
+        st.markdown(
+            """
+            <div class="resumen-3d-wrapper">
+                <div class="resumen-3d-card">
+                    <span class="etiqueta-resumen">🏷️ Pregunta 2: Prioridad declarada del empleador y su sesgo hacia la salud física</span>
+                    <p class="texto-resumen-interno">
+                        Dos preguntas piden valorar en una escala numérica cuánta importancia da el empleador a la salud física y cuánta a la salud mental. Localizalas, depurá las respuestas no numéricas y las centinela, y quedate con los encuestados que respondieron ambas.
+                        Para cada edición y cada tramo de tamaño de empresa, calculá la brecha mediana entre ambas valoraciones sin usar funciones de percentil, la proporción de encuestados en los que la valoración de la salud mental iguala o supera a la de la física, y la posición del tramo en el ranking de brecha de su edición. Los tramos deben ordenarse por tamaño real de empresa, no alfabéticamente.
+                        Agregá para cada tramo la diferencia entre su brecha mediana y la brecha mediana de la edición completa.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with st.expander("🏷️ Pregunta 3: Comparación entre el empleador actual y los empleadores anteriores"):
+        st.markdown(
+            """
+            <div class="resumen-3d-wrapper">
+                <div class="resumen-3d-card">
+                    <span class="etiqueta-resumen">🏷️ Pregunta 3: Comparación entre el empleador actual y los empleadores anteriores</span>
+                    <p class="texto-resumen-interno">
+                        El cuestionario repite un mismo conjunto de dimensiones para el empleador actual y para los anteriores: existencia de beneficios, conocimiento de la cobertura, comunicación formal del tema, disponibilidad de recursos y protección del anonimato.
+                        Emparejá cada dimensión con su equivalente del bloque de empleadores anteriores y, sobre los encuestados que respondieron ambas versiones con valores válidos, calculá para cada dimensión y edición la proporción de casos en que la situación mejoró, empeoró o se mantuvo.
+                        Presentá las cinco dimensiones como filas comparables, con el ranking de cada una según su proporción de mejora dentro de la edición y el total acumulado de encuestados considerados a medida que se recorre ese ranking.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+with col2:
+    with st.expander("🏷️ Pregunta 4: Búsqueda de tratamiento según cobertura y conocimiento"):
+        st.markdown(
+            """
+            <div class="resumen-3d-wrapper">
+                <div class="resumen-3d-card">
+                    <span class="etiqueta-resumen">🏷️ Pregunta 4: Búsqueda de tratamiento según cobertura y conocimiento</span>
+                    <p class="texto-resumen-interno">
+                        Localizá la pregunta sobre si el encuestado buscó alguna vez tratamiento profesional, la que indaga si su empleador ofrece beneficios de salud mental y la que pregunta si conoce las opciones de atención disponibles bajo esa cobertura.
+                        Para cada edición, construí los grupos que resultan de combinar las respuestas a las dos últimas preguntas y calculá en cada grupo la proporción de encuestados que buscaron tratamiento. Mostrá además el tamaño del grupo, su participación sobre el total de la edición, la proporción de tratamiento de la edición completa y la razón entre ambas proporciones.
+                        Conservá únicamente los grupos con al menos treinta encuestados y señalá con una función de ventana cuál es el grupo de mayor y cuál el de menor propensión al tratamiento en cada edición.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with st.expander("🏷️ Pregunta 5: Condiciones diagnosticadas frente a condiciones solo sospechadas"):
+        st.markdown(
+            """
+            <div class="resumen-3d-wrapper">
+                <div class="resumen-3d-card">
+                    <span class="etiqueta-resumen">🏷️ Pregunta 5: Condiciones diagnosticadas frente a condiciones solo sospechadas</span>
+                    <p class="texto-resumen-interno">
+                        Dos preguntas recogen condiciones de salud mental: una para las efectivamente diagnosticadas y otra para las que el encuestado cree tener sin diagnóstico. Ambas admiten respuestas múltiples y presentan la misma condición escrita de maneras distintas, por lo que hay que normalizar antes de contar.
+                        Para cada condición y edición, mostrá cuántos encuestados la declaran diagnosticada, cuántos solo sospechada, el total, la proporción que representa la sospecha sobre ese total y el ranking de la condición por esa proporción dentro de su edición.
+                        Incluí solo las condiciones con al menos quince menciones en la edición y agregá una columna que indique si la condición subió, bajó o mantuvo posiciones respecto de la edición anterior.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with st.expander("🏷️ Pregunta 6: Trabajo remoto y disposición a hablar del tema"):
+        st.markdown(
+            """
+            <div class="resumen-3d-wrapper">
+                <div class="resumen-3d-card">
+                    <span class="etiqueta-resumen">🏷️ Pregunta 6: Trabajo remoto y disposición a hablar del tema</span>
+                    <p class="texto-resumen-interno">
+                        Localizá las preguntas que indagan si el encuestado trabaja de forma remota y aquellas sobre su disposición a conversar sobre un problema de salud mental con sus compañeros y con su supervisor directo. Tené en cuenta que la modalidad remota se pregunta de más de una forma según la edición: debés unificarlas en una sola variable y dejar explícito el criterio dentro de la consulta.
+                        Para cada edición y modalidad de trabajo, calculá la proporción de disposición favorable hacia los compañeros, la proporción hacia el supervisor y la diferencia entre ambas. Mostrá el ranking de cada combinación de edición y modalidad según esa diferencia, y la proporción acumulada de encuestados al recorrer las modalidades de menor a mayor disposición hacia el supervisor.
+                        Agregá el número de encuestados de cada combinación y descartá las que no alcancen los veinticinco casos.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
 # Conexion y Tokens
 md_token = st.secrets["MOTHERDUCK_TOKEN"]
 conn = duckdb.connect(f"md:?motherduck_token={md_token}")
